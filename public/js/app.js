@@ -2038,11 +2038,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.loginFormLoading = true;
                 _context.next = 3;
                 return _this.signIn({
-                  email: _this.username,
+                  username: _this.username,
                   password: _this.password
                 }).then(function (repsonse) {
                   _this.loginFormLoading = _this.userMenu = false;
                 })["catch"](function (e) {
+                  _this.loginFormLoading = false;
                   console.error(e);
                 });
 
@@ -3427,7 +3428,7 @@ var render = function() {
                 [
                   _vm._v(
                     "\n            " +
-                      _vm._s(_vm.authenticated ? _vm.user.name : "Login") +
+                      _vm._s(_vm.authenticated ? _vm.user.username : "Login") +
                       "\n            "
                   ),
                   _c("v-icon", { attrs: { right: "" } }, [

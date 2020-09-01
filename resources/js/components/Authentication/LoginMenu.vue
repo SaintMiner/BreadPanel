@@ -3,7 +3,7 @@
         <template v-slot:activator="{ on, attrs }">
             <v-btn class="ma-2" text v-bind="attrs"
                 v-on="on">
-                {{authenticated ? user.name : 'Login'}}
+                {{authenticated ? user.username : 'Login'}}
                 <v-icon right>{{authenticated ? 'mdi-account-circle' : 'mdi-login'}}</v-icon>
             </v-btn>
         </template>
@@ -101,9 +101,10 @@ export default {
 
         async sendLoginRequest() {
             this.loginFormLoading = true;
-            await this.signIn({email: this.username, password: this.password}).then(repsonse => {
+            await this.signIn({username: this.username, password: this.password}).then(repsonse => {
                 this.loginFormLoading = this.userMenu = false;
             }).catch(e => {
+                this.loginFormLoading = false;
                 console.error(e);
             })
         },
