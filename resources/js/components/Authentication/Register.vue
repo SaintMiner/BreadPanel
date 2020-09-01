@@ -43,7 +43,7 @@
                                         prepend-icon="mdi-label"
                                         type="text"
                                         v-model="registerForm.code"
-                                        :rules="[rules.required]"
+                                        :rules="[rules.required, rules.isCodeBusy]"
                                     ></v-text-field>
                                 </v-form>
                             </v-card-text>
@@ -75,20 +75,31 @@ export default {
                 invitation_code: "",
             },
 
+            codeTimeOut: null,
+
             rules: {
                 confirmPassword: value => value === this.registerForm.password || "Password must match",
+                isCodeBusy: value => {
+                    if (this.codeTimeOut) {
+                    clearTimeout(this.codeTimeOut);
+                    this.codeTimeOut = null;
+                    }
+                    if (!!value) {
+                        this.codeTimeOut = setTimeout(this.checkCode(value), 2000);
+                    }
+                    return true;
+                }
             }
         }
     },
 
     methods: {
         ...mapActions({
-            checkCodes: 'auth/checkCode',
+            checkCode: 'auth/checkCode',
         }),
     },
 
     mounted() {
-        this.checkCodes('AA');
     }
 };
 </script>

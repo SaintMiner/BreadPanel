@@ -2172,19 +2172,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         confirmPassword: "",
         invitation_code: ""
       },
+      codeTimeOut: null,
       rules: {
         confirmPassword: function confirmPassword(value) {
           return value === _this.registerForm.password || "Password must match";
+        },
+        isCodeBusy: function isCodeBusy(value) {
+          if (_this.codeTimeOut) {
+            clearTimeout(_this.codeTimeOut);
+            _this.codeTimeOut = null;
+          }
+
+          if (!!value) {
+            _this.codeTimeOut = setTimeout(_this.checkCode(value), 2000);
+          }
+
+          return true;
         }
       }
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
-    checkCodes: 'auth/checkCode'
+    checkCode: 'auth/checkCode'
   })),
-  mounted: function mounted() {
-    this.checkCodes('AA');
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -3834,7 +3845,10 @@ var render = function() {
                                       name: "code",
                                       "prepend-icon": "mdi-label",
                                       type: "text",
-                                      rules: [_vm.rules.required]
+                                      rules: [
+                                        _vm.rules.required,
+                                        _vm.rules.isCodeBusy
+                                      ]
                                     },
                                     model: {
                                       value: _vm.registerForm.code,
@@ -64580,13 +64594,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/isCodeBusy', {
                   code: code
-                }).then(function (response) {
-                  console.log(response);
-                })["catch"](function (e) {
-                  console.error(e);
                 });
 
               case 3:
+                return _context.abrupt("return", _context.sent);
+
+              case 4:
               case "end":
                 return _context.stop();
             }
