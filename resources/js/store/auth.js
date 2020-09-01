@@ -29,6 +29,14 @@ export default {
     },
 
     actions: {
+        async checkCode({}, code) {
+            await axios.post('/api/isCodeBusy', {code: code}).then(response => {
+                console.log(response);
+            }).catch(e => {
+                console.error(e);
+            }); 
+        },
+
         async signIn ({ dispatch }, creditals) {
             await axios.get('/sanctum/csrf-cookie');
             await axios.post('/login', creditals);

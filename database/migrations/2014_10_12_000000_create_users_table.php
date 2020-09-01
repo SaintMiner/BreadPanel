@@ -17,9 +17,14 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('username');
             $table->string('password');
+
+            $table->unsignedBigInteger('invitation_id')->nullable();
+            
             $table->rememberToken();
             $table->timestamps();
         });
+
+        
     }
 
     /**
