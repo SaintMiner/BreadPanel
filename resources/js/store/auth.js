@@ -1,7 +1,5 @@
 import axios from "axios";
 
-axios.defaults.withCredentials = true
-
 export default {
     namespaced: true,
 
@@ -45,7 +43,7 @@ export default {
         },
 
         me ({ commit }) {
-            return axios.get('/user').then((response) => {
+            return axios.get('/api/user').then((response) => {
                 commit('SET_AUTHENTICATED', true)
                 commit('SET_USER', response.data)
             }).catch(() => {

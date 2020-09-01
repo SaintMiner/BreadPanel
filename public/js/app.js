@@ -1985,6 +1985,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "LoginMenu",
@@ -1995,6 +1997,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       password: null
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    authenticated: 'auth/authenticated',
+    user: 'auth/user'
+  })),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
     signIn: 'auth/signIn'
   })), {}, {
@@ -3374,7 +3380,13 @@ var render = function() {
                   ),
                   on
                 ),
-                [_c("v-icon", [_vm._v("mdi-account-circle")])],
+                [
+                  _vm.authenticated
+                    ? _c("div", [_vm._v(_vm._s(_vm.user.name))])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("v-icon", [_vm._v("mdi-account-circle")])
+                ],
                 1
               )
             ]
@@ -63818,20 +63830,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _plugins_router_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugins/router.js */ "./resources/js/plugins/router.js");
-/* harmony import */ var _store_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/index.js */ "./resources/js/store/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _plugins_router_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/router.js */ "./resources/js/plugins/router.js");
+/* harmony import */ var _store_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/index.js */ "./resources/js/store/index.js");
 
  // plugins
+
 
  //storage
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_1___default.a);
-var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: "#app",
-  router: _plugins_router_js__WEBPACK_IMPORTED_MODULE_2__["default"],
-  store: _store_index_js__WEBPACK_IMPORTED_MODULE_3__["default"],
-  vuetify: new vuetify__WEBPACK_IMPORTED_MODULE_1___default.a()
+axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.withCredentials = true;
+axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; // axios.defaults.baseURL = 'http://localhost:8000/';
+
+_store_index_js__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch('auth/me').then(function () {
+  var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+    el: "#app",
+    router: _plugins_router_js__WEBPACK_IMPORTED_MODULE_3__["default"],
+    store: _store_index_js__WEBPACK_IMPORTED_MODULE_4__["default"],
+    vuetify: new vuetify__WEBPACK_IMPORTED_MODULE_1___default.a()
+  });
 });
 
 /***/ }),
@@ -64026,7 +64046,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.withCredentials = true;
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: {
@@ -64100,7 +64119,7 @@ axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.withCredentials = true;
     },
     me: function me(_ref3) {
       var commit = _ref3.commit;
-      return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/user').then(function (response) {
+      return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/user').then(function (response) {
         commit('SET_AUTHENTICATED', true);
         commit('SET_USER', response.data);
       })["catch"](function () {

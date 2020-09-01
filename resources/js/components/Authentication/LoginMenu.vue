@@ -7,6 +7,7 @@
                 v-bind="attrs"
                 v-on="on"
             >
+                <div v-if="authenticated">{{user.name}}</div>
                 <v-icon>mdi-account-circle</v-icon>
             </v-btn>
         </template>
@@ -50,6 +51,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default {
     name: "LoginMenu",
@@ -60,6 +62,13 @@ export default {
             username: null,
             password: null,
         }
+    },
+
+    computed: {
+        ...mapGetters({
+            authenticated: 'auth/authenticated',
+            user: 'auth/user',
+        })
     },
 
     methods: {
