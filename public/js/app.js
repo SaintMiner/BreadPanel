@@ -2178,13 +2178,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           return value === _this.registerForm.password || "Password must match";
         },
         isCodeBusy: function isCodeBusy(value) {
-          if (_this.codeTimeOut) {
-            clearTimeout(_this.codeTimeOut);
-            _this.codeTimeOut = null;
-          }
-
           if (!!value) {
-            _this.codeTimeOut = setTimeout(_this.checkCode(value), 2000);
+            _this.checkCode(value).then(function (response) {
+              console.log("kek");
+            })["catch"](function (e) {
+              console.log("net");
+            });
           }
 
           return true;

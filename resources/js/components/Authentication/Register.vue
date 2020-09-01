@@ -80,12 +80,12 @@ export default {
             rules: {
                 confirmPassword: value => value === this.registerForm.password || "Password must match",
                 isCodeBusy: value => {
-                    if (this.codeTimeOut) {
-                    clearTimeout(this.codeTimeOut);
-                    this.codeTimeOut = null;
-                    }
                     if (!!value) {
-                        this.codeTimeOut = setTimeout(this.checkCode(value), 2000);
+                        this.checkCode(value).then(response => {
+                            console.log("kek");
+                        }).catch(e => {
+                            console.log("net");
+                        });
                     }
                     return true;
                 }
