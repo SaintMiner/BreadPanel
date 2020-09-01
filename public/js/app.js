@@ -1986,13 +1986,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "LoginMenu",
   data: function data() {
     return {
-      loginMenu: false,
+      loginFormLoading: false,
+      userMenu: false,
       username: null,
       password: null
     };
@@ -2002,7 +2024,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     user: 'auth/user'
   })),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
-    signIn: 'auth/signIn'
+    signIn: 'auth/signIn',
+    signOut: 'auth/signOut'
   })), {}, {
     sendLoginRequest: function sendLoginRequest() {
       var _this = this;
@@ -2012,22 +2035,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                _this.loginFormLoading = true;
+                _context.next = 3;
                 return _this.signIn({
                   email: _this.username,
                   password: _this.password
                 }).then(function (repsonse) {
-                  console.log(repsonse);
+                  _this.loginFormLoading = _this.userMenu = false;
                 })["catch"](function (e) {
                   console.error(e);
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
+      }))();
+    },
+    sendLogoutRequest: function sendLogoutRequest() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.userMenu = false;
+                _context2.next = 3;
+                return _this2.signOut();
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     }
   })
@@ -3360,7 +3404,7 @@ var render = function() {
       attrs: {
         "offset-y": "",
         "close-on-content-click": false,
-        "nudge-width": 400
+        "nudge-width": _vm.authenticated ? 0 : 400
       },
       scopedSlots: _vm._u([
         {
@@ -3373,7 +3417,7 @@ var render = function() {
                 "v-btn",
                 _vm._g(
                   _vm._b(
-                    { attrs: { text: "", fab: "" } },
+                    { staticClass: "ma-2", attrs: { text: "" } },
                     "v-btn",
                     attrs,
                     false
@@ -3381,11 +3425,18 @@ var render = function() {
                   on
                 ),
                 [
-                  _vm.authenticated
-                    ? _c("div", [_vm._v(_vm._s(_vm.user.name))])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("v-icon", [_vm._v("mdi-account-circle")])
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.authenticated ? _vm.user.name : "Login") +
+                      "\n            "
+                  ),
+                  _c("v-icon", { attrs: { right: "" } }, [
+                    _vm._v(
+                      _vm._s(
+                        _vm.authenticated ? "mdi-account-circle" : "mdi-login"
+                      )
+                    )
+                  ])
                 ],
                 1
               )
@@ -3394,93 +3445,142 @@ var render = function() {
         }
       ]),
       model: {
-        value: _vm.loginMenu,
+        value: _vm.userMenu,
         callback: function($$v) {
-          _vm.loginMenu = $$v
+          _vm.userMenu = $$v
         },
-        expression: "loginMenu"
+        expression: "userMenu"
       }
     },
     [
       _vm._v(" "),
-      _c(
-        "v-card",
-        {
-          ref: "form",
-          staticClass: "elevation-12",
-          attrs: { "lazy-validation": "" }
-        },
-        [
-          _c(
-            "v-toolbar",
-            { attrs: { color: "primary", dark: "", flat: "" } },
-            [
-              _c("v-toolbar-title", [_vm._v("Login form")]),
-              _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c("v-tooltip", { attrs: { bottom: "" } })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card-text",
+      !_vm.authenticated
+        ? _c(
+            "v-card",
+            {
+              ref: "form",
+              staticClass: "elevation-12",
+              attrs: { "lazy-validation": "" }
+            },
             [
               _c(
-                "v-form",
+                "v-toolbar",
+                { attrs: { color: "primary", dark: "", flat: "" } },
                 [
-                  _c("v-text-field", {
-                    attrs: { flat: "", label: "Username" },
-                    model: {
-                      value: _vm.username,
-                      callback: function($$v) {
-                        _vm.username = $$v
-                      },
-                      expression: "username"
-                    }
-                  }),
+                  _c("v-toolbar-title", [_vm._v("Login form")]),
                   _vm._v(" "),
-                  _c("v-text-field", {
-                    attrs: { label: "Password", type: "password" },
-                    model: {
-                      value: _vm.password,
-                      callback: function($$v) {
-                        _vm.password = $$v
-                      },
-                      expression: "password"
-                    }
-                  })
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c("v-tooltip", { attrs: { bottom: "" } })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-form",
+                    [
+                      _c("v-text-field", {
+                        attrs: { flat: "", label: "Username" },
+                        model: {
+                          value: _vm.username,
+                          callback: function($$v) {
+                            _vm.username = $$v
+                          },
+                          expression: "username"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: { label: "Password", type: "password" },
+                        model: {
+                          value: _vm.password,
+                          callback: function($$v) {
+                            _vm.password = $$v
+                          },
+                          expression: "password"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c("v-btn", { attrs: { color: "primary", text: "" } }, [
+                    _vm._v("Register")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "primary", text: "" },
+                      on: { click: _vm.sendLoginRequest }
+                    },
+                    [_vm._v("Login")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-progress-linear", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.loginFormLoading,
+                    expression: "loginFormLoading"
+                  }
+                ],
+                attrs: { indeterminate: "" }
+              })
+            ],
+            1
+          )
+        : _c(
+            "v-card",
+            { staticClass: "mx-auto", attrs: { width: "256", tile: "" } },
+            [
+              _c("v-subheader", [_vm._v("ACTIONS")]),
+              _vm._v(" "),
+              _c("v-divider"),
+              _vm._v(" "),
+              _c(
+                "v-list",
+                { attrs: { nav: "", dense: "" } },
+                [
+                  _c(
+                    "v-list-item",
+                    { on: { click: _vm.sendLogoutRequest } },
+                    [
+                      _c(
+                        "v-list-item-icon",
+                        [_c("v-icon", [_vm._v("mdi-logout")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item-content",
+                        [_c("v-list-item-title", [_vm._v("Log Out")])],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )
             ],
             1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card-actions",
-            [
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c("v-btn", { attrs: { color: "primary", text: "" } }, [
-                _vm._v("Register")
-              ]),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: { color: "primary", text: "" },
-                  on: { click: _vm.sendLoginRequest }
-                },
-                [_vm._v("Login")]
-              )
-            ],
-            1
           )
-        ],
-        1
-      )
     ],
     1
   )

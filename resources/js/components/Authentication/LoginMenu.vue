@@ -1,17 +1,13 @@
 <template>
-    <v-menu v-model="loginMenu" offset-y :close-on-content-click="false" :nudge-width="400">
+    <v-menu v-model="userMenu" offset-y :close-on-content-click="false" :nudge-width="authenticated ? 0 : 400">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn 
-                text
-                fab
-                v-bind="attrs"
-                v-on="on"
-            >
-                <div v-if="authenticated">{{user.name}}</div>
-                <v-icon>mdi-account-circle</v-icon>
+            <v-btn class="ma-2" text v-bind="attrs"
+                v-on="on">
+                {{authenticated ? user.name : 'Login'}}
+                <v-icon right>{{authenticated ? 'mdi-account-circle' : 'mdi-login'}}</v-icon>
             </v-btn>
         </template>
-        <v-card class="elevation-12" 
+        <v-card class="elevation-12" v-if="!authenticated"
             ref="form"
             lazy-validation
         >   
@@ -38,6 +34,7 @@
                     label="Password"
                     type="password"
                     ></v-text-field>
+                    
                 </v-form>
             </v-card-text>
             <v-card-actions>
@@ -45,6 +42,30 @@
                 <v-btn color="primary" text>Register</v-btn>
                 <v-btn color="primary" text @click="sendLoginRequest">Login</v-btn>
             </v-card-actions>
+            <v-progress-linear v-show="loginFormLoading"
+                indeterminate
+            ></v-progress-linear>
+        </v-card>
+        <v-card v-else
+            class="mx-auto"
+            width="256"
+            tile
+        >
+                <v-subheader>ACTIONS</v-subheader>
+                <v-divider></v-divider>
+                <v-list
+                    nav
+                    dense
+                >
+                    <v-list-item @click="sendLogoutRequest">
+                        <v-list-item-icon>
+                            <v-icon>mdi-logout</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Log Out</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
         </v-card>
     </v-menu>
 </template>
@@ -58,7 +79,8 @@ export default {
 
     data() {
         return {
-            loginMenu: false,
+            loginFormLoading: false,
+            userMenu: false,
             username: null,
             password: null,
         }
@@ -73,16 +95,23 @@ export default {
 
     methods: {
         ...mapActions({
-            signIn: 'auth/signIn'
+            signIn: 'auth/signIn',
+            signOut: 'auth/signOut'
         }),
 
         async sendLoginRequest() {
+            this.loginFormLoading = true;
             await this.signIn({email: this.username, password: this.password}).then(repsonse => {
-                console.log(repsonse);
+                this.loginFormLoading = this.userMenu = false;
             }).catch(e => {
                 console.error(e);
             })
-        }
+        },
+
+        async sendLogoutRequest() {
+            this.userMenu = false;
+            await this.signOut();
+        },
     }
 }
 </script>
