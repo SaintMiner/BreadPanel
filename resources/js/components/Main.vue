@@ -28,7 +28,7 @@
             <v-toolbar-title> MyPanel </v-toolbar-title>
             <v-spacer></v-spacer>
             <div class="my-2">
-                <LoginMenu></LoginMenu>
+                <UserDropwownMenu></UserDropwownMenu>
             </div>
         </v-app-bar>
 
@@ -48,12 +48,12 @@
 </template>
 
 <script>
-import LoginMenu from "./Authentication/LoginMenu";
+import UserDropwownMenu from "./User/UserDropwownMenu";
 export default {
     name: "Foo",
     
     components: {
-        LoginMenu,
+        UserDropwownMenu,
     },
 
     data() {

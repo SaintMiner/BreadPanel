@@ -75,7 +75,7 @@ import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex'
 
 export default {
-    name: "LoginMenu",
+    name: "UserDropwownMenu",
 
     data() {
         return {
@@ -103,6 +103,7 @@ export default {
             this.loginFormLoading = true;
             await this.signIn({username: this.username, password: this.password}).then(repsonse => {
                 this.loginFormLoading = this.userMenu = false;
+                this.username = this.password = null;
             }).catch(e => {
                 this.loginFormLoading = false;
                 console.error(e);

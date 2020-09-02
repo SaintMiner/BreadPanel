@@ -30,7 +30,7 @@ export default {
 
     actions: {
         async checkCode({}, code) {
-            return await axios.post('/api/isCodeBusy', {code: code});
+            return await axios.post('/api/isCodeBusy', {code: code}).then(r => r.data).catch(e => e.response.data);
         },
 
         async signIn ({ dispatch }, creditals) {

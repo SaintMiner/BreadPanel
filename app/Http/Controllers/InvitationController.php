@@ -15,7 +15,7 @@ class InvitationController extends Controller
         if (Invitation::where('code', $request->code)->first()->user()->count() > 0) {
             return response('That code is already taken!', 500);
         } else {
-            return response('Free)', 200);
+            return response('Free', 200);
         }
     }
 }
