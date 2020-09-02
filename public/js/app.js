@@ -2020,6 +2020,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     return {
+      validForm: true,
       registerForm: {
         username: "",
         password: "",
@@ -2027,6 +2028,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         invitation_code: ""
       },
       success: {
+        // username: false,
+        // password: false,
+        // confirmPassword: false,
         invitation_code: false
       },
       errors: {
@@ -2045,6 +2049,45 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: {
+    // username: {
+    //     set(value) {
+    //         this.registerForm.username = value;
+    //         if (this.rules.required(value) && this.rules.counter(value)) {
+    //             this.success.username = true;
+    //         } else {
+    //             this.success.username = false;
+    //         }
+    //     },
+    //     get() {
+    //         return this.registerForm.username;
+    //     }
+    // },
+    // password: {
+    //     set(value) {
+    //         this.registerForm.password = value;
+    //         if (this.rules.password(value) && this.rules.counter(value) && this.rules.minimal(value)) {
+    //             this.success.password = true;
+    //         } else {
+    //             this.success.password = false;
+    //         }
+    //     },
+    //     get() {
+    //         return this.registerForm.password;
+    //     }
+    // },
+    // confirmPassword: {
+    //     set(value) {
+    //         this.registerForm.confirmPassword = value;
+    //         if (this.rules.confirmPassword(value)) {
+    //             this.success.confirmPassword = true;
+    //         } else {
+    //             this.success.confirmPassword = false;
+    //         }
+    //     },
+    //     get() {
+    //         return this.registerForm.confirmPassword;
+    //     }
+    // },
     invitation_code: {
       set: function set(value) {
         this.registerForm.invitation_code = value;
@@ -3669,6 +3712,15 @@ var render = function() {
                             [
                               _c(
                                 "v-form",
+                                {
+                                  model: {
+                                    value: _vm.validForm,
+                                    callback: function($$v) {
+                                      _vm.validForm = $$v
+                                    },
+                                    expression: "validForm"
+                                  }
+                                },
                                 [
                                   _c("v-text-field", {
                                     attrs: {
@@ -3678,7 +3730,8 @@ var render = function() {
                                       type: "text",
                                       rules: [
                                         _vm.rules.required,
-                                        _vm.rules.counter
+                                        _vm.rules.counter,
+                                        _vm.rules.minimal
                                       ]
                                     },
                                     model: {
@@ -3702,7 +3755,8 @@ var render = function() {
                                       type: "password",
                                       rules: [
                                         _vm.rules.required,
-                                        _vm.rules.password
+                                        _vm.rules.password,
+                                        _vm.rules.counter
                                       ],
                                       loading:
                                         !!_vm.registerForm.password &&
@@ -3804,9 +3858,18 @@ var render = function() {
                             [
                               _c("v-spacer"),
                               _vm._v(" "),
-                              _c("v-btn", { attrs: { color: "primary" } }, [
-                                _vm._v("Register")
-                              ])
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    color: "primary",
+                                    disabled:
+                                      !_vm.validForm ||
+                                      !_vm.success.invitation_code
+                                  }
+                                },
+                                [_vm._v("Register")]
+                              )
                             ],
                             1
                           )
@@ -64634,6 +64697,9 @@ __webpack_require__.r(__webpack_exports__);
         },
         counter: function counter(value) {
           return !!value ? value.length <= 255 || 'Max 255 characters' : true;
+        },
+        minimal: function minimal(value) {
+          return !!value ? value.length >= 4 || 'Min 4 characters' : true;
         },
         password: function password(value) {
           var pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;

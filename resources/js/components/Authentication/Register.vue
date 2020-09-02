@@ -9,14 +9,14 @@
                                 <v-toolbar-title>Register form</v-toolbar-title>
                             </v-toolbar>
                             <v-card-text>
-                                <v-form>
+                                <v-form v-model="validForm">
                                     <v-text-field
                                         label="Username"
                                         name="username"
                                         prepend-icon="mdi-account"
                                         type="text"
                                         v-model="registerForm.username"
-                                        :rules="[rules.required, rules.counter]"
+                                        :rules="[rules.required, rules.counter, rules.minimal]"
                                     ></v-text-field>
 
                                     <v-text-field
@@ -25,7 +25,7 @@
                                         prepend-icon="mdi-lock"
                                         type="password"
                                         v-model="registerForm.password"
-                                        :rules="[rules.required, rules.password]"
+                                        :rules="[rules.required, rules.password, rules.counter]"
                                         :loading="!!registerForm.password && focused.password"
                                         @focus="focused.password = true"
                                         @blur="focused.password = false"
@@ -64,7 +64,7 @@
                             </v-card-text>
                             <v-card-actions class="mt-5">
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary">Register</v-btn>
+                                <v-btn color="primary" :disabled="!validForm || !success.invitation_code">Register</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-col>
@@ -83,6 +83,8 @@ export default {
 
     data() {
         return {
+            validForm: true,
+
             registerForm: {
                 username: "",
                 password: "",
@@ -91,6 +93,9 @@ export default {
             },
 
             success: {
+                // username: false,
+                // password: false,
+                // confirmPassword: false,
                 invitation_code: false,
             },
 
@@ -112,6 +117,51 @@ export default {
     },
 
     computed: {
+        // username: {
+        //     set(value) {
+        //         this.registerForm.username = value;
+        //         if (this.rules.required(value) && this.rules.counter(value)) {
+        //             this.success.username = true;
+        //         } else {
+        //             this.success.username = false;
+        //         }
+        //     },
+
+        //     get() {
+        //         return this.registerForm.username;
+        //     }
+        // },
+        
+        // password: {
+        //     set(value) {
+        //         this.registerForm.password = value;
+        //         if (this.rules.password(value) && this.rules.counter(value) && this.rules.minimal(value)) {
+        //             this.success.password = true;
+        //         } else {
+        //             this.success.password = false;
+        //         }
+        //     },
+
+        //     get() {
+        //         return this.registerForm.password;
+        //     }
+        // },
+
+        // confirmPassword: {
+        //     set(value) {
+        //         this.registerForm.confirmPassword = value;
+        //         if (this.rules.confirmPassword(value)) {
+        //             this.success.confirmPassword = true;
+        //         } else {
+        //             this.success.confirmPassword = false;
+        //         }
+        //     },
+
+        //     get() {
+        //         return this.registerForm.confirmPassword;
+        //     }
+        // },
+
         invitation_code: {
             set(value) {
                 this.registerForm.invitation_code = value;
