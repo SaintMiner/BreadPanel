@@ -6,6 +6,8 @@ import Main from "../components/Main.vue";
 import Register from "../components/Authentication/Register.vue";
 import store from "../store";
 
+import Invitation from "../components/Invitation/Invitation.vue";
+
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -14,6 +16,13 @@ export default new VueRouter({
             path: '/', 
             component: Main,
             name: "main",
+            children: [
+                {
+                    path: "invitation",
+                    name: "invitation",
+                    component: Invitation,
+                }
+            ]
         },
 
         {
@@ -28,7 +37,6 @@ export default new VueRouter({
                 }
             }
         },
-        
 
         { 
             path: '*', //catch everything else route

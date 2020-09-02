@@ -1,6 +1,6 @@
 <template>
     <v-app id="inspire">
-        <v-navigation-drawer v-model="drawer" app temporary>
+        <v-navigation-drawer v-model="drawer" app clipped>
             <v-list dense>
                 <v-list-item link>
                     <v-list-item-action>
@@ -18,14 +18,22 @@
                         <v-list-item-title>Contact</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item to="invitation">
+                    <v-list-item-action>
+                        <v-icon>mdi-label</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Invitations</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
 
-        <v-app-bar app color="indigo" dark>
+        <v-app-bar app color="indigo" dark clipped-left>
             <v-app-bar-nav-icon
                 @click.stop="drawer = !drawer"
             ></v-app-bar-nav-icon>
-            <v-toolbar-title> MyPanel </v-toolbar-title>
+            <v-toolbar-title> BreadPanel </v-toolbar-title>
             <v-spacer></v-spacer>
             <div class="my-2">
                 <UserDropwownMenu></UserDropwownMenu>
@@ -33,13 +41,9 @@
         </v-app-bar>
 
         <v-main>
-            <v-container class="fill-height" fluid>
-                <v-row align="center" justify="center">
-                    HI
-                </v-row>
-            </v-container>
+            <router-view></router-view>
         </v-main>
-        <v-footer color="indigo" app>
+        <v-footer color="indigo" app inset>
             <span class="white--text"
                 >&copy; {{ new Date().getFullYear() }}</span
             >
