@@ -2024,13 +2024,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       registerForm: {
         username: "",
         password: "",
-        confirmPassword: "",
+        password_confirmation: "",
         invitation_code: ""
       },
       success: {
-        // username: false,
-        // password: false,
-        // confirmPassword: false,
         invitation_code: false
       },
       errors: {
@@ -2042,52 +2039,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       requestTimeout: null,
       loadingCheckCode: false,
       rules: {
-        confirmPassword: function confirmPassword(value) {
+        password_confirmation: function password_confirmation(value) {
           return value === _this.registerForm.password || "Password must match";
         }
       }
     };
   },
   computed: {
-    // username: {
-    //     set(value) {
-    //         this.registerForm.username = value;
-    //         if (this.rules.required(value) && this.rules.counter(value)) {
-    //             this.success.username = true;
-    //         } else {
-    //             this.success.username = false;
-    //         }
-    //     },
-    //     get() {
-    //         return this.registerForm.username;
-    //     }
-    // },
-    // password: {
-    //     set(value) {
-    //         this.registerForm.password = value;
-    //         if (this.rules.password(value) && this.rules.counter(value) && this.rules.minimal(value)) {
-    //             this.success.password = true;
-    //         } else {
-    //             this.success.password = false;
-    //         }
-    //     },
-    //     get() {
-    //         return this.registerForm.password;
-    //     }
-    // },
-    // confirmPassword: {
-    //     set(value) {
-    //         this.registerForm.confirmPassword = value;
-    //         if (this.rules.confirmPassword(value)) {
-    //             this.success.confirmPassword = true;
-    //         } else {
-    //             this.success.confirmPassword = false;
-    //         }
-    //     },
-    //     get() {
-    //         return this.registerForm.confirmPassword;
-    //     }
-    // },
     invitation_code: {
       set: function set(value) {
         this.registerForm.invitation_code = value;
@@ -2107,19 +2065,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var digits = /^(?=.*\d).{0,}$/;
       var lowerCase = /^(?=.*[a-z]).{0,}$/;
       var upperCase = /^(?=.*[A-Z]).{0,}$/;
-      var specialChars = /^(?=.*[$&+,:;=?@#|'<>.^*()%!-]).{0,}$/;
+      var special = /[^A-Za-z0-9]+/;
       if (this.registerForm.password.length >= 8) power++;
       if (this.registerForm.password.length >= 15) power++;
       if (this.registerForm.password.length >= 20) power += 2;
       if (digits.test(this.registerForm.password)) power++;
       if (lowerCase.test(this.registerForm.password)) power++;
       if (upperCase.test(this.registerForm.password)) power++;
-      if (specialChars.test(this.registerForm.password)) power += 3;
+      if (special.test(this.registerForm.password)) power += 3;
       return Math.min(100, power * 10);
     }
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])({
-    checkCode: 'auth/checkCode'
+    checkCode: 'auth/checkCode',
+    registerUser: 'auth/register'
   })), {}, {
     checkUserCode: function checkUserCode() {
       var _this2 = this;
@@ -2178,6 +2137,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }, _callee2);
       }))();
+    },
+    register: function register() {
+      if (this.$refs.registerForm.validate()) {
+        this.registerUser(this.registerForm);
+      }
     }
   }),
   mounted: function mounted() {}
@@ -3713,6 +3677,7 @@ var render = function() {
                               _c(
                                 "v-form",
                                 {
+                                  ref: "registerForm",
                                   model: {
                                     value: _vm.validForm,
                                     callback: function($$v) {
@@ -3731,7 +3696,8 @@ var render = function() {
                                       rules: [
                                         _vm.rules.required,
                                         _vm.rules.counter,
-                                        _vm.rules.minimal
+                                        _vm.rules.minimal,
+                                        _vm.rules.excludeSpecialChars
                                       ]
                                     },
                                     model: {
@@ -3804,24 +3770,26 @@ var render = function() {
                                   _c("v-text-field", {
                                     attrs: {
                                       label: "Confirm password",
-                                      name: "confirmPassword",
+                                      name: "password_confirmation",
                                       "prepend-icon": "mdi-lock",
                                       type: "password",
                                       rules: [
                                         _vm.rules.required,
-                                        _vm.rules.confirmPassword
+                                        _vm.rules.password_confirmation
                                       ]
                                     },
                                     model: {
-                                      value: _vm.registerForm.confirmPassword,
+                                      value:
+                                        _vm.registerForm.password_confirmation,
                                       callback: function($$v) {
                                         _vm.$set(
                                           _vm.registerForm,
-                                          "confirmPassword",
+                                          "password_confirmation",
                                           $$v
                                         )
                                       },
-                                      expression: "registerForm.confirmPassword"
+                                      expression:
+                                        "registerForm.password_confirmation"
                                     }
                                   }),
                                   _vm._v(" "),
@@ -3866,7 +3834,8 @@ var render = function() {
                                     disabled:
                                       !_vm.validForm ||
                                       !_vm.success.invitation_code
-                                  }
+                                  },
+                                  on: { click: _vm.register }
                                 },
                                 [_vm._v("Register")]
                               )
@@ -64692,6 +64661,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       rules: {
+        specialChars: function specialChars(value) {
+          return /[^A-Za-z0-9]+/.test(value) || 'Requires special chars';
+        },
+        excludeSpecialChars: function excludeSpecialChars(value) {
+          return !/[^A-Za-z0-9]+/.test(value) || 'Must contain only letters and numbers!';
+        },
         required: function required(value) {
           return !!value || 'Required.';
         },
@@ -64871,8 +64846,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    me: function me(_ref4) {
-      var commit = _ref4.commit;
+    register: function register(_ref4, creditals) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var dispatch;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                dispatch = _ref4.dispatch;
+                _context4.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('register', creditals);
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    me: function me(_ref5) {
+      var commit = _ref5.commit;
       return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/user').then(function (response) {
         commit('SET_AUTHENTICATED', true);
         commit('SET_USER', response.data);

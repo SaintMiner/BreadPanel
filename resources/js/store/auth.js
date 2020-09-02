@@ -46,6 +46,10 @@ export default {
             return dispatch('me');
         },
 
+        async register ({dispatch}, creditals) {
+            await axios.post('register', creditals);
+        },
+
         me ({ commit }) {
             return axios.get('/api/user').then((response) => {
                 commit('SET_AUTHENTICATED', true)
