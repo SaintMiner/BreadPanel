@@ -65508,6 +65508,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _components_Main_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Main.vue */ "./resources/js/components/Main.vue");
 /* harmony import */ var _components_Authentication_Register_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Authentication/Register.vue */ "./resources/js/components/Authentication/Register.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
+
 
 
 
@@ -65521,7 +65523,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: '/register',
     component: _components_Authentication_Register_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    name: "register"
+    name: "register",
+    beforeEnter: function beforeEnter(to, from, next) {
+      if (_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters['auth/authenticated']) {
+        next({
+          name: 'main'
+        });
+      } else {
+        next();
+      }
+    }
   }, {
     path: '*',
     //catch everything else route
