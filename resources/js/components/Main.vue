@@ -1,5 +1,5 @@
 <template>
-    <div id="inspire">
+    <v-app id="inspire">
         <v-navigation-drawer v-model="drawer" app temporary>
             <v-list dense>
                 <v-list-item link>
@@ -44,7 +44,7 @@
                 >&copy; {{ new Date().getFullYear() }}</span
             >
         </v-footer>
-    </div>
+    </v-app>
 </template>
 
 <script>

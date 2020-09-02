@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuetify from 'vuetify';
 
+import App from './components/App.vue';
+
 // plugins
 import axios from 'axios'
 import router from "./plugins/router.js";
@@ -19,5 +21,7 @@ store.dispatch('auth/me').then(() => {
         router,
         store,    
         vuetify: new Vuetify(),
+
+        components: {App},
     })
 });

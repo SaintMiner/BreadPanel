@@ -1,77 +1,77 @@
 <template>
-    <div id="inspire">
-        <v-main>
-            <v-container class="fill-height" fluid>
-                <v-row align="center" justify="center">
-                    <v-col cols="12" sm="8" md="6" class="mt-5">
-                        <v-card class="elevation-12">
-                            <v-toolbar color="primary" dark flat>
-                                <v-toolbar-title>Register form</v-toolbar-title>
-                            </v-toolbar>
-                            <v-card-text>
-                                <v-form v-model="validForm" ref="registerForm">
-                                    <v-text-field
-                                        label="Username"
-                                        name="username"
-                                        prepend-icon="mdi-account"
-                                        type="text"
-                                        v-model="registerForm.username"
-                                        :rules="[rules.required, rules.counter, rules.minimal, rules.excludeSpecialChars]"
-                                    ></v-text-field>
+<v-app id="inspire">
+    <v-main>
+        <v-container class="fill-height" fluid>
+            <v-row align="center" justify="center">
+                <v-col cols="12" sm="8" md="6" class="mt-5">
+                    <v-card class="elevation-12">
+                        <v-toolbar color="primary" dark flat>
+                            <v-toolbar-title>Register form</v-toolbar-title>
+                        </v-toolbar>
+                        <v-card-text>
+                            <v-form v-model="validForm" ref="registerForm">
+                                <v-text-field
+                                    label="Username"
+                                    name="username"
+                                    prepend-icon="mdi-account"
+                                    type="text"
+                                    v-model="registerForm.username"
+                                    :rules="[rules.required, rules.counter, rules.minimal, rules.excludeSpecialChars]"
+                                ></v-text-field>
 
-                                    <v-text-field
-                                        label="Password"
-                                        name="password"
-                                        prepend-icon="mdi-lock"
-                                        type="password"
-                                        v-model="registerForm.password"
-                                        :rules="[rules.required, rules.password, rules.counter]"
-                                        :loading="!!registerForm.password && focused.password"
-                                        @focus="focused.password = true"
-                                        @blur="focused.password = false"
-                                    >
-                                        <template v-slot:progress>
-                                            <v-progress-linear                                            
-                                            :value="passwordProgress"
-                                            :color="passwordBarColor"
-                                            absolute
-                                            height="3"
-                                            ></v-progress-linear>
-                                        </template>
-                                    </v-text-field>
+                                <v-text-field
+                                    label="Password"
+                                    name="password"
+                                    prepend-icon="mdi-lock"
+                                    type="password"
+                                    v-model="registerForm.password"
+                                    :rules="[rules.required, rules.password, rules.counter]"
+                                    :loading="!!registerForm.password && focused.password"
+                                    @focus="focused.password = true"
+                                    @blur="focused.password = false"
+                                >
+                                    <template v-slot:progress>
+                                        <v-progress-linear                                            
+                                        :value="passwordProgress"
+                                        :color="passwordBarColor"
+                                        absolute
+                                        height="3"
+                                        ></v-progress-linear>
+                                    </template>
+                                </v-text-field>
 
-                                    <v-text-field
-                                        label="Confirm password"
-                                        name="password_confirmation"
-                                        prepend-icon="mdi-lock"
-                                        type="password"
-                                        v-model="registerForm.password_confirmation"
-                                        :rules="[rules.required, rules.password_confirmation]"
-                                    ></v-text-field>
-                                    
-                                    <v-text-field
-                                        label="Invitation code"
-                                        name="code"
-                                        prepend-icon="mdi-label"
-                                        type="text"
-                                        :rules="[rules.required]"
-                                        v-model="invitation_code"
-                                        :loading="loadingCheckCode"
-                                        :success="success.invitation_code"
-                                        :error-messages="errors.invitation_code"
-                                    ></v-text-field>
-                                </v-form>
-                            </v-card-text>
-                            <v-card-actions class="mt-5">
-                                <v-spacer></v-spacer>
-                                <v-btn color="primary" :disabled="!validForm || !success.invitation_code" @click="register">Register</v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-main>
-    </div>
+                                <v-text-field
+                                    label="Confirm password"
+                                    name="password_confirmation"
+                                    prepend-icon="mdi-lock"
+                                    type="password"
+                                    v-model="registerForm.password_confirmation"
+                                    :rules="[rules.required, rules.password_confirmation]"
+                                ></v-text-field>
+                                
+                                <v-text-field
+                                    label="Invitation code"
+                                    name="code"
+                                    prepend-icon="mdi-label"
+                                    type="text"
+                                    :rules="[rules.required]"
+                                    v-model="invitation_code"
+                                    :loading="loadingCheckCode"
+                                    :success="success.invitation_code"
+                                    :error-messages="errors.invitation_code"
+                                ></v-text-field>
+                            </v-form>
+                        </v-card-text>
+                        <v-card-actions class="mt-5">
+                            <v-spacer></v-spacer>
+                            <v-btn color="primary" :disabled="!validForm || !success.invitation_code" @click="register">Register</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-main>
+</v-app>
 </template>
 
 <script>
