@@ -176,9 +176,12 @@ export default {
             
         },
 
-        register() {
+        async register() {
             if(this.$refs.registerForm.validate()) {
-                this.registerUser(this.registerForm);
+                let res = await this.registerUser(this.registerForm);
+                if (res === 201) {
+                    this.$router.push('main');
+                }
             }
         }
     },

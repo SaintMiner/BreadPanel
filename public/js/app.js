@@ -2139,9 +2139,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     register: function register() {
-      if (this.$refs.registerForm.validate()) {
-        this.registerUser(this.registerForm);
-      }
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!_this3.$refs.registerForm.validate()) {
+                  _context3.next = 5;
+                  break;
+                }
+
+                _context3.next = 3;
+                return _this3.registerUser(_this3.registerForm);
+
+              case 3:
+                res = _context3.sent;
+
+                if (res === 201) {
+                  _this3.$router.push('main');
+                }
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   }),
   mounted: function mounted() {}
@@ -64848,16 +64875,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     register: function register(_ref4, creditals) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-        var dispatch;
+        var dispatch, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 dispatch = _ref4.dispatch;
                 _context4.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('register', creditals);
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('register', creditals).then(function (r) {
+                  return r.status;
+                })["catch"](function (e) {
+                  return e.response.data;
+                });
 
               case 3:
+                res = _context4.sent;
+                dispatch('me');
+                return _context4.abrupt("return", res);
+
+              case 6:
               case "end":
                 return _context4.stop();
             }

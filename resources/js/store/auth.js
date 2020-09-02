@@ -47,7 +47,9 @@ export default {
         },
 
         async register ({dispatch}, creditals) {
-            await axios.post('register', creditals);
+            let res = await axios.post('register', creditals).then(r => r.status).catch(e => e.response.data);
+            dispatch('me');
+            return res;
         },
 
         me ({ commit }) {
