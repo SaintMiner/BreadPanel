@@ -41,7 +41,9 @@
         </v-app-bar>
 
         <v-main>
-            <router-view></router-view>
+            <transition name="fade">
+                <router-view></router-view>
+            </transition>
         </v-main>
         <v-footer color="indigo" app inset>
             <span class="white--text"

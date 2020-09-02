@@ -2220,6 +2220,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2250,6 +2254,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _User_UserDropwownMenu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./User/UserDropwownMenu */ "./resources/js/components/User/UserDropwownMenu.vue");
+//
+//
 //
 //
 //
@@ -4653,7 +4659,17 @@ var render = function() {
       _c(
         "v-card",
         [
-          _c("v-card-title", [_vm._v("Invitations")]),
+          _c(
+            "v-card-title",
+            [
+              _c("span", [_vm._v(" Invitations ")]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c("v-btn", { staticClass: "primary" }, [_vm._v("Generate code")])
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("v-data-table", {
             staticClass: "elevation-1",
@@ -4801,7 +4817,11 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-main", [_c("router-view")], 1),
+      _c(
+        "v-main",
+        [_c("transition", { attrs: { name: "fade" } }, [_c("router-view")], 1)],
+        1
+      ),
       _vm._v(" "),
       _c("v-footer", { attrs: { color: "indigo", app: "", inset: "" } }, [
         _c("span", { staticClass: "white--text" }, [

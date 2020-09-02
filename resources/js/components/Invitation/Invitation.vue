@@ -1,7 +1,11 @@
 <template>
     <v-container>
         <v-card>
-            <v-card-title>Invitations</v-card-title>
+            <v-card-title>
+                <span> Invitations </span>
+                <v-spacer></v-spacer>
+                <v-btn class="primary">Generate code</v-btn>
+            </v-card-title>
             <v-data-table
                 v-model="selectedInvitations"
                 show-select
@@ -23,7 +27,7 @@ export default {
                 {text: 'Code', value: 'code'},
                 {text: 'Created by', value: 'created by'},
                 {text: 'Created at', value: 'created at'},
-            ]
+            ],
         }
     }
 }

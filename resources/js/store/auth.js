@@ -20,11 +20,11 @@ export default {
 
     mutations: {
         SET_AUTHENTICATED (state, value) {
-        state.authenticated = value
+            state.authenticated = value;
         },
 
         SET_USER (state, value) {
-        state.user = value
+            state.user = value;
         }
     },
 
