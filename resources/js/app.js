@@ -15,6 +15,7 @@ Vue.use(Vuetify);
 Vue.mixin(permissions);
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+console.log(store.getters);
 // axios.defaults.baseURL = 'http://localhost:8000/';
 store.dispatch('auth/me').then(() => {
     const app = new Vue({

@@ -7,18 +7,18 @@
             <v-card-text>
                 POSTS
                 <br>
-                GUIDE STATIC
+                <!-- GUIDE STATIC
                 <div v-if="$can('edit posts')">You can edit posts.</div>
-                <div v-else>No u cant edit posts</div>
+                <div v-else>No u cant edit posts</div> -->
                 VUEX
                 <div v-if="can('edit posts')">You can edit posts.</div>
                 <div v-else>No u cant edit posts</div>
                 <br>
                 ARTICLES
                 <br>
-                GUIDE STATIC
+                <!-- GUIDE STATIC
                 <div v-if="$can('edit articles')">You can edit articles.</div>
-                <div v-else>No u cant edit articles</div>
+                <div v-else>No u cant edit articles</div> -->
                 VUEX
                 <div v-if="can('edit articles')">You can edit articles.</div>
                 <div v-else>No u cant edit articles</div>
@@ -28,15 +28,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
-    computed: {
-        ...mapGetters({
-            can: 'auth/can'
-        })
-    },
-
 }
 </script>
 

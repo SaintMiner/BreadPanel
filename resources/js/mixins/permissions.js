@@ -1,7 +1,9 @@
+import { mapGetters } from 'vuex';
+
 export default {
-    methods: {
-        $can(permissionName) {
-            return Permissions.indexOf(permissionName) !== -1;
-        },
-    },
+    computed: {
+        ...mapGetters({
+            can: 'auth/can'
+        })
+    }
 };
