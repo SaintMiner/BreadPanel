@@ -4445,7 +4445,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("transition", { attrs: { name: "fade" } }, [_c("router-view")], 1)
+  return _c(
+    "transition",
+    { attrs: { name: "fade", mode: "out-in" } },
+    [_c("router-view")],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4841,7 +4846,14 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-main",
-        [_c("transition", { attrs: { name: "fade" } }, [_c("router-view")], 1)],
+        [
+          _c(
+            "transition",
+            { attrs: { name: "fade", mode: "out-in" } },
+            [_c("router-view")],
+            1
+          )
+        ],
         1
       ),
       _vm._v(" "),
@@ -4885,19 +4897,19 @@ var render = function() {
           _c("v-card-title", [_c("span", [_vm._v(" Permission test ")])]),
           _vm._v(" "),
           _c("v-card-text", [
-            _vm._v("\n              POSTS\n              "),
+            _vm._v("\n            POSTS\n            "),
             _c("br"),
             _vm._v(" "),
-            _vm._v("\n              VUEX\n              "),
+            _vm._v("\n            VUEX\n            "),
             _vm.can("edit posts")
               ? _c("div", [_vm._v("You can edit posts.")])
               : _c("div", [_vm._v("No u cant edit posts")]),
             _vm._v(" "),
             _c("br"),
-            _vm._v("\n              ARTICLES\n              "),
+            _vm._v("\n            ARTICLES\n            "),
             _c("br"),
             _vm._v(" "),
-            _vm._v("\n              VUEX\n              "),
+            _vm._v("\n            VUEX\n            "),
             _vm.can("edit articles")
               ? _c("div", [_vm._v("You can edit articles.")])
               : _c("div", [_vm._v("No u cant edit articles")])

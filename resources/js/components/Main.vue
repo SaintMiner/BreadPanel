@@ -49,7 +49,7 @@
         </v-app-bar>
 
         <v-main>
-            <transition name="fade">
+            <transition name="fade" mode="out-in">
                 <router-view></router-view>
             </transition>
         </v-main>
@@ -82,4 +82,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
