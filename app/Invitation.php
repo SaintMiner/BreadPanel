@@ -12,6 +12,10 @@ class Invitation extends Model
         'code', 'create_by', 'expires_at'
     ];
 
+    public function creator() {
+        return $this->belongsTo(User::class, 'create_by');
+    }
+
     public function user() {
         return $this->hasOne(User::class);
     }

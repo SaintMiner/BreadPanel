@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 use App\Invitation;
-use Carbon\Carbon;
+
+use App\Http\Resources\Invitation as InvitationResource;
 
 class InvitationController extends Controller
 {
+    public function index() {
+        return InvitationResource::collection(Invitation::all());
+    }
+
     public function isCodeBusy(Request $request) {
         if (empty(Invitation::where('code', $request->code)->first())) {
             return response('That code does not exist!', 500);

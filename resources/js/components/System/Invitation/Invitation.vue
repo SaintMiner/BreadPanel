@@ -10,7 +10,7 @@
                 v-model="selectedInvitations"
                 show-select
                 class="elevation-1"
-
+                :items="invitations"
                 :headers="headers"
             >
             </v-data-table>
@@ -19,23 +19,35 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
     data() {
         return {
             selectedInvitations: [],
             headers: [
                 {text: 'Code', value: 'code'},
-                {text: 'Created by', value: 'created by'},
-                {text: 'Created at', value: 'created at'},
+                {text: 'Used by', value: 'used_by'},
+                {text: 'Created by', value: 'created_by'},
+                {text: 'Created at', value: 'created_at'},
             ],
         }
+    },
+
+    computed: {
+        ...mapGetters({
+            invitations: 'invitation/invitations',
+        })
     },
 
     methods: {
         ...mapActions({
             generate: 'invitation/generate',
+            fetch: 'invitation/fetch',
         })
+    },
+
+    mounted() {
+        this.fetch();
     }
 }
 </script>

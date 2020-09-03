@@ -2373,17 +2373,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         text: 'Code',
         value: 'code'
       }, {
+        text: 'Used by',
+        value: 'used_by'
+      }, {
         text: 'Created by',
-        value: 'created by'
+        value: 'created_by'
       }, {
         text: 'Created at',
-        value: 'created at'
+        value: 'created_at'
       }]
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    invitations: 'invitation/invitations'
+  })),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    generate: 'invitation/generate'
-  }))
+    generate: 'invitation/generate',
+    fetch: 'invitation/fetch'
+  })),
+  mounted: function mounted() {
+    this.fetch();
+  }
 });
 
 /***/ }),
@@ -4967,7 +4977,11 @@ var render = function() {
           _vm._v(" "),
           _c("v-data-table", {
             staticClass: "elevation-1",
-            attrs: { "show-select": "", headers: _vm.headers },
+            attrs: {
+              "show-select": "",
+              items: _vm.invitations,
+              headers: _vm.headers
+            },
             model: {
               value: _vm.selectedInvitations,
               callback: function($$v) {
@@ -66216,6 +66230,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
+  state: {
+    invitations: []
+  },
+  getters: {
+    invitations: function invitations(state) {
+      return state.invitations;
+    }
+  },
+  mutations: {
+    SET_DATA: function SET_DATA(state, data) {
+      state.invitations = data;
+    }
+  },
   actions: {
     generate: function generate() {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -66235,6 +66262,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee);
+      }))();
+    },
+    fetch: function fetch(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref.commit;
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/invitation').then(function (response) {
+                  commit('SET_DATA', response.data);
+                });
+
+              case 3:
+                return _context2.abrupt("return", _context2.sent);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     }
   }
