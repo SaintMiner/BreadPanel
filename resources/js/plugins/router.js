@@ -8,6 +8,8 @@ import store from "../store";
 
 import Invitation from "../components/Invitation/Invitation.vue";
 
+import PermissionTest from "../components/ParmissionTest.vue";
+
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -21,6 +23,11 @@ export default new VueRouter({
                     path: "invitation",
                     name: "invitation",
                     component: Invitation,
+                },
+                {
+                    path: "permission",
+                    name: "permission",
+                    component: PermissionTest,
                 }
             ]
         },

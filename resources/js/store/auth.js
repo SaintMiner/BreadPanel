@@ -10,11 +10,19 @@ export default {
 
     getters: {
         authenticated (state) {
-        return state.authenticated
+            return state.authenticated;
         },
 
         user (state) {
-        return state.user
+            return state.user;
+        },
+
+        can(state) {
+            return (permission) => {
+                let permissions = [];
+                if (state.user) permissions = state.user.permissions;
+                return permissions.indexOf(permission) !== -1;
+            }
         },
     },
 
@@ -29,6 +37,8 @@ export default {
     },
 
     actions: {
+        
+
         async checkCode({}, code) {
             return await axios.post('/api/isCodeBusy', {code: code}).then(r => r.data).catch(e => e.response.data);
         },
