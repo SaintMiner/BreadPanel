@@ -27,6 +27,7 @@ export default {
             headers: [
                 {text: 'Code', value: 'code'},
                 {text: 'Used by', value: 'used_by'},
+                {text: 'Expires at', value: 'expires_at'},
                 {text: 'Created by', value: 'created_by'},
                 {text: 'Created at', value: 'created_at'},
             ],

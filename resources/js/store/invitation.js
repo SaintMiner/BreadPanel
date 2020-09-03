@@ -21,8 +21,9 @@ export default {
     },
 
     actions: {
-        async generate() {
-            return await axios.get('/api/invitation/generate');
+        async generate({ dispatch }) {
+            await axios.get('/api/invitation/generate');
+            return dispatch('fetch');
         },
 
         async fetch({commit}) {

@@ -2376,6 +2376,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         text: 'Used by',
         value: 'used_by'
       }, {
+        text: 'Expires at',
+        value: 'expires_at'
+      }, {
         text: 'Created by',
         value: 'created_by'
       }, {
@@ -66244,19 +66247,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   actions: {
-    generate: function generate() {
+    generate: function generate(_ref) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var dispatch;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                dispatch = _ref.dispatch;
+                _context.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/invitation/generate');
 
-              case 2:
-                return _context.abrupt("return", _context.sent);
-
               case 3:
+                return _context.abrupt("return", dispatch('fetch'));
+
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -66264,14 +66269,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    fetch: function fetch(_ref) {
+    fetch: function fetch(_ref2) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                commit = _ref.commit;
+                commit = _ref2.commit;
                 _context2.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/invitation').then(function (response) {
                   commit('SET_DATA', response.data);
