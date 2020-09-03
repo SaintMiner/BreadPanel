@@ -24,7 +24,7 @@ class CreateInvitationsTable extends Migration
         });
 
         Schema::table("invitations", function($table) {
-            $table->foreign("create_by")->references("id")->on("users")->onDelete("set null");
+            $table->foreign("created_by")->references("id")->on("users")->onDelete("set null");
         });
 
         Schema::table("users", function($table) {
