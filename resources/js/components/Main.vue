@@ -28,7 +28,7 @@
                 </v-list-item>
                 <v-list-item to="permission">
                     <v-list-item-action>
-                        <v-icon>mdi-user</v-icon>
+                        <v-icon>mdi-label</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
                         <v-list-item-title>Permission</v-list-item-title>

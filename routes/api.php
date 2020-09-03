@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', 'UserController@user');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', 'UserController@user');
+    Route::get('/invitation/generate', 'InvitationController@generate');
+});
 
 Route::post('/isCodeBusy', 'InvitationController@isCodeBusy');

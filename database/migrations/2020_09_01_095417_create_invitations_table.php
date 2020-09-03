@@ -15,10 +15,10 @@ class CreateInvitationsTable extends Migration
     {
         Schema::create('invitations', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 12);
+            $table->string('code', 24);
             $table->date('expires_at');
             
-            $table->unsignedBigInteger('create_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
 
             $table->timestamps();
         });

@@ -1,5 +1,11 @@
 import axios from "axios";
 
-export default [
-    
-]
+export default {
+    namespaced: true,
+
+    actions: {
+        async generate() {
+            return await axios.get('/api/invitation/generate');
+        }
+    }
+}

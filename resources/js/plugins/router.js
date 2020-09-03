@@ -6,7 +6,7 @@ import Main from "../components/Main.vue";
 import Register from "../components/Authentication/Register.vue";
 import store from "../store";
 
-import Invitation from "../components/Invitation/Invitation.vue";
+import Invitation from "../components/System/Invitation/Invitation.vue";
 
 import PermissionTest from "../components/ParmissionTest.vue";
 

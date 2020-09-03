@@ -18,7 +18,7 @@ class User extends JsonResource
             'id' => $this->id,
             'invitation' => $this->invitation->code,
             'username' => $this->username,
-            'permissions' => $this->getAllPermissions()->pluck('name'),
+            'permissions' => $this->getAllPermissions()->pluck('name'),            
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Invitation;
+use Carbon\Carbon;
 
 class InvitationController extends Controller
 {
@@ -17,5 +18,13 @@ class InvitationController extends Controller
         } else {
             return response('Free', 200);
         }
+    }
+
+    public function generate(Request $request) {
+        return Invitation::create([
+            'code' => uniqid('BRP'),
+            'create_by' => $request->user()->id, //change to created_by
+            'expires_at'=> new Carbon('next month'),
+        ]);
     }
 }
