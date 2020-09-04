@@ -29,7 +29,7 @@ class InvitationController extends Controller
     public function generate(Request $request) {
         return Invitation::create([
             'code' => uniqid('BRP'),
-            'create_by' => $request->user()->id, //change to created_by
+            'created_by' => $request->user()->id,
             'expires_at'=> new Carbon('next month'),
         ]);
     }
