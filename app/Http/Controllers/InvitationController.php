@@ -15,6 +15,10 @@ class InvitationController extends Controller
         return InvitationResource::collection(Invitation::all());
     }
 
+    public function update(Request $request, $id) {
+        return Invitation::find($id)->update(['code' => $request->code, 'expires_at' => $request->expires_at]);
+    }
+
     public function destroy($id) {
         return Invitation::destroy($id);
     }

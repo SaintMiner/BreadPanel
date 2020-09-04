@@ -1,4 +1,5 @@
 import axios from "axios";
+import { update } from "lodash";
 
 export default {
     namespaced: true,
@@ -30,6 +31,11 @@ export default {
             return await axios.get('/api/invitation').then(response => {
                 commit('SET_DATA', response.data);
             });
+        },
+
+        async update({ dispatch }, data) {
+            await axios.patch(`/api/invitation/${data.id}`, data);
+            return dispatch('fetch');
         },
 
         async delete({ dispatch }, id) {

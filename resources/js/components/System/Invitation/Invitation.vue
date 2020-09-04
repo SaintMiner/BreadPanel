@@ -6,6 +6,11 @@
             @cancelAction="confirmDeleteModal = false"
             @acceptAction="acceptDelete"
         ></ConfirmModal>
+        <v-dialog v-model="invitationFormModal" max-width="500px" persistent>
+            <v-card>
+            <invitationForm :item="targetItem" @close="closeInvitationFormModal" @save="saveInvitationFormModal"></invitationForm>
+            </v-card>
+        </v-dialog>
         <v-card>
             <v-card-title>
                 <span> Invitations </span>
@@ -42,11 +47,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import ConfirmModal from '../ConfirmModal';
-
+import invitationForm from './InvitationForm';
 export default {
 
     components: {
         ConfirmModal,
+        invitationForm,
     },
 
     data() {
@@ -62,7 +68,17 @@ export default {
             ],
 
             confirmDeleteModal: false,
-            targetItem: {},
+            invitationFormModal: false,
+            targetItem: {
+                id: 0,
+                expires_at: null,
+                code: '',
+            },
+            defaultItem: {
+                id: 0,
+                expires_at: null,
+                code: '',
+            },
         }
     },
 
@@ -76,6 +92,7 @@ export default {
         ...mapActions({
             generate: 'invitation/generate',
             fetch: 'invitation/fetch',
+            update: 'invitation/update',
             deleteInvitation: 'invitation/delete',
         }),
 
@@ -90,7 +107,21 @@ export default {
         },
 
         editItem(item) {
+            this.invitationFormModal = true;
+            this.targetItem = Object.assign({}, item);
             console.log(item);
+        },
+
+        closeInvitationFormModal() {
+            this.invitationFormModal = false;
+            this.targetItem = Object.assign({}, this.defaultItem);;
+        },
+
+        saveInvitationFormModal() {
+            this.invitationFormModal = false;
+            console.log(this.targetItem);
+            this.update(this.targetItem);
+            this.targetItem = Object.assign({}, this.defaultItem);;
         }
     },
 
