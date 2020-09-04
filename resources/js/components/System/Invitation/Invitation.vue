@@ -1,5 +1,11 @@
 <template>
     <v-container>
+        <ConfirmModal :dialog="confirmDeleteModal" 
+            text="Are you sure you want to delete this invitation code?" 
+            persistent
+            @cancelAction="confirmDeleteModal = false"
+            @acceptAction="acceptDelete"
+        ></ConfirmModal>
         <v-card>
             <v-card-title>
                 <span> Invitations </span>
@@ -13,6 +19,21 @@
                 :items="invitations"
                 :headers="headers"
             >
+            <template v-slot:item.actions="{ item }">
+                <v-icon
+                    small
+                    class="mr-2"
+                    @click="editItem(item)"
+                >
+                    mdi-pencil
+                </v-icon>
+                <v-icon
+                    small
+                    @click="deleteItem(item)"
+                >
+                    mdi-delete
+                </v-icon>
+                </template>
             </v-data-table>
         </v-card>
     </v-container>
@@ -20,7 +41,14 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import ConfirmModal from '../ConfirmModal';
+
 export default {
+
+    components: {
+        ConfirmModal,
+    },
+
     data() {
         return {
             selectedInvitations: [],
@@ -30,7 +58,11 @@ export default {
                 {text: 'Expires at', value: 'expires_at'},
                 {text: 'Created by', value: 'created_by'},
                 {text: 'Created at', value: 'created_at'},
+                {text: 'Actions', value: 'actions', sortable: false},
             ],
+
+            confirmDeleteModal: false,
+            targetItem: {},
         }
     },
 
@@ -44,7 +76,22 @@ export default {
         ...mapActions({
             generate: 'invitation/generate',
             fetch: 'invitation/fetch',
-        })
+            deleteInvitation: 'invitation/delete',
+        }),
+
+        deleteItem(item) {
+            this.targetItem = item;
+            this.confirmDeleteModal = true;
+        },
+
+        acceptDelete() {
+            this.deleteInvitation(this.targetItem.id);
+            this.confirmDeleteModal = false;
+        },
+
+        editItem(item) {
+            console.log(item);
+        }
     },
 
     mounted() {

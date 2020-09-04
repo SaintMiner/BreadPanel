@@ -15,6 +15,10 @@ class InvitationController extends Controller
         return InvitationResource::collection(Invitation::all());
     }
 
+    public function destroy($id) {
+        return Invitation::destroy($id);
+    }
+
     public function isCodeBusy(Request $request) {
         if (empty(Invitation::where('code', $request->code)->first())) {
             return response('That code does not exist!', 500);
@@ -28,7 +32,7 @@ class InvitationController extends Controller
 
     public function generate(Request $request) {
         return Invitation::create([
-            'code' => uniqid('BRP'),
+            'code' => strtoupper(uniqid('BRP')),
             'created_by' => $request->user()->id,
             'expires_at'=> new Carbon('next month'),
         ]);

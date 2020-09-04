@@ -26,10 +26,15 @@ export default {
             return dispatch('fetch');
         },
 
-        async fetch({commit}) {
+        async fetch({ commit }) {
             return await axios.get('/api/invitation').then(response => {
                 commit('SET_DATA', response.data);
             });
         },
+
+        async delete({ dispatch }, id) {
+            await axios.delete(`/api/invitation/${id}`);
+            return dispatch('fetch');
+        }
     }
 }

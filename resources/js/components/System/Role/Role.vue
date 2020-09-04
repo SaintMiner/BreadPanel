@@ -28,7 +28,7 @@
                         ></v-divider>
 
                         <v-col cols="3">
-                            Select permissions for this role
+                            That is the description of this role. Writer can write. Yes....
                         </v-col>
                     </v-row>
 
