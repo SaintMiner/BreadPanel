@@ -1,7 +1,7 @@
 <template>
     <v-app id="inspire">
         <v-navigation-drawer v-model="drawer" app clipped>
-            <v-list dense>
+            <v-list >
                 <v-list-item link>
                     <v-list-item-action>
                         <v-icon>mdi-home</v-icon>
@@ -18,7 +18,7 @@
                         <v-list-item-title>Contact</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item to="invitation">
+                <v-list-item link to="invitation" class="nav-route-link">
                     <v-list-item-action>
                         <v-icon>mdi-label</v-icon>
                     </v-list-item-action>
@@ -26,7 +26,7 @@
                         <v-list-item-title>Invitations</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item to="permission">
+                <v-list-item link to="permission" class="nav-route-link">
                     <v-list-item-action>
                         <v-icon>mdi-label</v-icon>
                     </v-list-item-action>
@@ -49,9 +49,9 @@
         </v-app-bar>
 
         <v-main>
-            <transition name="fade" mode="out-in">
+            <v-fade-transition mode="out-in">
                 <router-view></router-view>
-            </transition>
+            </v-fade-transition>
         </v-main>
         <v-footer color="indigo" app inset>
             <span class="white--text"
@@ -83,5 +83,8 @@ export default {
 </script>
 
 <style>
-
+    .nav-route-link {
+        text-decoration: none !important; 
+        color: inherit !important;
+    }
 </style>
