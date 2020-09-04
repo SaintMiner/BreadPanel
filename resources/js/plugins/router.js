@@ -1,14 +1,15 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-import Main from "../components/Main.vue";
+import Main from '../components/Main.vue';
 
-import Register from "../components/Authentication/Register.vue";
-import store from "../store";
+import Register from '../components/Authentication/Register.vue';
+import store from '../store';
 
-import Invitation from "../components/System/Invitation/Invitation.vue";
+import Invitation from '../components/System/Invitation/Invitation.vue';
+import Role from '../components/System/Role/Role.vue';
 
-import PermissionTest from "../components/ParmissionTest.vue";
+import PermissionTest from '../components/ParmissionTest.vue';
 
 Vue.use(VueRouter);
 
@@ -17,17 +18,24 @@ export default new VueRouter({
         {
             path: '/', 
             component: Main,
-            name: "main",
+            name: 'main',
             children: [
                 {
-                    path: "invitation",
-                    name: "invitation",
+                    path: 'invitation',
+                    name: 'invitation',
                     component: Invitation,
                 },
+
                 {
-                    path: "permission",
-                    name: "permission",
+                    path: 'permission',
+                    name: 'permission',
                     component: PermissionTest,
+                },
+
+                {
+                    path: 'role',
+                    name: 'role',
+                    component: Role,
                 }
             ]
         },
@@ -35,7 +43,7 @@ export default new VueRouter({
         {
             path: '/register', 
             component: Register,
-            name: "register",
+            name: 'register',
             beforeEnter(to, from, next) {
                 if (store.getters['auth/authenticated']) {
                     next({name: 'main'});
@@ -51,5 +59,5 @@ export default new VueRouter({
         },
     ],
 
-    mode: "history",
+    mode: 'history',
 });
