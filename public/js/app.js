@@ -2576,6 +2576,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2637,7 +2644,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      rolePanel: [],
+      roles: [{
+        name: 'Writer',
+        description: 'That is the description of this role. Writer can write. Yes....',
+        isNew: false
+      }]
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    roles: 'role/roles'
+  })),
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    fetch: 'role/fetch'
+  })), {}, {
+    addRolePanel: function addRolePanel() {
+      this.roles.push({
+        name: '',
+        description: '',
+        isNew: true
+      });
+    }
+  }),
+  mounted: function mounted() {
+    this.fetch();
+  }
+});
 
 /***/ }),
 
@@ -2666,6 +2711,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Sidebar',
@@ -2674,15 +2721,18 @@ __webpack_require__.r(__webpack_exports__);
       items: [{
         title: 'Invitations',
         path: 'invitation',
-        icon: 'mdi-label'
+        icon: 'mdi-label',
+        permissions: ['invite manager']
       }, {
         title: 'Permission',
         path: 'permission',
-        icon: 'mdi-label'
+        icon: 'mdi-label',
+        permissions: []
       }, {
         title: 'Role',
         path: 'role',
-        icon: 'mdi-label'
+        icon: 'mdi-label',
+        permissions: []
       }]
     };
   }
@@ -22869,134 +22919,199 @@ var render = function() {
     "v-container",
     [
       _c(
-        "v-expansion-panels",
-        { attrs: { inset: "", hover: "" } },
+        "v-card",
+        { staticClass: "elevation-0" },
         [
           _c(
-            "v-expansion-panel",
+            "v-card-title",
             [
-              _c("v-expansion-panel-header", [_vm._v("Writer")]),
+              _c(
+                "v-btn",
+                { staticClass: "success", on: { click: _vm.addRolePanel } },
+                [_vm._v("Save all")]
+              ),
+              _vm._v(" "),
+              _c("v-spacer"),
               _vm._v(" "),
               _c(
-                "v-expansion-panel-content",
+                "v-btn",
+                { staticClass: "primary", on: { click: _vm.addRolePanel } },
+                [_vm._v("New role")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-expansion-panels",
+            {
+              attrs: { inset: "", hover: "" },
+              model: {
+                value: _vm.rolePanel,
+                callback: function($$v) {
+                  _vm.rolePanel = $$v
+                },
+                expression: "rolePanel"
+              }
+            },
+            _vm._l(_vm.roles, function(role) {
+              return _c(
+                "v-expansion-panel",
+                { key: role.id },
                 [
+                  _c("v-expansion-panel-header", [
+                    _vm._v(" " + _vm._s(role.name) + " ")
+                  ]),
+                  _vm._v(" "),
                   _c(
-                    "v-row",
-                    { attrs: { "no-gutters": "" } },
+                    "v-expansion-panel-content",
                     [
                       _c(
-                        "v-col",
-                        { attrs: { cols: "6" } },
+                        "v-row",
+                        { attrs: { "no-gutters": "" } },
                         [
                           _c(
-                            "v-row",
-                            { staticClass: "label-fix" },
+                            "v-col",
+                            { attrs: { cols: "6" } },
                             [
                               _c(
-                                "v-col",
-                                { attrs: { cols: "4" } },
+                                "v-row",
+                                { staticClass: "label-fix" },
                                 [
-                                  _c("v-checkbox", {
-                                    attrs: {
-                                      "input-value": "true",
-                                      "hide-details": "",
-                                      label: "edit posts"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "4" } },
-                                [
-                                  _c("v-checkbox", {
-                                    attrs: { label: "write posts" }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "4" } },
-                                [
-                                  _c("v-checkbox", {
-                                    attrs: {
-                                      indeterminate: "",
-                                      label: "delete posts"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "4" } },
-                                [
-                                  _c("v-checkbox", {
-                                    attrs: {
-                                      indeterminate: "",
-                                      label: "Moderate posts"
-                                    }
-                                  })
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "12" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: { label: "Name" },
+                                        model: {
+                                          value: role.name,
+                                          callback: function($$v) {
+                                            _vm.$set(role, "name", $$v)
+                                          },
+                                          expression: "role.name"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "4" } },
+                                    [
+                                      _c("v-checkbox", {
+                                        attrs: {
+                                          "input-value": "true",
+                                          "hide-details": "",
+                                          label: "edit posts"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "4" } },
+                                    [
+                                      _c("v-checkbox", {
+                                        attrs: { label: "write posts" }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "4" } },
+                                    [
+                                      _c("v-checkbox", {
+                                        attrs: {
+                                          indeterminate: "",
+                                          label: "delete posts"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "4" } },
+                                    [
+                                      _c("v-checkbox", {
+                                        attrs: {
+                                          indeterminate: "",
+                                          label: "Moderate posts"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
                                 ],
                                 1
                               )
                             ],
                             1
-                          )
+                          ),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c("v-divider", {
+                            staticClass: "mx-4",
+                            attrs: { vertical: "" }
+                          }),
+                          _vm._v(" "),
+                          _c("v-col", { attrs: { cols: "3" } }, [
+                            _c("div", { staticClass: "mt-5" }, [
+                              _vm._v(" " + _vm._s(role.description) + " ")
+                            ])
+                          ])
                         ],
                         1
                       ),
                       _vm._v(" "),
-                      _c("v-spacer"),
-                      _vm._v(" "),
-                      _c("v-divider", {
-                        staticClass: "mx-4",
-                        attrs: { vertical: "" }
-                      }),
-                      _vm._v(" "),
-                      _c("v-col", { attrs: { cols: "3" } }, [
-                        _vm._v(
-                          "\n                        That is the description of this role. Writer can write. Yes....\n                    "
-                        )
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-card-actions",
-                    [
-                      _c("v-spacer"),
-                      _vm._v(" "),
-                      _c("v-btn", { attrs: { text: "", color: "error" } }, [
-                        _vm._v(
-                          "\n                        Delete\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("v-btn", { attrs: { text: "", color: "secondary" } }, [
-                        _vm._v(
-                          "\n                        Cancel\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("v-btn", { attrs: { text: "", color: "primary" } }, [
-                        _vm._v(
-                          "\n                        Save\n                    "
-                        )
-                      ])
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c("v-btn", { attrs: { text: "", color: "error" } }, [
+                            _vm._v(
+                              "\n                        Delete\n                    "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            { attrs: { text: "", color: "secondary" } },
+                            [
+                              _vm._v(
+                                "\n                        Cancel\n                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            { attrs: { text: "", color: "primary" } },
+                            [
+                              _vm._v(
+                                "\n                        Save\n                    "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
                 ],
                 1
               )
-            ],
+            }),
             1
           )
         ],
@@ -23043,31 +23158,37 @@ var render = function() {
     [
       _c(
         "v-list",
-        _vm._l(_vm.items, function(item) {
-          return _c(
-            "v-list-item",
-            {
-              key: item.id,
-              staticClass: "sidebar-link-clear",
-              attrs: { link: "", to: item.path }
-            },
-            [
-              _c(
-                "v-list-item-action",
-                [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-item-content",
-                [_c("v-list-item-title", [_vm._v(_vm._s(item.title))])],
-                1
-              )
-            ],
-            1
-          )
-        }),
-        1
+        [
+          _vm._l(_vm.items, function(item) {
+            return [
+              _vm.can(item.permissions)
+                ? _c(
+                    "v-list-item",
+                    {
+                      key: item.id,
+                      staticClass: "sidebar-link-clear",
+                      attrs: { link: "", to: item.path }
+                    },
+                    [
+                      _c(
+                        "v-list-item-action",
+                        [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item-content",
+                        [_c("v-list-item-title", [_vm._v(_vm._s(item.title))])],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ]
+          })
+        ],
+        2
       )
     ],
     1
@@ -84476,6 +84597,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mixins_permissions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/permissions */ "./resources/js/mixins/permissions.js");
 
 
 function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
@@ -84483,6 +84605,7 @@ function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -84499,10 +84622,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return state.user;
     },
     can: function can(state) {
-      return function (permission) {
-        var permissions = [];
-        if (state.user) permissions = state.user.permissions;
-        return permissions.indexOf(permission) !== -1;
+      return function () {
+        for (var _len = arguments.length, permissions = new Array(_len), _key = 0; _key < _len; _key++) {
+          permissions[_key] = arguments[_key];
+        }
+
+        permissions = permissions.flat();
+        var permittedCount = 0;
+        var userPermissions = [];
+        if (state.user) userPermissions = state.user.permissions;
+        permissions.forEach(function (permission) {
+          if (userPermissions.indexOf(permission) !== -1) permittedCount++;
+        });
+        return !permissions.length ? true : permittedCount === permissions.length;
       };
     }
   },
@@ -84649,6 +84781,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _system_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./system.js */ "./resources/js/store/system.js");
 /* harmony import */ var _auth_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth.js */ "./resources/js/store/auth.js");
 /* harmony import */ var _invitation_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./invitation.js */ "./resources/js/store/invitation.js");
+/* harmony import */ var _role_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./role.js */ "./resources/js/store/role.js");
+
 
 
 
@@ -84659,7 +84793,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   modules: {
     auth: _auth_js__WEBPACK_IMPORTED_MODULE_3__["default"],
     invitation: _invitation_js__WEBPACK_IMPORTED_MODULE_4__["default"],
-    system: _system_js__WEBPACK_IMPORTED_MODULE_2__["default"]
+    system: _system_js__WEBPACK_IMPORTED_MODULE_2__["default"],
+    role: _role_js__WEBPACK_IMPORTED_MODULE_5__["default"]
   }
 }));
 
@@ -84792,6 +84927,118 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee4);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/role.js":
+/*!************************************!*\
+  !*** ./resources/js/store/role.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    roles: []
+  },
+  getters: {
+    roles: function roles(state) {
+      return state.invitations;
+    }
+  },
+  mutations: {
+    SET_DATA: function SET_DATA(state, data) {
+      state.roles = data;
+    }
+  },
+  actions: {
+    fetch: function fetch(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/role').then(function (response) {
+                  commit('SET_DATA', response.data);
+                });
+
+              case 3:
+                return _context.abrupt("return", _context.sent);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    update: function update(_ref2, data) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var dispatch;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                dispatch = _ref2.dispatch;
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch("/api/role/".concat(data.id), data);
+
+              case 3:
+                return _context2.abrupt("return", dispatch('fetch'));
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    "delete": function _delete(_ref3, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var dispatch;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                dispatch = _ref3.dispatch;
+                _context3.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/role/".concat(id));
+
+              case 3:
+                return _context3.abrupt("return", dispatch('fetch'));
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }

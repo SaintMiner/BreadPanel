@@ -1,4 +1,5 @@
 import axios from "axios";
+import permissions from "../mixins/permissions";
 
 export default {
     namespaced: true,
@@ -18,10 +19,15 @@ export default {
         },
 
         can(state) {
-            return (permission) => {
-                let permissions = [];
-                if (state.user) permissions = state.user.permissions;
-                return permissions.indexOf(permission) !== -1;
+            return (...permissions) => {
+                permissions = permissions.flat();
+                let permittedCount = 0;
+                let userPermissions = [];
+                if (state.user) userPermissions = state.user.permissions;
+                permissions.forEach(permission => {
+                    if (userPermissions.indexOf(permission) !== -1) permittedCount++;
+                });
+                return !permissions.length ? true : permittedCount === permissions.length;
             }
         },
     },
