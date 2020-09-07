@@ -15,7 +15,9 @@ class RoleController extends Controller
     public function store(Request $request) {
         $this->validate($request, [
             'name' => ['required', 'string','min: 4'],
-            'description' => ['nullable', 'string','min: 4'],
+            'description' => ['nullable', 'string'],
+            'color' => ['nullable', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/',
         ]);
+        Role::create($request->all());
     }
 }
