@@ -19,10 +19,14 @@ class RoleController extends Controller
             'description' => ['nullable', 'string'],
             'color' => ['nullable', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
         ]);
-        Role::create($request->all());
+        return Role::create($request->all());
     }
 
     public function update(Request $request, $id) {
-        Role::find($id)->update($request->all());
+        return Role::find($id)->update($request->all());
+    }
+
+    public function destroy($id) {
+        return Role::destroy($id);
     }
 }

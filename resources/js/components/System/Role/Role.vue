@@ -1,5 +1,11 @@
 <template>
     <v-container>
+        <ConfirmModal :dialog="confirmDeleteModal" 
+            text="Are you sure you want to delete this role?" 
+            persistent
+            @cancelAction="confirmDeleteModal = false"
+            @acceptAction="acceptDelete"
+        ></ConfirmModal>
         <v-card class="elevation-0">
             <v-card-title>
                 <v-btn class="success" @click="addRolePanel">Save all</v-btn>
@@ -67,16 +73,23 @@
 </template>
 
 <script>
+import ConfirmModal from '../ConfirmModal';
 import { mapActions, mapGetters } from 'vuex';
 import rulesMixin from "../../../mixins/rules.js";
 
 export default {
     mixins: [rulesMixin],
 
+    components: {
+        ConfirmModal,
+    },
+
     data() {
         return {
             rolePanel: null,
             newRole: false,
+            confirmDeleteModal: false,
+            targetItem: null,
         }
     },
 
@@ -93,6 +106,7 @@ export default {
             loadPermissions: 'permission/fetch',
             store: 'role/store',
             update: 'role/update',
+            delete: 'role/delete',
         }),
 
         addRolePanel() {
@@ -111,9 +125,16 @@ export default {
                 this.update(role);                
             }
         },
-
+        
         deleteRole(role) {
+            this.targetItem = role;
+            this.confirmDeleteModal = true;
+        },
 
+        acceptDelete() {
+            this.confirmDeleteModal = false;
+            this.delete(this.targetItem.id);
+            this.targetItem = null;
         }
 
     },
