@@ -17,7 +17,9 @@ class Role extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'description' => $this->description,
             'permissions' => $this->getAllPermissions()->pluck('id'),
+            'valid' => true,
         ];
     }
 }

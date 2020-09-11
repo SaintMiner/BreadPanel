@@ -5,23 +5,30 @@ export default {
 
     state: {
         roles: [],
+        loading: false,
     },
 
     
     getters: {
         roles(state) {
             return state.roles;
+        },
+
+        loading(state) {
+            return state.loading;
         }
     },
 
     mutations: {
         SET_DATA(state, data) {
             state.roles = data;
+            state.loading = false;
         }
     },
 
     actions: {
-        async fetch({ commit }) {
+        async fetch({ commit, state }) {            
+            state.loading = true;
             return await axios.get('/api/role').then(response => {
                 commit('SET_DATA', response.data);
             });

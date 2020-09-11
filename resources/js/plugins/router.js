@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Main from '../components/Main.vue';
 
 import Register from '../components/Authentication/Register.vue';
+import Profile from '../components/User/Profile.vue';
 import store from '../store';
 
 import Invitation from '../components/System/Invitation/Invitation.vue';
@@ -20,6 +21,12 @@ export default new VueRouter({
             component: Main,
             name: 'main',
             children: [
+                {
+                    path: 'profile',
+                    name: 'profile',
+                    component: Profile,
+                },
+
                 {
                     path: 'invitation',
                     name: 'invitation',

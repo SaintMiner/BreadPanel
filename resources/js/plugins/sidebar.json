@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Profile",
+        "path": "profile",
+        "icon": "mdi-account-circle",
+        "permissions": []
+    },
+    {
+        "title": "Invitations",
+        "path": "invitation",
+        "icon": "mdi-label",
+        "permissions": ["manage invitations"]
+    },
+    {
+        "title": "Permission",
+        "path": "permission",
+        "icon": "mdi-label",
+        "permissions": []
+    },
+    {
+        "title": "Role",
+        "path": "role",
+        "icon": "mdi-label",
+        "permissions": []
+    }
+]

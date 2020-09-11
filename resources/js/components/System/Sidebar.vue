@@ -17,31 +17,13 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import list from '../../plugins/sidebar.json';
 export default {
     name: 'Sidebar',
 
     data() {
         return {
-            items: [
-                {
-                    title: 'Invitations',
-                    path: 'invitation',
-                    icon: 'mdi-label',
-                    permissions: ['create invitation'],
-                },
-                {
-                    title: 'Permission',
-                    path: 'permission',
-                    icon: 'mdi-label',
-                    permissions: [],
-                },
-                {
-                    title: 'Role',
-                    path: 'role',
-                    icon: 'mdi-label',
-                    permissions: [],
-                },
-            ]
+            items: list,
         }
     },
 

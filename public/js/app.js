@@ -2659,6 +2659,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2672,11 +2678,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       rolePanel: null,
       newRole: false,
       confirmDeleteModal: false,
-      targetItem: null
+      targetItem: null,
+      rules: {
+        maximal: function maximal(value) {
+          return !!value ? value.length <= 50 || 'Max 50 characters' : true;
+        }
+      }
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
     roles: 'role/roles',
+    loading: 'role/loading',
     permissions: 'permission/permissions'
   })),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
@@ -2739,6 +2751,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _plugins_sidebar_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../plugins/sidebar.json */ "./resources/js/plugins/sidebar.json");
+var _plugins_sidebar_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../../plugins/sidebar.json */ "./resources/js/plugins/sidebar.json", 1);
 //
 //
 //
@@ -2757,29 +2771,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Sidebar',
   data: function data() {
     return {
-      items: [{
-        title: 'Invitations',
-        path: 'invitation',
-        icon: 'mdi-label',
-        permissions: ['invite manager']
-      }, {
-        title: 'Permission',
-        path: 'permission',
-        icon: 'mdi-label',
-        permissions: []
-      }, {
-        title: 'Role',
-        path: 'role',
-        icon: 'mdi-label',
-        permissions: []
-      }]
+      items: _plugins_sidebar_json__WEBPACK_IMPORTED_MODULE_1__
     };
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/Profile.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/User/Profile.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -22982,12 +23001,6 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _c(
-                "v-btn",
-                { staticClass: "success", on: { click: _vm.addRolePanel } },
-                [_vm._v("Save all")]
-              ),
-              _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
               _c(
@@ -23002,6 +23015,18 @@ var render = function() {
             ],
             1
           ),
+          _vm._v(" "),
+          _c("v-progress-linear", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.loading,
+                expression: "loading"
+              }
+            ],
+            attrs: { indeterminate: "" }
+          }),
           _vm._v(" "),
           _c(
             "v-expansion-panels",
@@ -23057,6 +23082,11 @@ var render = function() {
                                         [
                                           _c("v-text-field", {
                                             attrs: {
+                                              rules: [
+                                                _vm.rules.required,
+                                                _vm.rules.minimal,
+                                                _vm.rules.maximal
+                                              ],
                                               label: "Name",
                                               counter: "50"
                                             },
@@ -23125,16 +23155,34 @@ var render = function() {
                               "div",
                               { staticClass: "mt-5" },
                               [
-                                _c("v-textarea", {
-                                  attrs: { rules: [_vm.rules.counter] },
-                                  model: {
-                                    value: role.description,
-                                    callback: function($$v) {
-                                      _vm.$set(role, "description", $$v)
-                                    },
-                                    expression: "role.description"
-                                  }
-                                })
+                                _c(
+                                  "v-form",
+                                  {
+                                    model: {
+                                      value: role.valid,
+                                      callback: function($$v) {
+                                        _vm.$set(role, "valid", $$v)
+                                      },
+                                      expression: "role.valid"
+                                    }
+                                  },
+                                  [
+                                    _c("v-textarea", {
+                                      attrs: {
+                                        rules: [_vm.rules.counter],
+                                        counter: "255"
+                                      },
+                                      model: {
+                                        value: role.description,
+                                        callback: function($$v) {
+                                          _vm.$set(role, "description", $$v)
+                                        },
+                                        expression: "role.description"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
                               ],
                               1
                             )
@@ -23160,7 +23208,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                        Delete\n                    "
+                                "\n                            Delete\n                        "
                               )
                             ]
                           ),
@@ -23170,7 +23218,7 @@ var render = function() {
                             { attrs: { text: "", color: "secondary" } },
                             [
                               _vm._v(
-                                "\n                        Cancel\n                    "
+                                "\n                            Cancel\n                        "
                               )
                             ]
                           ),
@@ -23191,7 +23239,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                        Save\n                    "
+                                "\n                            Save\n                        "
                               )
                             ]
                           )
@@ -23286,6 +23334,30 @@ var render = function() {
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/Profile.vue?vue&type=template&id=0a7e98b0&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/User/Profile.vue?vue&type=template&id=0a7e98b0& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("v-container", [_vm._v("\n    Hi its profile o/\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -84452,6 +84524,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/User/Profile.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/User/Profile.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Profile_vue_vue_type_template_id_0a7e98b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Profile.vue?vue&type=template&id=0a7e98b0& */ "./resources/js/components/User/Profile.vue?vue&type=template&id=0a7e98b0&");
+/* harmony import */ var _Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Profile.vue?vue&type=script&lang=js& */ "./resources/js/components/User/Profile.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Profile_vue_vue_type_template_id_0a7e98b0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Profile_vue_vue_type_template_id_0a7e98b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/User/Profile.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/User/Profile.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/User/Profile.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Profile.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/Profile.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/User/Profile.vue?vue&type=template&id=0a7e98b0&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/User/Profile.vue?vue&type=template&id=0a7e98b0& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_0a7e98b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Profile.vue?vue&type=template&id=0a7e98b0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/Profile.vue?vue&type=template&id=0a7e98b0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_0a7e98b0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_0a7e98b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/User/UserDropwownMenu.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/components/User/UserDropwownMenu.vue ***!
@@ -84623,10 +84764,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _components_Main_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Main.vue */ "./resources/js/components/Main.vue");
 /* harmony import */ var _components_Authentication_Register_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Authentication/Register.vue */ "./resources/js/components/Authentication/Register.vue");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
-/* harmony import */ var _components_System_Invitation_Invitation_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/System/Invitation/Invitation.vue */ "./resources/js/components/System/Invitation/Invitation.vue");
-/* harmony import */ var _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/System/Role/Role.vue */ "./resources/js/components/System/Role/Role.vue");
-/* harmony import */ var _components_ParmissionTest_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/ParmissionTest.vue */ "./resources/js/components/ParmissionTest.vue");
+/* harmony import */ var _components_User_Profile_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/User/Profile.vue */ "./resources/js/components/User/Profile.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
+/* harmony import */ var _components_System_Invitation_Invitation_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/System/Invitation/Invitation.vue */ "./resources/js/components/System/Invitation/Invitation.vue");
+/* harmony import */ var _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/System/Role/Role.vue */ "./resources/js/components/System/Role/Role.vue");
+/* harmony import */ var _components_ParmissionTest_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/ParmissionTest.vue */ "./resources/js/components/ParmissionTest.vue");
+
 
 
 
@@ -84642,24 +84785,28 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     component: _components_Main_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     name: 'main',
     children: [{
+      path: 'profile',
+      name: 'profile',
+      component: _components_User_Profile_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    }, {
       path: 'invitation',
       name: 'invitation',
-      component: _components_System_Invitation_Invitation_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+      component: _components_System_Invitation_Invitation_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
     }, {
       path: 'permission',
       name: 'permission',
-      component: _components_ParmissionTest_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+      component: _components_ParmissionTest_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
     }, {
       path: 'role',
       name: 'role',
-      component: _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+      component: _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
     }]
   }, {
     path: '/register',
     component: _components_Authentication_Register_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     name: 'register',
     beforeEnter: function beforeEnter(to, from, next) {
-      if (_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters['auth/authenticated']) {
+      if (_store__WEBPACK_IMPORTED_MODULE_5__["default"].getters['auth/authenticated']) {
         next({
           name: 'main'
         });
@@ -84674,6 +84821,17 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }],
   mode: 'history'
 }));
+
+/***/ }),
+
+/***/ "./resources/js/plugins/sidebar.json":
+/*!*******************************************!*\
+  !*** ./resources/js/plugins/sidebar.json ***!
+  \*******************************************/
+/*! exports provided: 0, 1, 2, 3, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("[{\"title\":\"Profile\",\"path\":\"profile\",\"icon\":\"mdi-account-circle\",\"permissions\":[]},{\"title\":\"Invitations\",\"path\":\"invitation\",\"icon\":\"mdi-label\",\"permissions\":[\"manage invitations\"]},{\"title\":\"Permission\",\"path\":\"permission\",\"icon\":\"mdi-label\",\"permissions\":[]},{\"title\":\"Role\",\"path\":\"role\",\"icon\":\"mdi-label\",\"permissions\":[]}]");
 
 /***/ }),
 
@@ -85118,36 +85276,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: {
-    roles: []
+    roles: [],
+    loading: false
   },
   getters: {
     roles: function roles(state) {
       return state.roles;
+    },
+    loading: function loading(state) {
+      return state.loading;
     }
   },
   mutations: {
     SET_DATA: function SET_DATA(state, data) {
       state.roles = data;
+      state.loading = false;
     }
   },
   actions: {
     fetch: function fetch(_ref) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var commit;
+        var commit, state;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commit = _ref.commit;
-                _context.next = 3;
+                commit = _ref.commit, state = _ref.state;
+                state.loading = true;
+                _context.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/role').then(function (response) {
                   commit('SET_DATA', response.data);
                 });
 
-              case 3:
+              case 4:
                 return _context.abrupt("return", _context.sent);
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }
