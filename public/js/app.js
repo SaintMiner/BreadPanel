@@ -2792,13 +2792,79 @@ var _plugins_sidebar_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    user: 'auth/user'
+  }))
+});
 
 /***/ }),
 
@@ -23357,7 +23423,165 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-container", [_vm._v("\n    Hi its profile o/\n")])
+  return _c(
+    "v-container",
+    [
+      _c(
+        "v-row",
+        { attrs: { align: "center", justify: "center" } },
+        [
+          _c(
+            "v-col",
+            [
+              _c(
+                "v-card",
+                [
+                  _c(
+                    "v-img",
+                    {
+                      staticClass: "white--text align-end",
+                      attrs: {
+                        height: "200px",
+                        src: "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                      }
+                    },
+                    [
+                      _c("v-card-title", [
+                        _c("h1", { staticClass: "mx-2" }, [
+                          _vm._v(" " + _vm._s(_vm.user.username) + " ")
+                        ])
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-row",
+                    { staticClass: "mx-5" },
+                    [
+                      _c(
+                        "v-col",
+                        [
+                          _c(
+                            "v-row",
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "2" } },
+                                [
+                                  _c(
+                                    "v-avatar",
+                                    {
+                                      attrs: {
+                                        color: "purple darken-4",
+                                        size: "160"
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "white--text headline" },
+                                        [_c("h1", [_vm._v(" SM ")])]
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { staticClass: "pt-0", attrs: { cols: "10" } },
+                                [
+                                  _c(
+                                    "v-row",
+                                    { attrs: { justify: "space-between" } },
+                                    [
+                                      _c(
+                                        "v-col",
+                                        [
+                                          _c(
+                                            "v-chip",
+                                            {
+                                              staticClass: "ma-2",
+                                              attrs: {
+                                                color: "success",
+                                                outlined: "",
+                                                small: ""
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "v-icon",
+                                                {
+                                                  attrs: { left: "", small: "" }
+                                                },
+                                                [_vm._v("mdi-circle")]
+                                              ),
+                                              _vm._v(
+                                                "\n                                            Server Status\n                                        "
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-col", { attrs: { cols: "2" } }, [
+                                        _c("span", [_vm._v(" #1267 ")])
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-chip",
+                                    {
+                                      staticClass: "ma-2",
+                                      attrs: { label: "" }
+                                    },
+                                    [
+                                      _c("v-icon", { attrs: { left: "" } }, [
+                                        _vm._v("mdi-label")
+                                      ]),
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(_vm.user.invitation) +
+                                          "\n                                "
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(
+                            "\n                        \n                        " +
+                              _vm._s(_vm.user) +
+                              "\n                        "
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
