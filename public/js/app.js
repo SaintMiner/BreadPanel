@@ -2577,6 +2577,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _mixins_rules_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/rules.js */ "./resources/js/mixins/rules.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2651,35 +2652,51 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_rules_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
   data: function data() {
     return {
-      rolePanel: [],
-      roles: [{
-        name: 'Writer',
-        description: 'That is the description of this role. Writer can write. Yes....',
-        isNew: false
-      }]
+      rolePanel: null,
+      newRole: false
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    roles: 'role/roles'
+    roles: 'role/roles',
+    permissions: 'permission/permissions'
   })),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    fetch: 'role/fetch'
+    fetch: 'role/fetch',
+    loadPermissions: 'permission/fetch',
+    store: 'role/store',
+    update: 'role/update'
   })), {}, {
     addRolePanel: function addRolePanel() {
-      this.roles.push({
+      var _this = this;
+
+      this.newRole = true;
+      this.roles.unshift({
         name: '',
         description: '',
         isNew: true
       });
-    }
+      this.$nextTick(function () {
+        _this.rolePanel = _this.roles.length - 1;
+      });
+    },
+    saveRole: function saveRole(role) {
+      if (role.isNew) {
+        this.store(role);
+        this.newRole = false;
+      } else {
+        this.update(role);
+      }
+    },
+    deleteRole: function deleteRole(role) {}
   }),
   mounted: function mounted() {
+    this.loadPermissions();
     this.fetch();
   }
 });
@@ -22935,7 +22952,11 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-btn",
-                { staticClass: "primary", on: { click: _vm.addRolePanel } },
+                {
+                  staticClass: "primary",
+                  attrs: { disabled: _vm.newRole },
+                  on: { click: _vm.addRolePanel }
+                },
                 [_vm._v("New role")]
               )
             ],
@@ -22975,79 +22996,61 @@ var render = function() {
                             { attrs: { cols: "6" } },
                             [
                               _c(
-                                "v-row",
-                                { staticClass: "label-fix" },
+                                "v-form",
+                                {
+                                  model: {
+                                    value: role.valid,
+                                    callback: function($$v) {
+                                      _vm.$set(role, "valid", $$v)
+                                    },
+                                    expression: "role.valid"
+                                  }
+                                },
                                 [
                                   _c(
-                                    "v-col",
-                                    { attrs: { cols: "12" } },
+                                    "v-row",
+                                    { staticClass: "label-fix" },
                                     [
-                                      _c("v-text-field", {
-                                        attrs: { label: "Name" },
-                                        model: {
-                                          value: role.name,
-                                          callback: function($$v) {
-                                            _vm.$set(role, "name", $$v)
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Name",
+                                              counter: "50"
+                                            },
+                                            model: {
+                                              value: role.name,
+                                              callback: function($$v) {
+                                                _vm.$set(role, "name", $$v)
+                                              },
+                                              expression: "role.name"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.permissions, function(
+                                        permission
+                                      ) {
+                                        return _c(
+                                          "v-col",
+                                          {
+                                            key: permission.id,
+                                            attrs: { cols: "4" }
                                           },
-                                          expression: "role.name"
-                                        }
+                                          [
+                                            _c("v-checkbox", {
+                                              attrs: { label: permission.name }
+                                            })
+                                          ],
+                                          1
+                                        )
                                       })
                                     ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "4" } },
-                                    [
-                                      _c("v-checkbox", {
-                                        attrs: {
-                                          "input-value": "true",
-                                          "hide-details": "",
-                                          label: "edit posts"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "4" } },
-                                    [
-                                      _c("v-checkbox", {
-                                        attrs: { label: "write posts" }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "4" } },
-                                    [
-                                      _c("v-checkbox", {
-                                        attrs: {
-                                          indeterminate: "",
-                                          label: "delete posts"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { attrs: { cols: "4" } },
-                                    [
-                                      _c("v-checkbox", {
-                                        attrs: {
-                                          indeterminate: "",
-                                          label: "Moderate posts"
-                                        }
-                                      })
-                                    ],
-                                    1
+                                    2
                                   )
                                 ],
                                 1
@@ -23064,9 +23067,23 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("v-col", { attrs: { cols: "3" } }, [
-                            _c("div", { staticClass: "mt-5" }, [
-                              _vm._v(" " + _vm._s(role.description) + " ")
-                            ])
+                            _c(
+                              "div",
+                              { staticClass: "mt-5" },
+                              [
+                                _c("v-textarea", {
+                                  attrs: { rules: [_vm.rules.counter] },
+                                  model: {
+                                    value: role.description,
+                                    callback: function($$v) {
+                                      _vm.$set(role, "description", $$v)
+                                    },
+                                    expression: "role.description"
+                                  }
+                                })
+                              ],
+                              1
+                            )
                           ])
                         ],
                         1
@@ -23077,11 +23094,22 @@ var render = function() {
                         [
                           _c("v-spacer"),
                           _vm._v(" "),
-                          _c("v-btn", { attrs: { text: "", color: "error" } }, [
-                            _vm._v(
-                              "\n                        Delete\n                    "
-                            )
-                          ]),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { text: "", color: "error" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteRole(role)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        Delete\n                    "
+                              )
+                            ]
+                          ),
                           _vm._v(" "),
                           _c(
                             "v-btn",
@@ -23095,7 +23123,18 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-btn",
-                            { attrs: { text: "", color: "primary" } },
+                            {
+                              attrs: {
+                                text: "",
+                                color: "primary",
+                                disabled: !role.valid
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.saveRole(role)
+                                }
+                              }
+                            },
                             [
                               _vm._v(
                                 "\n                        Save\n                    "
@@ -84782,6 +84821,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth.js */ "./resources/js/store/auth.js");
 /* harmony import */ var _invitation_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./invitation.js */ "./resources/js/store/invitation.js");
 /* harmony import */ var _role_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./role.js */ "./resources/js/store/role.js");
+/* harmony import */ var _permission_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./permission.js */ "./resources/js/store/permission.js");
+
 
 
 
@@ -84794,7 +84835,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     auth: _auth_js__WEBPACK_IMPORTED_MODULE_3__["default"],
     invitation: _invitation_js__WEBPACK_IMPORTED_MODULE_4__["default"],
     system: _system_js__WEBPACK_IMPORTED_MODULE_2__["default"],
-    role: _role_js__WEBPACK_IMPORTED_MODULE_5__["default"]
+    role: _role_js__WEBPACK_IMPORTED_MODULE_5__["default"],
+    permission: _permission_js__WEBPACK_IMPORTED_MODULE_6__["default"]
   }
 }));
 
@@ -84934,6 +84976,71 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./resources/js/store/permission.js":
+/*!******************************************!*\
+  !*** ./resources/js/store/permission.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    permissions: []
+  },
+  getters: {
+    permissions: function permissions(state) {
+      return state.permissions;
+    }
+  },
+  mutations: {
+    SET_DATA: function SET_DATA(state, data) {
+      state.permissions = data;
+    }
+  },
+  actions: {
+    fetch: function fetch(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/permission').then(function (response) {
+                  commit('SET_DATA', response.data);
+                });
+
+              case 3:
+                return _context.abrupt("return", _context.sent);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/role.js":
 /*!************************************!*\
   !*** ./resources/js/store/role.js ***!
@@ -84947,14 +85054,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -84964,7 +85068,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   getters: {
     roles: function roles(state) {
-      return state.invitations;
+      return state.roles;
     }
   },
   mutations: {
@@ -84997,7 +85101,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    update: function update(_ref2, data) {
+    store: function store(_ref2, data) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var dispatch;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -85006,7 +85110,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 dispatch = _ref2.dispatch;
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch("/api/role/".concat(data.id), data);
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/role', data);
 
               case 3:
                 return _context2.abrupt("return", dispatch('fetch'));
@@ -85019,7 +85123,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    "delete": function _delete(_ref3, id) {
+    update: function update(_ref3, data) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var dispatch;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -85028,7 +85132,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 dispatch = _ref3.dispatch;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/role/".concat(id));
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch("/api/role/".concat(data.id), data);
 
               case 3:
                 return _context3.abrupt("return", dispatch('fetch'));
@@ -85039,6 +85143,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var dispatch;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                dispatch = _ref4.dispatch;
+                _context4.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/role/".concat(id));
+
+              case 3:
+                return _context4.abrupt("return", dispatch('fetch'));
+
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     }
   }

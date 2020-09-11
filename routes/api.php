@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::resource('/invitation', 'InvitationController');
     Route::resource('/role', 'RoleController');
+    Route::resource('/permission', 'PermissionController');
 });
 
 Route::post('/isCodeBusy', 'InvitationController@isCodeBusy');

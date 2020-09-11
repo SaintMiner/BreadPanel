@@ -10,14 +10,19 @@ class RoleController extends Controller
 {
     public function index() {
         return Role::all();
-    },
+    }
 
     public function store(Request $request) {
+        return $request;
         $this->validate($request, [
             'name' => ['required', 'string','min: 4'],
             'description' => ['nullable', 'string'],
-            'color' => ['nullable', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/',
+            'color' => ['nullable', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
         ]);
         Role::create($request->all());
+    }
+
+    public function update(Request $request, $id) {
+        Role::find($id)->update($request->all());
     }
 }

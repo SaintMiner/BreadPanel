@@ -1,6 +1,4 @@
 import axios from "axios";
-import { update } from "lodash";
-import { Store } from "vuex";
 
 export default {
     namespaced: true,
@@ -12,7 +10,7 @@ export default {
     
     getters: {
         roles(state) {
-            return state.invitations;
+            return state.roles;
         }
     },
 
@@ -29,8 +27,9 @@ export default {
             });
         },
         
-        async Store({ dispatch }, data) {
-
+        async store({ dispatch }, data) {
+            await axios.post('/api/role', data);
+            return dispatch('fetch');
         },
 
         async update({ dispatch }, data) {
