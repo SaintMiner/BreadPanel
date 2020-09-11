@@ -27,7 +27,7 @@ export default {
                     title: 'Invitations',
                     path: 'invitation',
                     icon: 'mdi-label',
-                    permissions: ['invite manager'],
+                    permissions: ['create invitation'],
                 },
                 {
                     title: 'Permission',
