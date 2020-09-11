@@ -23,7 +23,7 @@
                                 <v-row class="label-fix">
                                     <v-col cols="12"> <v-text-field v-model="role.name" label="Name" counter="50"> </v-text-field> </v-col>
                                     <v-col v-for="permission in permissions":key="permission.id" cols="4">
-                                        <v-checkbox :label="permission.name"></v-checkbox>
+                                        <v-checkbox :label="permission.name" :value="permission.id" v-model="role.permissions"></v-checkbox>
                                     </v-col>
                                 </v-row>
                             </v-form>
@@ -109,9 +109,13 @@ export default {
             delete: 'role/delete',
         }),
 
+        check(permission) {
+            console.log(permission);
+        },
+
         addRolePanel() {
             this.newRole = true;
-            this.roles.unshift({name: '', description: '', isNew: true});
+            this.roles.unshift({name: '', description: '', isNew: true, permissions: []});
             this.$nextTick(() => {
                 this.rolePanel = this.roles.length - 1;
             })

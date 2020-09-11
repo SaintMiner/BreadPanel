@@ -2686,6 +2686,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     update: 'role/update',
     "delete": 'role/delete'
   })), {}, {
+    check: function check(permission) {
+      console.log(permission);
+    },
     addRolePanel: function addRolePanel() {
       var _this = this;
 
@@ -2693,7 +2696,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.roles.unshift({
         name: '',
         description: '',
-        isNew: true
+        isNew: true,
+        permissions: []
       });
       this.$nextTick(function () {
         _this.rolePanel = _this.roles.length - 1;
@@ -23079,7 +23083,21 @@ var render = function() {
                                           },
                                           [
                                             _c("v-checkbox", {
-                                              attrs: { label: permission.name }
+                                              attrs: {
+                                                label: permission.name,
+                                                value: permission.id
+                                              },
+                                              model: {
+                                                value: role.permissions,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    role,
+                                                    "permissions",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "role.permissions"
+                                              }
                                             })
                                           ],
                                           1
