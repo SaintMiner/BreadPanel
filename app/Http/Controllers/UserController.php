@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     
     public function index() {
-        return User::all();
+        return UserResource::collection(User::all());
     }
 
     public function user(Request $request) {

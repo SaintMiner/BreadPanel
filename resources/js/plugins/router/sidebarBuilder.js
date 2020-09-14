@@ -9,5 +9,5 @@ const sidebar = routes.map(route => {
         permissions: route.permissions,
     }
 });
-console.log(sidebar);
+
 export default sidebar;

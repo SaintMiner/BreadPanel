@@ -23,6 +23,7 @@
                 class="elevation-1"
                 :items="invitations"
                 :headers="headers"
+                :loading="loading"
             >
             <template v-slot:item.actions="{ item }">
                 <v-icon
@@ -85,6 +86,7 @@ export default {
     computed: {
         ...mapGetters({
             invitations: 'invitation/invitations',
+            loading: 'invitation/loading',
         })
     },
 

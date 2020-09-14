@@ -4,6 +4,7 @@ import store from '../../store';
 
 import Invitation from '../../components/System/Invitation/Invitation.vue';
 import Role from '../../components/System/Role/Role.vue';
+import User from '../../components/User/User.vue';
 
 import PermissionTest from '../../components/ParmissionTest.vue';
 
@@ -25,7 +26,7 @@ const routes = [
         authenticated: true
     },
     {
-        title: 'Permission',
+        title: 'Permissions',
         path: 'permission',
         component: PermissionTest,
         icon: 'mdi-label',
@@ -33,9 +34,17 @@ const routes = [
         authenticated: false
     },
     {
-        title: 'Role',
+        title: 'Roles',
         path: 'role',
         component: Role,
+        icon: 'mdi-label',
+        permissions: [],
+        authenticated: true
+    },
+    {
+        title: 'Users',
+        path: 'user',
+        component: User,
         icon: 'mdi-label',
         permissions: [],
         authenticated: true

@@ -6,18 +6,24 @@ export default {
 
     state: {
         invitations: [],
+        loading: false,
     },
 
     
     getters: {
         invitations(state) {
             return state.invitations;
+        },
+
+        loading(state) {
+            return state.loading;
         }
     },
 
     mutations: {
         SET_DATA(state, data) {
             state.invitations = data;
+            state.loading = false;
         }
     },
 
@@ -27,7 +33,8 @@ export default {
             return dispatch('fetch');
         },
 
-        async fetch({ commit }) {
+        async fetch({ commit, state }) {
+            state.loading = true;
             return await axios.get('/api/invitation').then(response => {
                 commit('SET_DATA', response.data);
             });

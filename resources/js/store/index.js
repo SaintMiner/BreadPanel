@@ -6,6 +6,7 @@ import system from './system.js';
 import auth from './auth.js';
 import invitation from './invitation.js';
 import role from './role.js';
+import user from './user.js';
 import permission from './permission.js';
 
 Vue.use(Vuex);
@@ -16,6 +17,7 @@ export default new Vuex.Store({
         invitation,
         system,
         role,
+        user,
         permission,
     }
 });

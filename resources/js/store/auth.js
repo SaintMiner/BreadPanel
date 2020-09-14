@@ -69,7 +69,7 @@ export default {
         },
 
         me ({ commit }) {
-            return axios.get('/api/user').then((response) => {
+            return axios.get('/api/me').then((response) => {
                 commit('SET_AUTHENTICATED', true)
                 commit('SET_USER', response.data)
             }).catch(() => {
