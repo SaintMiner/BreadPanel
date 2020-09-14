@@ -2408,6 +2408,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2940,6 +2951,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2966,7 +2983,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     loading: 'user/loading'
   })),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    fetch: 'user/fetch'
+    fetch: 'user/fetch',
+    block: 'user/block'
   })),
   mounted: function mounted() {
     this.fetch();
@@ -22852,30 +22870,99 @@ var render = function() {
                   var item = ref.item
                   return [
                     _c(
-                      "v-icon",
+                      "v-tooltip",
                       {
-                        staticClass: "mr-2",
-                        attrs: { small: "" },
-                        on: {
-                          click: function($event) {
-                            return _vm.editItem(item)
-                          }
-                        }
+                        attrs: { bottom: "" },
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-icon",
+                                    _vm._g(
+                                      _vm._b(
+                                        {
+                                          staticClass: "mr-2",
+                                          attrs: { small: "" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.editItem(item)
+                                            }
+                                          }
+                                        },
+                                        "v-icon",
+                                        attrs,
+                                        false
+                                      ),
+                                      on
+                                    ),
+                                    [
+                                      _vm._v(
+                                        "\n                            mdi-pencil\n                        "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ],
+                          null,
+                          true
+                        )
                       },
-                      [_vm._v("\n                mdi-pencil\n            ")]
+                      [_vm._v(" "), _c("span", [_vm._v("edit")])]
                     ),
                     _vm._v(" "),
                     _c(
-                      "v-icon",
+                      "v-tooltip",
                       {
-                        attrs: { small: "" },
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteItem(item)
-                          }
-                        }
+                        attrs: { bottom: "" },
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-icon",
+                                    _vm._g(
+                                      _vm._b(
+                                        {
+                                          staticClass: "mr-2",
+                                          attrs: { small: "" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.deleteItem(item)
+                                            }
+                                          }
+                                        },
+                                        "v-icon",
+                                        attrs,
+                                        false
+                                      ),
+                                      on
+                                    ),
+                                    [
+                                      _vm._v(
+                                        "\n                            mdi-delete\n                        "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ],
+                          null,
+                          true
+                        )
                       },
-                      [_vm._v("\n                mdi-delete\n            ")]
+                      [_vm._v(" "), _c("span", [_vm._v("delete")])]
                     )
                   ]
                 }
@@ -23576,7 +23663,7 @@ var render = function() {
                             [
                               _c(
                                 "v-col",
-                                { attrs: { cols: "2" } },
+                                { attrs: { lg: "2", sm: "3" } },
                                 [
                                   _c(
                                     "v-avatar",
@@ -23606,7 +23693,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-col",
-                                { staticClass: "pt-0", attrs: { cols: "10" } },
+                                { staticClass: "pt-0", attrs: { lg: "10" } },
                                 [
                                   _c(
                                     "v-row",
@@ -23696,7 +23783,7 @@ var render = function() {
                                         "v-col",
                                         {
                                           staticClass: "text-right",
-                                          attrs: { cols: "2" }
+                                          attrs: { lg: "2" }
                                         },
                                         [_c("span", {}, [_vm._v(" #1267 ")])]
                                       )
@@ -23804,12 +23891,61 @@ var render = function() {
                   var item = ref.item
                   return [
                     _c(
-                      "v-icon",
-                      { staticClass: "mr-2", attrs: { small: "" } },
-                      [
-                        _vm._v(
-                          "\n                    mdi-pencil\n                "
+                      "v-tooltip",
+                      {
+                        attrs: { bottom: "" },
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-icon",
+                                    _vm._g(
+                                      _vm._b(
+                                        {
+                                          staticClass: "mr-2",
+                                          attrs: { small: "" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.block(item)
+                                            }
+                                          }
+                                        },
+                                        "v-icon",
+                                        attrs,
+                                        false
+                                      ),
+                                      on
+                                    ),
+                                    [
+                                      _vm._v(
+                                        "\n                            mdi-account-cancel" +
+                                          _vm._s(
+                                            item.blocked ? "-outline" : ""
+                                          ) +
+                                          "\n                        "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ],
+                          null,
+                          true
                         )
+                      },
+                      [
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(
+                            _vm._s(item.blocked ? "un" : "") + "block user"
+                          )
+                        ])
                       ]
                     )
                   ]
@@ -86135,6 +86271,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee);
+      }))();
+    },
+    block: function block(_ref2, data) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var dispatch, rootState;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                dispatch = _ref2.dispatch, rootState = _ref2.rootState;
+
+                if (!(rootState.auth.user.id == data.id)) {
+                  _context2.next = 3;
+                  break;
+                }
+
+                return _context2.abrupt("return", alert('You can\'t block/(unblock?) yourself!'));
+
+              case 3:
+                _context2.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/users/".concat(data.id, "/block"));
+
+              case 5:
+                return _context2.abrupt("return", dispatch('fetch'));
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     } // async store({ dispatch }, data) {
     //     await axios.post('/api/user', data);

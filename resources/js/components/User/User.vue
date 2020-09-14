@@ -14,12 +14,18 @@
                 :loading="loading"
             >
                 <template v-slot:item.actions="{ item }">
-                    <v-icon
-                        small
-                        class="mr-2"
-                    >
-                        mdi-pencil
-                    </v-icon>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">                            
+                            <v-icon v-bind="attrs" v-on="on"
+                                small
+                                class="mr-2"
+                                @click="block(item)"
+                            >
+                                mdi-account-cancel{{item.blocked ? '-outline' : ''}}
+                            </v-icon>
+                        </template>
+                        <span>{{item.blocked ? 'un' : ''}}block user</span>
+                    </v-tooltip>
                 </template>
             </v-data-table>
         </v-card>
@@ -50,8 +56,10 @@ export default {
 
     methods: {
         ...mapActions({
-            fetch: 'user/fetch'
+            fetch: 'user/fetch',
+            block: 'user/block'
         }),
+
     },
     
     mounted() {

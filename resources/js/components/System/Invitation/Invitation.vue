@@ -25,20 +25,31 @@
                 :headers="headers"
                 :loading="loading"
             >
-            <template v-slot:item.actions="{ item }">
-                <v-icon
-                    small
-                    class="mr-2"
-                    @click="editItem(item)"
-                >
-                    mdi-pencil
-                </v-icon>
-                <v-icon
-                    small
-                    @click="deleteItem(item)"
-                >
-                    mdi-delete
-                </v-icon>
+                <template v-slot:item.actions="{ item }">
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">                            
+                            <v-icon v-bind="attrs" v-on="on"
+                                small
+                                class="mr-2"
+                                @click="editItem(item)"
+                            >
+                                mdi-pencil
+                            </v-icon>
+                        </template>
+                        <span>edit</span>
+                    </v-tooltip>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">                            
+                            <v-icon v-bind="attrs" v-on="on"
+                                small
+                                class="mr-2"
+                                @click="deleteItem(item)"
+                            >
+                                mdi-delete
+                            </v-icon>
+                        </template>
+                        <span>delete</span>
+                    </v-tooltip>
                 </template>
             </v-data-table>
         </v-card>

@@ -15,13 +15,13 @@
                     <v-row class="mx-5">
                         <v-col>
                             <v-row>
-                                <v-col cols="2">
+                                <v-col lg="2" sm="3">
                                     <v-avatar color="purple darken-4" size="160"> 
                                         <!-- <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" > -->
                                         <span class="white--text headline"> <h1> {{initials}} </h1> </span>
                                     </v-avatar>
                                 </v-col>
-                                <v-col cols="10" class="pt-0">
+                                <v-col lg="10" class="pt-0">
                                     <v-row justify="space-between">
                                         <v-col>
                                             <!-- <v-chip-group
@@ -44,7 +44,7 @@
                                                 </v-tooltip>
                                             <!-- </v-chip-group> -->
                                         </v-col>
-                                        <v-col cols="2" class="text-right">
+                                        <v-col lg="2" class="text-right">
                                             <span class=""> #1267 </span>
                                         </v-col>
                                     </v-row>

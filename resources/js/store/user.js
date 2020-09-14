@@ -33,6 +33,15 @@ export default {
                 commit('SET_DATA', response.data);
             });
         },
+
+        async block({ dispatch, rootState }, data) {
+            // console.log(data);
+            if (rootState.auth.user.id == data.id) {
+                return alert('You can\'t block/(unblock?) yourself!');
+            }
+            await axios.get(`/api/users/${data.id}/block`);
+            return dispatch('fetch');
+        }
         
         // async store({ dispatch }, data) {
         //     await axios.post('/api/user', data);

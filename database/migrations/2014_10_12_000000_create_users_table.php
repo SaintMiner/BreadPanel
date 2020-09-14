@@ -19,7 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
             $table->unsignedBigInteger('invitation_id')->nullable();
-            
+            $table->boolean('blocked')->default(false);
+
             $table->rememberToken();
             $table->timestamps();
         });

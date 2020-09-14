@@ -18,6 +18,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', 'UserController@user');
     Route::get('/invitation/generate', 'InvitationController@generate');
 
+    Route::get('users/{id}/block', 'UserController@block');
+
     Route::resource('/invitation', 'InvitationController');
     Route::resource('/role', 'RoleController');
     Route::resource('/permission', 'PermissionController');
