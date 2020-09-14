@@ -2031,6 +2031,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2055,8 +2058,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       focused: {
         password: false
       },
-      requestTimeout: null,
+      requestCodeTimeout: null,
       loadingCheckCode: false,
+      requestUsernameTimeout: null,
+      loadingCheckUsername: false,
       rules: {
         password_confirmation: function password_confirmation(value) {
           return value === _this.registerForm.password || "Password must match";
@@ -2065,6 +2070,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: {
+    username: {
+      set: function set(value) {
+        this.registerForm.username = value;
+        this.errors.username = [];
+        this.success.username = false;
+        this.checkUserUsername();
+      },
+      get: function get() {
+        return this.registerForm.username;
+      }
+    },
     invitation_code: {
       set: function set(value) {
         this.registerForm.invitation_code = value;
@@ -2097,9 +2113,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])({
     checkCode: 'auth/checkCode',
+    checkUsername: 'auth/checkUsername',
     registerUser: 'auth/register'
   })), {}, {
-    checkUserCode: function checkUserCode() {
+    checkUserUsername: function checkUserUsername() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
@@ -2107,8 +2124,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (_this2.requestTimeout) {
-                  clearTimeout(_this2.requestTimeout);
+                if (_this2.requestUsernameTimeout) {
+                  clearTimeout(_this2.requestUsernameTimeout);
                 }
 
                 _context2.next = 3;
@@ -2118,24 +2135,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     while (1) {
                       switch (_context.prev = _context.next) {
                         case 0:
-                          if (!_this2.registerForm.invitation_code) {
+                          if (!_this2.registerForm.username) {
                             _context.next = 7;
                             break;
                           }
 
-                          _this2.loadingCheckCode = true;
+                          _this2.loadingCheckUsername = true;
                           _context.next = 4;
-                          return _this2.checkCode(_this2.registerForm.invitation_code);
+                          return _this2.checkUsername(_this2.registerForm.username);
 
                         case 4:
                           errorMessage = _context.sent;
-                          _this2.loadingCheckCode = false;
+                          _this2.loadingCheckUsername = false;
 
                           if (errorMessage == "Free") {
-                            _this2.errors.invitation_code = [];
-                            _this2.success.invitation_code = true;
+                            _this2.errors.username = [];
+                            _this2.success.username = true;
                           } else {
-                            _this2.errors.invitation_code = errorMessage;
+                            _this2.errors.username = errorMessage;
                           }
 
                         case 7:
@@ -2147,7 +2164,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 })), 350);
 
               case 3:
-                _this2.requestTimeout = _context2.sent;
+                _this2.requestUsernameTimeout = _context2.sent;
 
               case 4:
               case "end":
@@ -2157,36 +2174,94 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee2);
       }))();
     },
-    register: function register() {
+    checkUserCode: function checkUserCode() {
       var _this3 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                if (!_this3.$refs.registerForm.validate()) {
-                  _context3.next = 5;
+                if (_this3.requestCodeTimeout) {
+                  clearTimeout(_this3.requestCodeTimeout);
+                }
+
+                _context4.next = 3;
+                return setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+                  var errorMessage;
+                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+                    while (1) {
+                      switch (_context3.prev = _context3.next) {
+                        case 0:
+                          if (!_this3.registerForm.invitation_code) {
+                            _context3.next = 7;
+                            break;
+                          }
+
+                          _this3.loadingCheckCode = true;
+                          _context3.next = 4;
+                          return _this3.checkCode(_this3.registerForm.invitation_code);
+
+                        case 4:
+                          errorMessage = _context3.sent;
+                          _this3.loadingCheckCode = false;
+
+                          if (errorMessage == "Free") {
+                            _this3.errors.invitation_code = [];
+                            _this3.success.invitation_code = true;
+                          } else {
+                            _this3.errors.invitation_code = errorMessage;
+                          }
+
+                        case 7:
+                        case "end":
+                          return _context3.stop();
+                      }
+                    }
+                  }, _callee3);
+                })), 350);
+
+              case 3:
+                _this3.requestCodeTimeout = _context4.sent;
+
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    register: function register() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                if (!_this4.$refs.registerForm.validate()) {
+                  _context5.next = 5;
                   break;
                 }
 
-                _context3.next = 3;
-                return _this3.registerUser(_this3.registerForm);
+                _context5.next = 3;
+                return _this4.registerUser(_this4.registerForm);
 
               case 3:
-                res = _context3.sent;
+                res = _context5.sent;
 
                 if (res === 201) {
-                  _this3.$router.push('main');
+                  _this4.$router.push('main');
                 }
 
               case 5:
               case "end":
-                return _context3.stop();
+                return _context5.stop();
             }
           }
-        }, _callee3);
+        }, _callee5);
       }))();
     }
   }),
@@ -22402,18 +22477,17 @@ var render = function() {
                                         _vm.rules.counter,
                                         _vm.rules.minimal,
                                         _vm.rules.excludeSpecialChars
-                                      ]
+                                      ],
+                                      loading: _vm.loadingCheckUsername,
+                                      success: _vm.success.username,
+                                      "error-messages": _vm.errors.username
                                     },
                                     model: {
-                                      value: _vm.registerForm.username,
+                                      value: _vm.username,
                                       callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.registerForm,
-                                          "username",
-                                          $$v
-                                        )
+                                        _vm.username = $$v
                                       },
-                                      expression: "registerForm.username"
+                                      expression: "username"
                                     }
                                   }),
                                   _vm._v(" "),
@@ -22537,7 +22611,8 @@ var render = function() {
                                     color: "primary",
                                     disabled:
                                       !_vm.validForm ||
-                                      !_vm.success.invitation_code
+                                      !_vm.success.invitation_code ||
+                                      !_vm.success.username
                                   },
                                   on: { click: _vm.register }
                                 },
@@ -85675,7 +85750,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   actions: {
-    checkCode: function checkCode(_ref, code) {
+    checkUsername: function checkUsername(_ref, username) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -85684,8 +85759,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _objectDestructuringEmpty(_ref);
 
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/isCodeBusy', {
-                  code: code
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/isUsernameBusy', {
+                  username: username
                 }).then(function (r) {
                   return r.data;
                 })["catch"](function (e) {
@@ -85703,25 +85778,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    signIn: function signIn(_ref2, creditals) {
+    checkCode: function checkCode(_ref2, code) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var dispatch;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                dispatch = _ref2.dispatch;
+                _objectDestructuringEmpty(_ref2);
+
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/sanctum/csrf-cookie');
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/isCodeBusy', {
+                  code: code
+                }).then(function (r) {
+                  return r.data;
+                })["catch"](function (e) {
+                  return e.response.data;
+                });
 
               case 3:
-                _context2.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/login', creditals);
+                return _context2.abrupt("return", _context2.sent);
 
-              case 5:
-                return _context2.abrupt("return", dispatch('me'));
-
-              case 6:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -85729,7 +85806,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    signOut: function signOut(_ref3) {
+    signIn: function signIn(_ref3, creditals) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var dispatch;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -85738,15 +85815,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 dispatch = _ref3.dispatch;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/logout');
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/sanctum/csrf-cookie');
 
               case 3:
-                _plugins_router_router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
-                  name: 'main'
-                });
-                return _context3.abrupt("return", dispatch('me'));
+                _context3.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/login', creditals);
 
               case 5:
+                return _context3.abrupt("return", dispatch('me'));
+
+              case 6:
               case "end":
                 return _context3.stop();
             }
@@ -85754,27 +85832,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    register: function register(_ref4, creditals) {
+    signOut: function signOut(_ref4) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-        var dispatch, res;
+        var dispatch;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 dispatch = _ref4.dispatch;
                 _context4.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('register', creditals).then(function (r) {
-                  return r.status;
-                })["catch"](function (e) {
-                  return e.response.data;
-                });
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/logout');
 
               case 3:
-                res = _context4.sent;
-                dispatch('me');
-                return _context4.abrupt("return", res);
+                _plugins_router_router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
+                  name: 'main'
+                });
+                return _context4.abrupt("return", dispatch('me'));
 
-              case 6:
+              case 5:
               case "end":
                 return _context4.stop();
             }
@@ -85782,8 +85857,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
-    me: function me(_ref5) {
-      var commit = _ref5.commit;
+    register: function register(_ref5, creditals) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var dispatch, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                dispatch = _ref5.dispatch;
+                _context5.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('register', creditals).then(function (r) {
+                  return r.status;
+                })["catch"](function (e) {
+                  return e.response.data;
+                });
+
+              case 3:
+                res = _context5.sent;
+                dispatch('me');
+                return _context5.abrupt("return", res);
+
+              case 6:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    me: function me(_ref6) {
+      var commit = _ref6.commit;
       return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/me').then(function (response) {
         commit('SET_AUTHENTICATED', true);
         commit('SET_USER', response.data);

@@ -43,7 +43,9 @@ export default {
     },
 
     actions: {
-        
+        async checkUsername({}, username) {
+            return await axios.post('/api/isUsernameBusy', {username: username}).then(r => r.data).catch(e => e.response.data);
+        },
 
         async checkCode({}, code) {
             return await axios.post('/api/isCodeBusy', {code: code}).then(r => r.data).catch(e => e.response.data);

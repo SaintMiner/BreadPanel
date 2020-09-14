@@ -15,8 +15,11 @@
                                     name="username"
                                     prepend-icon="mdi-account"
                                     type="text"
-                                    v-model="registerForm.username"
+                                    v-model="username"
                                     :rules="[rules.required, rules.counter, rules.minimal, rules.excludeSpecialChars]"
+                                    :loading="loadingCheckUsername"
+                                    :success="success.username"
+                                    :error-messages="errors.username"
                                 ></v-text-field>
 
                                 <v-text-field
@@ -64,7 +67,7 @@
                         </v-card-text>
                         <v-card-actions class="mt-5">
                             <v-spacer></v-spacer>
-                            <v-btn color="primary" :disabled="!validForm || !success.invitation_code" @click="register">Register</v-btn>
+                            <v-btn color="primary" :disabled="!validForm || !success.invitation_code || !success.username" @click="register">Register</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -104,8 +107,11 @@ export default {
                 password: false,
             },
 
-            requestTimeout: null,
+            requestCodeTimeout: null,
             loadingCheckCode: false,
+
+            requestUsernameTimeout: null,
+            loadingCheckUsername: false,
 
             rules: {
                 password_confirmation: value => value === this.registerForm.password || "Password must match",
@@ -114,6 +120,19 @@ export default {
     },
 
     computed: {
+        
+        username: {
+            set(value) {
+                this.registerForm.username = value;
+                this.errors.username = [];
+                this.success.username = false;
+                this.checkUserUsername();
+            },
+
+            get() {
+                return this.registerForm.username;
+            }
+        },
 
         invitation_code: {
             set(value) {
@@ -152,15 +171,36 @@ export default {
     methods: {
         ...mapActions({
             checkCode: 'auth/checkCode',
+            checkUsername: 'auth/checkUsername',
             registerUser: 'auth/register',
         }),
 
+        async checkUserUsername() {
+            if (this.requestUsernameTimeout) {
+                clearTimeout(this.requestUsernameTimeout);
+            }
+
+            this.requestUsernameTimeout = await setTimeout(async () => {
+                if (!!this.registerForm.username) {
+                    this.loadingCheckUsername = true;
+                    let errorMessage = await this.checkUsername(this.registerForm.username);
+                    this.loadingCheckUsername = false;
+                    if (errorMessage == "Free") {
+                        this.errors.username = [];
+                        this.success.username = true;
+                    } else {
+                        this.errors.username = errorMessage;
+                    }
+                }
+            }, 350);
+        },
+
         async checkUserCode() {
-            if (this.requestTimeout) {
-                clearTimeout(this.requestTimeout);
+            if (this.requestCodeTimeout) {
+                clearTimeout(this.requestCodeTimeout);                
             }
             
-            this.requestTimeout = await setTimeout(async () => {
+            this.requestCodeTimeout = await setTimeout(async () => {
                 if (!!this.registerForm.invitation_code) {
                     this.loadingCheckCode = true;
                     let errorMessage = await this.checkCode(this.registerForm.invitation_code);

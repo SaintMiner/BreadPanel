@@ -27,3 +27,4 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::post('/isCodeBusy', 'InvitationController@isCodeBusy');
+Route::post('/isUsernameBusy', 'UserController@isUsernameBusy');
