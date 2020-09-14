@@ -18,7 +18,7 @@
                                 <v-col cols="2">
                                     <v-avatar color="purple darken-4" size="160"> 
                                         <!-- <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" > -->
-                                        <span class="white--text headline"> <h1> SM </h1> </span>
+                                        <span class="white--text headline"> <h1> {{initials}} </h1> </span>
                                     </v-avatar>
                                 </v-col>
                                 <v-col cols="10" class="pt-0">
@@ -69,7 +69,15 @@ export default {
     computed: {
         ...mapGetters({
             user: 'auth/user',
-        })
+        }),
+
+        initials() {
+            if (this.user) {
+                let initials = this.user.username.match(/[A-Z]/g) || [];
+                initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();    
+                return initials;
+            }
+        }
     }
 }
 </script>

@@ -2874,9 +2874,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     user: 'auth/user'
-  }))
+  })), {}, {
+    initials: function initials() {
+      if (this.user) {
+        var initials = this.user.username.match(/[A-Z]/g) || [];
+        initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
+        return initials;
+      }
+    }
+  })
 });
 
 /***/ }),
@@ -23495,7 +23503,13 @@ var render = function() {
                                       _c(
                                         "span",
                                         { staticClass: "white--text headline" },
-                                        [_c("h1", [_vm._v(" SM ")])]
+                                        [
+                                          _c("h1", [
+                                            _vm._v(
+                                              " " + _vm._s(_vm.initials) + " "
+                                            )
+                                          ])
+                                        ]
                                       )
                                     ]
                                   )
@@ -85131,7 +85145,7 @@ var routes = [{
   component: _components_System_Invitation_Invitation_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
   icon: 'mdi-label',
   permissions: ['manage invitations'],
-  authenticated: false
+  authenticated: true
 }, {
   title: 'Permission',
   path: 'permission',
@@ -85145,7 +85159,7 @@ var routes = [{
   component: _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   icon: 'mdi-label',
   permissions: [],
-  authenticated: false
+  authenticated: true
 }];
 /* harmony default export */ __webpack_exports__["default"] = (routes);
 
@@ -85189,7 +85203,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _mixins_permissions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/permissions */ "./resources/js/mixins/permissions.js");
+/* harmony import */ var _plugins_router_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../plugins/router/router */ "./resources/js/plugins/router/router.js");
 
 
 function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
@@ -85305,9 +85319,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/logout');
 
               case 3:
+                _plugins_router_router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
+                  name: 'main'
+                });
                 return _context3.abrupt("return", dispatch('me'));
 
-              case 4:
+              case 5:
               case "end":
                 return _context3.stop();
             }

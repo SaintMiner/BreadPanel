@@ -1,5 +1,5 @@
 import axios from "axios";
-import permissions from "../mixins/permissions";
+import router from '../plugins/router/router';
 
 export default {
     namespaced: true,
@@ -58,7 +58,7 @@ export default {
 
         async signOut ({ dispatch }) {
             await axios.post('/logout');
-
+            router.push({name: 'main'});
             return dispatch('me');
         },
 

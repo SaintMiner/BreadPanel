@@ -22,7 +22,7 @@ const routes = [
         component: Invitation,
         icon: 'mdi-label',
         permissions: ['manage invitations'],
-        authenticated: false
+        authenticated: true
     },
     {
         title: 'Permission',
@@ -38,7 +38,7 @@ const routes = [
         component: Role,
         icon: 'mdi-label',
         permissions: [],
-        authenticated: false
+        authenticated: true
     }
 ];
 
