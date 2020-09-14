@@ -31,5 +31,7 @@ class SystemSeeder extends Seeder
             ->givePermissionTo(['manage invitations']);
         Role::create(['name' => 'Roles manager', 'guard_name' => Config::get('system.system_guard')])
             ->givePermissionTo(['manage roles']);
+        $role = Role::create(['name' => 'super-admin']);
+        $role->givePermissionTo(Permission::all());
     }
 }

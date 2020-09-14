@@ -13,6 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create(['username' => 'Admin', 'password' => Hash::make('password')]);
+        $user = User::create(['username' => 'Admin', 'password' => Hash::make('password')]);
+        $user->assignRole('super-admin');
     }
 }
