@@ -28,15 +28,20 @@
                                                 column
                                                 active-class="primary--text"
                                             > -->
-                                                <v-chip v-for="role in user.roles" :key="role.id"
-                                                    class="ma-2"
-                                                    color="success"
-                                                    outlined
-                                                    small
-                                                    >
-                                                    <v-icon left small>mdi-circle</v-icon>
-                                                    {{role.name}}
-                                                </v-chip>
+                                                <v-tooltip bottom v-for="role in user.roles" :key="role.id">
+                                                    <template v-slot:activator="{ on, attrs }">
+                                                        <v-chip v-bind="attrs" v-on="on"
+                                                            class="ma-2"
+                                                            color="success"
+                                                            outlined
+                                                            small
+                                                        >
+                                                            <v-icon left small>mdi-circle</v-icon>
+                                                            {{role.name}}
+                                                        </v-chip>
+                                                    </template>
+                                                <span>{{role.description}}</span>
+                                                </v-tooltip>
                                             <!-- </v-chip-group> -->
                                         </v-col>
                                         <v-col cols="2" class="text-right">

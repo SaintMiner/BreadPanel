@@ -2872,6 +2872,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
@@ -23529,31 +23534,77 @@ var render = function() {
                                         "v-col",
                                         _vm._l(_vm.user.roles, function(role) {
                                           return _c(
-                                            "v-chip",
+                                            "v-tooltip",
                                             {
                                               key: role.id,
-                                              staticClass: "ma-2",
-                                              attrs: {
-                                                color: "success",
-                                                outlined: "",
-                                                small: ""
-                                              }
+                                              attrs: { bottom: "" },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "activator",
+                                                    fn: function(ref) {
+                                                      var on = ref.on
+                                                      var attrs = ref.attrs
+                                                      return [
+                                                        _c(
+                                                          "v-chip",
+                                                          _vm._g(
+                                                            _vm._b(
+                                                              {
+                                                                staticClass:
+                                                                  "ma-2",
+                                                                attrs: {
+                                                                  color:
+                                                                    "success",
+                                                                  outlined: "",
+                                                                  small: ""
+                                                                }
+                                                              },
+                                                              "v-chip",
+                                                              attrs,
+                                                              false
+                                                            ),
+                                                            on
+                                                          ),
+                                                          [
+                                                            _c(
+                                                              "v-icon",
+                                                              {
+                                                                attrs: {
+                                                                  left: "",
+                                                                  small: ""
+                                                                }
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "mdi-circle"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(
+                                                              "\n                                                        " +
+                                                                _vm._s(
+                                                                  role.name
+                                                                ) +
+                                                                "\n                                                    "
+                                                            )
+                                                          ],
+                                                          1
+                                                        )
+                                                      ]
+                                                    }
+                                                  }
+                                                ],
+                                                null,
+                                                true
+                                              )
                                             },
                                             [
-                                              _c(
-                                                "v-icon",
-                                                {
-                                                  attrs: { left: "", small: "" }
-                                                },
-                                                [_vm._v("mdi-circle")]
-                                              ),
-                                              _vm._v(
-                                                "\n                                                " +
-                                                  _vm._s(role.name) +
-                                                  "\n                                            "
-                                              )
-                                            ],
-                                            1
+                                              _vm._v(" "),
+                                              _c("span", [
+                                                _vm._v(_vm._s(role.description))
+                                              ])
+                                            ]
                                           )
                                         }),
                                         1
