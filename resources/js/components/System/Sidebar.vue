@@ -2,7 +2,7 @@
     <v-navigation-drawer v-model="drawerState" app clipped>
             <v-list>
                 <template v-for="item in items" >
-                    <v-list-item link class="sidebar-link-clear" :to="item.path" :key="item.id" v-if="can(item.permissions)">
+                    <v-list-item link class="sidebar-link-clear" :to="item.path" :key="item.id" v-if="can(item.permissions) && (item.authenticated ? authenticated : true)">
                         <v-list-item-action>
                             <v-icon>{{item.icon}}</v-icon>
                         </v-list-item-action>
@@ -16,14 +16,20 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-import list from '../../plugins/sidebar.json';
+import { mapGetters, mapMutations } from 'vuex'
+import sidebarlist from '../../plugins/router/sidebarBuilder';
 export default {
     name: 'Sidebar',
 
+    computed: {
+        ...mapGetters({
+            authenticated: 'auth/authenticated',
+        })
+    },
+
     data() {
         return {
-            items: list,
+            items: sidebarlist,
         }
     },
 

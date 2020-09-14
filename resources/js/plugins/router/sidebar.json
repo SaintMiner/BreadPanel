@@ -3,24 +3,28 @@
         "title": "Profile",
         "path": "profile",
         "icon": "mdi-account-circle",
-        "permissions": []
+        "permissions": [],
+        "authenticated": true
     },
     {
         "title": "Invitations",
         "path": "invitation",
         "icon": "mdi-label",
-        "permissions": ["manage invitations"]
+        "permissions": ["manage invitations"],
+        "authenticated": false
     },
     {
         "title": "Permission",
         "path": "permission",
         "icon": "mdi-label",
-        "permissions": []
+        "permissions": [],
+        "authenticated": false
     },
     {
         "title": "Role",
         "path": "role",
         "icon": "mdi-label",
-        "permissions": []
+        "permissions": [],
+        "authenticated": false
     }
 ]

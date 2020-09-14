@@ -24,26 +24,31 @@
                                 <v-col cols="10" class="pt-0">
                                     <v-row justify="space-between">
                                         <v-col>
-                                            <v-chip
-                                                class="ma-2"
-                                                color="success"
-                                                outlined
-                                                small
-                                                >
-                                                <v-icon left small>mdi-circle</v-icon>
-                                                Server Status
-                                            </v-chip>
+                                            <!-- <v-chip-group
+                                                column
+                                                active-class="primary--text"
+                                            > -->
+                                                <v-chip v-for="role in user.roles" :key="role.id"
+                                                    class="ma-2"
+                                                    color="success"
+                                                    outlined
+                                                    small
+                                                    >
+                                                    <v-icon left small>mdi-circle</v-icon>
+                                                    {{role.name}}
+                                                </v-chip>
+                                            <!-- </v-chip-group> -->
                                         </v-col>
-                                        <v-col cols="2">
-                                            <span> #1267 </span>
+                                        <v-col cols="2" class="text-right">
+                                            <span class=""> #1267 </span>
                                         </v-col>
                                     </v-row>
                                     <v-chip
                                     class="ma-2"
                                     label
                                     >
-                                    <v-icon left>mdi-label</v-icon>
-                                    {{user.invitation}}
+                                        <v-icon left>mdi-label</v-icon>
+                                        <span> {{user.invitation}} </span>
                                     </v-chip>
                                 </v-col>
                             </v-row>

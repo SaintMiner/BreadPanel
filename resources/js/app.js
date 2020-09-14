@@ -5,7 +5,7 @@ import App from './components/App.vue';
 
 // plugins
 import axios from 'axios'
-import router from "./plugins/router.js";
+import router from "./plugins/router/router.js";
 
 
 //storage
