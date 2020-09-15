@@ -2967,6 +2967,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
@@ -23870,23 +23893,109 @@ var render = function() {
                                   ),
                                   _vm._v(" "),
                                   _c(
-                                    "v-chip",
-                                    {
-                                      staticClass: "ma-2",
-                                      attrs: { label: "" }
-                                    },
+                                    "v-col",
+                                    { staticClass: "p-0" },
                                     [
-                                      _c("v-icon", { attrs: { left: "" } }, [
-                                        _vm._v("mdi-label")
-                                      ]),
+                                      _vm.user.invitation
+                                        ? _c(
+                                            "v-chip",
+                                            {
+                                              staticClass: "ma-2",
+                                              attrs: { label: "" }
+                                            },
+                                            [
+                                              _c(
+                                                "v-icon",
+                                                { attrs: { left: "" } },
+                                                [_vm._v("mdi-label")]
+                                              ),
+                                              _vm._v(" "),
+                                              _c("span", [
+                                                _vm._v(
+                                                  " " +
+                                                    _vm._s(
+                                                      _vm.user.invitation
+                                                    ) +
+                                                    " "
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          )
+                                        : _vm._e()
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    { staticClass: "p-0" },
+                                    [
+                                      _vm.user.blocked
+                                        ? _c(
+                                            "v-chip",
+                                            _vm._g(
+                                              _vm._b(
+                                                {
+                                                  staticClass: "ma-2",
+                                                  attrs: {
+                                                    color: "red",
+                                                    outlined: "",
+                                                    small: ""
+                                                  }
+                                                },
+                                                "v-chip",
+                                                _vm.attrs,
+                                                false
+                                              ),
+                                              _vm.on
+                                            ),
+                                            [
+                                              _c(
+                                                "v-icon",
+                                                {
+                                                  attrs: { left: "", small: "" }
+                                                },
+                                                [_vm._v("mdi-cancel")]
+                                              ),
+                                              _vm._v(
+                                                "\n                                        Blocked indefinitely :)\n                                    "
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        : _vm._e(),
                                       _vm._v(" "),
-                                      _c("span", [
-                                        _vm._v(
-                                          " " +
-                                            _vm._s(_vm.user.invitation) +
-                                            " "
-                                        )
-                                      ])
+                                      _c(
+                                        "v-chip",
+                                        _vm._g(
+                                          _vm._b(
+                                            {
+                                              staticClass: "ma-2",
+                                              attrs: {
+                                                color: "blue",
+                                                outlined: "",
+                                                small: ""
+                                              }
+                                            },
+                                            "v-chip",
+                                            _vm.attrs,
+                                            false
+                                          ),
+                                          _vm.on
+                                        ),
+                                        [
+                                          _c(
+                                            "v-icon",
+                                            { attrs: { left: "", small: "" } },
+                                            [_vm._v("mdi-circle")]
+                                          ),
+                                          _vm._v(
+                                            "\n                                        Very happy\n                                    "
+                                          )
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   )

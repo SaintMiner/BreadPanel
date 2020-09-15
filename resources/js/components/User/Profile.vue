@@ -48,14 +48,37 @@
                                             <span class=""> #1267 </span>
                                         </v-col>
                                     </v-row>
-                                    <v-chip
-                                    class="ma-2"
-                                    label
-                                    >
-                                        <v-icon left>mdi-label</v-icon>
-                                        <span> {{user.invitation}} </span>
-                                    </v-chip>
+                                    <v-col class="p-0">
+                                        <v-chip v-if="user.invitation"
+                                        class="ma-2"
+                                        label
+                                        >
+                                            <v-icon left>mdi-label</v-icon>
+                                            <span> {{user.invitation}} </span>
+                                        </v-chip>
+                                    </v-col>
+                                    <v-col class="p-0">
+                                        <v-chip v-bind="attrs" v-on="on" v-if="user.blocked"
+                                            class="ma-2"
+                                            color="red"
+                                            outlined
+                                            small
+                                        >
+                                            <v-icon left small>mdi-cancel</v-icon>
+                                            Blocked indefinitely :)
+                                        </v-chip>
+                                        <v-chip v-bind="attrs" v-on="on"
+                                            class="ma-2"
+                                            color="blue"
+                                            outlined
+                                            small
+                                        >
+                                            <v-icon left small>mdi-circle</v-icon>
+                                            Very happy
+                                        </v-chip>
+                                    </v-col>
                                 </v-col>
+                                
                             </v-row>
                             
                             {{user}}
