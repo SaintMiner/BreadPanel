@@ -22,6 +22,7 @@ class User extends JsonResource
             'username' => $this->username,
             'permissions' => $this->getAllPermissions()->pluck('name'),
             'roles' => $this->roles->makeHidden(['pivot', 'permissions']),
+            'crumbs' => $this->crumbs,
             'created_at' => $this->created_at ? Carbon::parse($this->created_at)->toDateTimeString() : NULL,
             'blocked' => $this->blocked,
         ];

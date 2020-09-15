@@ -13,7 +13,8 @@ use App\invitation;
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
-
+    
+    protected $guard_name = 'sanctum';
     /**
      * The attributes that are mass assignable.
      *

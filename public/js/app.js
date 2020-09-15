@@ -2287,6 +2287,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -3097,6 +3111,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3111,6 +3151,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         text: 'Registered',
         value: 'created_at'
+      }, {
+        text: 'Crumbs',
+        value: 'crumbs'
       }, {
         text: 'Actions',
         value: 'actions',
@@ -22727,11 +22770,51 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-container", { attrs: { fluid: "" } }, [
-    _c("div", [
-      _vm._v("\n        There will be bread board. You are welcome!\n    ")
-    ])
-  ])
+  return _c(
+    "v-container",
+    { attrs: { fluid: "" } },
+    [
+      _c(
+        "v-row",
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "12", lg: "12" } },
+            [_c("v-card", [_vm._v("\n                kek\n                ")])],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "12", lg: "4" } },
+            [
+              _c("v-card", [
+                _vm._v(
+                  "\n                    There will be bread board. You are welcome!\n                "
+                )
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "12", lg: "4" } },
+            [
+              _c("v-card", [
+                _vm._v(
+                  "\n                    There will be bread board. You are welcome!\n                "
+                )
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -24269,6 +24352,94 @@ var render = function() {
                 fn: function(ref) {
                   var item = ref.item
                   return [
+                    _c(
+                      "v-tooltip",
+                      {
+                        attrs: { bottom: "" },
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-icon",
+                                    _vm._g(
+                                      _vm._b(
+                                        {
+                                          staticClass: "mr-2",
+                                          attrs: { small: "" },
+                                          on: { click: function($event) {} }
+                                        },
+                                        "v-icon",
+                                        attrs,
+                                        false
+                                      ),
+                                      on
+                                    ),
+                                    [
+                                      _vm._v(
+                                        "\n                            mdi-cash-plus\n                        "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ],
+                          null,
+                          true
+                        )
+                      },
+                      [_vm._v(" "), _c("span", [_vm._v("give crumbs")])]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-tooltip",
+                      {
+                        attrs: { bottom: "" },
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-icon",
+                                    _vm._g(
+                                      _vm._b(
+                                        {
+                                          staticClass: "mr-2",
+                                          attrs: { small: "" },
+                                          on: { click: function($event) {} }
+                                        },
+                                        "v-icon",
+                                        attrs,
+                                        false
+                                      ),
+                                      on
+                                    ),
+                                    [
+                                      _vm._v(
+                                        "\n                            mdi-cash-minus\n                        "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ],
+                          null,
+                          true
+                        )
+                      },
+                      [_vm._v(" "), _c("span", [_vm._v("take crumbs")])]
+                    ),
+                    _vm._v(" "),
                     _c(
                       "v-tooltip",
                       {
@@ -86038,7 +86209,7 @@ var routes = [{
   title: 'Roles',
   path: 'role',
   component: _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-  icon: 'mdi-label',
+  icon: 'mdi-account-box-multiple',
   permissions: [],
   authenticated: true,
   blocked: false
@@ -86046,7 +86217,7 @@ var routes = [{
   title: 'Users',
   path: 'user',
   component: _components_User_User_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-  icon: 'mdi-label',
+  icon: 'mdi-account-multiple',
   permissions: [],
   authenticated: true,
   blocked: false

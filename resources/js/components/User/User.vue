@@ -19,13 +19,39 @@
                             <v-icon v-bind="attrs" v-on="on"
                                 small
                                 class="mr-2"
+                                @click=""
+                            >
+                                mdi-cash-plus
+                            </v-icon>
+                        </template>
+                        <span>give crumbs</span>
+                    </v-tooltip>
+
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">                            
+                            <v-icon v-bind="attrs" v-on="on"
+                                small
+                                class="mr-2"
+                                @click=""
+                            >
+                                mdi-cash-minus
+                            </v-icon>
+                        </template>
+                        <span>take crumbs</span>
+                    </v-tooltip>
+
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">                            
+                            <v-icon v-bind="attrs" v-on="on"
+                                small
+                                class="mr-2"
                                 @click="block(item)"
                             >
                                 mdi-account-cancel{{item.blocked ? '-outline' : ''}}
                             </v-icon>
                         </template>
                         <span>{{item.blocked ? 'un' : ''}}block user</span>
-                    </v-tooltip>
+                    </v-tooltip>                    
                 </template>
             </v-data-table>
         </v-card>
@@ -42,6 +68,7 @@ export default {
                 {text: 'Username', value: 'username'},
                 {text: 'Invitation', value: 'invitation'},
                 {text: 'Registered', value: 'created_at'},
+                {text: 'Crumbs', value: 'crumbs'},
                 {text: 'Actions', value: 'actions', sortable: false},
             ],
         }

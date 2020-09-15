@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 
 use App\User;
+use Spatie\Permission\Models\Permission;
 
 class UserSeeder extends Seeder
 {
@@ -13,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create(['username' => 'Admin', 'password' => Hash::make('password')]);
+        $user = User::create(['username' => 'Admin', 'password' => Hash::make('password'), 'crumbs' => 1000]);
         $user->assignRole('super-admin');
     }
 }
