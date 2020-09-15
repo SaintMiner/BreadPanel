@@ -49,13 +49,32 @@
                                         </v-col>
                                     </v-row>
                                     <v-col class="p-0">
-                                        <v-chip v-if="user.invitation"
-                                        class="ma-2"
-                                        label
-                                        >
-                                            <v-icon left>mdi-label</v-icon>
-                                            <span> {{user.invitation}} </span>
-                                        </v-chip>
+                                        <v-tooltip top v-if="user.created_at">
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-chip  v-bind="attrs" v-on="on"
+                                                    
+                                                    class="ma-2"
+                                                    label
+                                                >
+                                                <v-icon left>mdi-calendar</v-icon>
+                                                <span> {{user.created_at}} </span>
+                                                </v-chip>
+                                            </template>
+                                            <span> Registration date </span>
+                                        </v-tooltip>
+                                        <v-tooltip top v-if="user.invitation">
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-chip  v-bind="attrs" v-on="on"
+                                                    
+                                                    class="ma-2"
+                                                    label
+                                                >
+                                                <v-icon left>mdi-label</v-icon>
+                                                <span> {{user.invitation}} </span>
+                                                </v-chip>
+                                            </template>
+                                            <span> Invitation code </span>
+                                        </v-tooltip>
                                     </v-col>
                                     <v-col class="p-0">
                                         <v-chip v-bind="attrs" v-on="on" v-if="user.blocked"

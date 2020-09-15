@@ -2270,6 +2270,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Main.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Main.vue?vue&type=script&lang=js& ***!
@@ -2897,6 +2918,25 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -22672,6 +22712,34 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=template&id=256d0018&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=template&id=256d0018& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("v-container", { attrs: { fluid: "" } }, [
+    _c("div", [
+      _vm._v("\n        There will be bread board. You are welcome!\n    ")
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Main.vue?vue&type=template&id=b9c20fb8&":
 /*!*******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Main.vue?vue&type=template&id=b9c20fb8& ***!
@@ -23896,31 +23964,155 @@ var render = function() {
                                     "v-col",
                                     { staticClass: "p-0" },
                                     [
-                                      _vm.user.invitation
+                                      _vm.user.created_at
                                         ? _c(
-                                            "v-chip",
+                                            "v-tooltip",
                                             {
-                                              staticClass: "ma-2",
-                                              attrs: { label: "" }
+                                              attrs: { top: "" },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "activator",
+                                                    fn: function(ref) {
+                                                      var on = ref.on
+                                                      var attrs = ref.attrs
+                                                      return [
+                                                        _c(
+                                                          "v-chip",
+                                                          _vm._g(
+                                                            _vm._b(
+                                                              {
+                                                                staticClass:
+                                                                  "ma-2",
+                                                                attrs: {
+                                                                  label: ""
+                                                                }
+                                                              },
+                                                              "v-chip",
+                                                              attrs,
+                                                              false
+                                                            ),
+                                                            on
+                                                          ),
+                                                          [
+                                                            _c(
+                                                              "v-icon",
+                                                              {
+                                                                attrs: {
+                                                                  left: ""
+                                                                }
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "mdi-calendar"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c("span", [
+                                                              _vm._v(
+                                                                " " +
+                                                                  _vm._s(
+                                                                    _vm.user
+                                                                      .created_at
+                                                                  ) +
+                                                                  " "
+                                                              )
+                                                            ])
+                                                          ],
+                                                          1
+                                                        )
+                                                      ]
+                                                    }
+                                                  }
+                                                ],
+                                                null,
+                                                false,
+                                                1710324221
+                                              )
                                             },
                                             [
-                                              _c(
-                                                "v-icon",
-                                                { attrs: { left: "" } },
-                                                [_vm._v("mdi-label")]
-                                              ),
                                               _vm._v(" "),
                                               _c("span", [
-                                                _vm._v(
-                                                  " " +
-                                                    _vm._s(
-                                                      _vm.user.invitation
-                                                    ) +
-                                                    " "
-                                                )
+                                                _vm._v(" Registration date ")
                                               ])
-                                            ],
-                                            1
+                                            ]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.user.invitation
+                                        ? _c(
+                                            "v-tooltip",
+                                            {
+                                              attrs: { top: "" },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "activator",
+                                                    fn: function(ref) {
+                                                      var on = ref.on
+                                                      var attrs = ref.attrs
+                                                      return [
+                                                        _c(
+                                                          "v-chip",
+                                                          _vm._g(
+                                                            _vm._b(
+                                                              {
+                                                                staticClass:
+                                                                  "ma-2",
+                                                                attrs: {
+                                                                  label: ""
+                                                                }
+                                                              },
+                                                              "v-chip",
+                                                              attrs,
+                                                              false
+                                                            ),
+                                                            on
+                                                          ),
+                                                          [
+                                                            _c(
+                                                              "v-icon",
+                                                              {
+                                                                attrs: {
+                                                                  left: ""
+                                                                }
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "mdi-label"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c("span", [
+                                                              _vm._v(
+                                                                " " +
+                                                                  _vm._s(
+                                                                    _vm.user
+                                                                      .invitation
+                                                                  ) +
+                                                                  " "
+                                                              )
+                                                            ])
+                                                          ],
+                                                          1
+                                                        )
+                                                      ]
+                                                    }
+                                                  }
+                                                ],
+                                                null,
+                                                false,
+                                                527660178
+                                              )
+                                            },
+                                            [
+                                              _vm._v(" "),
+                                              _c("span", [
+                                                _vm._v(" Invitation code ")
+                                              ])
+                                            ]
                                           )
                                         : _vm._e()
                                     ],
@@ -84782,6 +84974,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/BreadBoard/BreadBoard.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/BreadBoard/BreadBoard.vue ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BreadBoard_vue_vue_type_template_id_256d0018___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BreadBoard.vue?vue&type=template&id=256d0018& */ "./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=template&id=256d0018&");
+/* harmony import */ var _BreadBoard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BreadBoard.vue?vue&type=script&lang=js& */ "./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BreadBoard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BreadBoard_vue_vue_type_template_id_256d0018___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _BreadBoard_vue_vue_type_template_id_256d0018___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/BreadBoard/BreadBoard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BreadBoard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./BreadBoard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BreadBoard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=template&id=256d0018&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=template&id=256d0018& ***!
+  \******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BreadBoard_vue_vue_type_template_id_256d0018___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./BreadBoard.vue?vue&type=template&id=256d0018& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BreadBoard/BreadBoard.vue?vue&type=template&id=256d0018&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BreadBoard_vue_vue_type_template_id_256d0018___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BreadBoard_vue_vue_type_template_id_256d0018___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Main.vue":
 /*!******************************************!*\
   !*** ./resources/js/components/Main.vue ***!
@@ -85729,14 +85990,12 @@ var router = _routes__WEBPACK_IMPORTED_MODULE_0__["default"].map(function (route
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_Authentication_Register_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Authentication/Register.vue */ "./resources/js/components/Authentication/Register.vue");
-/* harmony import */ var _components_User_Profile_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/User/Profile.vue */ "./resources/js/components/User/Profile.vue");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store */ "./resources/js/store/index.js");
-/* harmony import */ var _components_System_Invitation_Invitation_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/System/Invitation/Invitation.vue */ "./resources/js/components/System/Invitation/Invitation.vue");
-/* harmony import */ var _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/System/Role/Role.vue */ "./resources/js/components/System/Role/Role.vue");
-/* harmony import */ var _components_User_User_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/User/User.vue */ "./resources/js/components/User/User.vue");
-/* harmony import */ var _components_ParmissionTest_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/ParmissionTest.vue */ "./resources/js/components/ParmissionTest.vue");
-
+/* harmony import */ var _components_User_Profile_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/User/Profile.vue */ "./resources/js/components/User/Profile.vue");
+/* harmony import */ var _components_BreadBoard_BreadBoard_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/BreadBoard/BreadBoard.vue */ "./resources/js/components/BreadBoard/BreadBoard.vue");
+/* harmony import */ var _components_System_Invitation_Invitation_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/System/Invitation/Invitation.vue */ "./resources/js/components/System/Invitation/Invitation.vue");
+/* harmony import */ var _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/System/Role/Role.vue */ "./resources/js/components/System/Role/Role.vue");
+/* harmony import */ var _components_User_User_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/User/User.vue */ "./resources/js/components/User/User.vue");
+/* harmony import */ var _components_ParmissionTest_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/ParmissionTest.vue */ "./resources/js/components/ParmissionTest.vue");
 
 
 
@@ -85744,9 +86003,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [{
+  title: 'BreadBoard',
+  path: 'breadboard',
+  component: _components_BreadBoard_BreadBoard_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+  icon: 'mdi-bread-slice',
+  permissions: [],
+  authenticated: true,
+  blocked: true
+}, {
   title: 'Profile',
   path: 'profile',
-  component: _components_User_Profile_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+  component: _components_User_Profile_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
   icon: 'mdi-account-circle',
   permissions: [],
   authenticated: true,
@@ -85754,7 +86021,7 @@ var routes = [{
 }, {
   title: 'Invitations',
   path: 'invitation',
-  component: _components_System_Invitation_Invitation_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+  component: _components_System_Invitation_Invitation_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
   icon: 'mdi-label',
   permissions: ['manage invitations'],
   authenticated: true,
@@ -85762,7 +86029,7 @@ var routes = [{
 }, {
   title: 'Permissions',
   path: 'permission',
-  component: _components_ParmissionTest_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+  component: _components_ParmissionTest_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
   icon: 'mdi-label',
   permissions: [],
   authenticated: false,
@@ -85770,7 +86037,7 @@ var routes = [{
 }, {
   title: 'Roles',
   path: 'role',
-  component: _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+  component: _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
   icon: 'mdi-label',
   permissions: [],
   authenticated: true,
@@ -85778,7 +86045,7 @@ var routes = [{
 }, {
   title: 'Users',
   path: 'user',
-  component: _components_User_User_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+  component: _components_User_User_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   icon: 'mdi-label',
   permissions: [],
   authenticated: true,

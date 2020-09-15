@@ -1,6 +1,6 @@
-import Register from '../../components/Authentication/Register.vue';
 import Profile from '../../components/User/Profile.vue';
-import store from '../../store';
+
+import BreadBoard from '../../components/BreadBoard/BreadBoard.vue';
 
 import Invitation from '../../components/System/Invitation/Invitation.vue';
 import Role from '../../components/System/Role/Role.vue';
@@ -9,6 +9,15 @@ import User from '../../components/User/User.vue';
 import PermissionTest from '../../components/ParmissionTest.vue';
 
 const routes = [
+    {
+        title: 'BreadBoard',
+        path: 'breadboard',
+        component: BreadBoard,
+        icon: 'mdi-bread-slice',
+        permissions: [],
+        authenticated: true,
+        blocked: true,
+    },
     {
         title: 'Profile',
         path: 'profile',

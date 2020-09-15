@@ -64,6 +64,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $code = app('App\Http\Controllers\InvitationController')->checkCode($data['invitation_code']);
+        if ($code['status'] != 200) {
+            abort(400, 'Code is incorect!');
+        }
         return User::create([
             'username' => $data['username'],
             'password' => Hash::make($data['password']),

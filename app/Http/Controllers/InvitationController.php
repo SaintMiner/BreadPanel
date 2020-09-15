@@ -24,13 +24,18 @@ class InvitationController extends Controller
     }
 
     public function isCodeBusy(Request $request) {
-        if (empty(Invitation::where('code', $request->code)->first())) {
-            return response('That code does not exist!', 500);
+        $result = $this->checkCode($request->code);
+        return response($result['message'], $result['status']);
+    }
+
+    public function checkCode($code) {
+        if (empty(Invitation::where('code', $code)->first())) {
+            return ['message' => 'That code does not exist!', 'status' => 500];
         }
-        if (Invitation::where('code', $request->code)->first()->user()->count() > 0) {
-            return response('That code is already taken!', 500);
+        if (Invitation::where('code', $code)->first()->user()->count() > 0) {
+            return ['message' => 'That code is already taken!', 'status' => 500];
         } else {
-            return response('Free', 200);
+            return ['message' => 'Free', 'status' => 200];
         }
     }
 
