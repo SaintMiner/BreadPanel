@@ -7,6 +7,7 @@ const sidebar = routes.map(route => {
         icon: route.icon,
         authenticated: route.authenticated,
         permissions: route.permissions,
+        blocked: route.blocked,
     }
 });
 

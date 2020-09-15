@@ -10,6 +10,12 @@ const router = routes.map(route => {
             if (route.authenticated) {
                 if (!store.getters['auth/authenticated']) {
                     next({name: 'main'});
+                } else {
+                    if (!route.blocked) {
+                        if (store.getters['auth/user'].blocked) {
+                            next({name: 'main'});
+                        }
+                    }
                 }
             }
 

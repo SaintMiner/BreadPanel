@@ -15,7 +15,8 @@ const routes = [
         component: Profile,
         icon: 'mdi-account-circle',
         permissions: [],
-        authenticated: true
+        authenticated: true,
+        blocked: true,
     },
     {
         title: 'Invitations',
@@ -23,7 +24,8 @@ const routes = [
         component: Invitation,
         icon: 'mdi-label',
         permissions: ['manage invitations'],
-        authenticated: true
+        authenticated: true,
+        blocked: false,
     },
     {
         title: 'Permissions',
@@ -31,7 +33,8 @@ const routes = [
         component: PermissionTest,
         icon: 'mdi-label',
         permissions: [],
-        authenticated: false
+        authenticated: false,
+        blocked: true,
     },
     {
         title: 'Roles',
@@ -39,7 +42,8 @@ const routes = [
         component: Role,
         icon: 'mdi-label',
         permissions: [],
-        authenticated: true
+        authenticated: true,
+        blocked: false,
     },
     {
         title: 'Users',
@@ -47,7 +51,8 @@ const routes = [
         component: User,
         icon: 'mdi-label',
         permissions: [],
-        authenticated: true
+        authenticated: true,
+        blocked: false,
     }
 ];
 

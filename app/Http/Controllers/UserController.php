@@ -16,8 +16,7 @@ class UserController extends Controller
     }
 
     public function block($id) {
-        if (Auth::user()->id == $id) abort(400, 'Can\'t block/unblock yourself');
-
+        if (Auth::id() == $id) abort(400, 'Can\'t block/unblock yourself');
         $user = User::find($id);
         $user->blocked = !$user->blocked;
         return $user->update();

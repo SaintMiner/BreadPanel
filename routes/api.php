@@ -15,15 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
+
     Route::get('/me', 'UserController@user');
-    Route::get('/invitation/generate', 'InvitationController@generate');
 
-    Route::get('users/{id}/block', 'UserController@block');
+    Route::middleware('blocked')->group(function () {
+        Route::get('/invitation/generate', 'InvitationController@generate');
 
-    Route::resource('/invitation', 'InvitationController');
-    Route::resource('/role', 'RoleController');
-    Route::resource('/permission', 'PermissionController');
-    Route::resource('/users', 'UserController');
+        Route::get('users/{id}/block', 'UserController@block');
+
+        Route::resource('/invitation', 'InvitationController');
+        Route::resource('/role', 'RoleController');
+        Route::resource('/permission', 'PermissionController');
+        Route::resource('/users', 'UserController');
+    });
 });
 
 Route::post('/isCodeBusy', 'InvitationController@isCodeBusy');

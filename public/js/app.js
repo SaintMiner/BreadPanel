@@ -2863,12 +2863,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Sidebar',
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    authenticated: 'auth/authenticated'
+    authenticated: 'auth/authenticated',
+    user: 'auth/user'
   })),
   data: function data() {
     return {
@@ -23639,7 +23641,8 @@ var render = function() {
           _vm._l(_vm.items, function(item) {
             return [
               _vm.can(item.permissions) &&
-              (item.authenticated ? _vm.authenticated : true)
+              (item.authenticated ? _vm.authenticated : true) &&
+              (item.blocked ? true : !_vm.user.blocked)
                 ? _c(
                     "v-list-item",
                     {
@@ -85579,6 +85582,14 @@ var router = _routes__WEBPACK_IMPORTED_MODULE_0__["default"].map(function (route
           next({
             name: 'main'
           });
+        } else {
+          if (!route.blocked) {
+            if (_store__WEBPACK_IMPORTED_MODULE_1__["default"].getters['auth/user'].blocked) {
+              next({
+                name: 'main'
+              });
+            }
+          }
         }
       }
 
@@ -85629,35 +85640,40 @@ var routes = [{
   component: _components_User_Profile_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   icon: 'mdi-account-circle',
   permissions: [],
-  authenticated: true
+  authenticated: true,
+  blocked: true
 }, {
   title: 'Invitations',
   path: 'invitation',
   component: _components_System_Invitation_Invitation_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
   icon: 'mdi-label',
   permissions: ['manage invitations'],
-  authenticated: true
+  authenticated: true,
+  blocked: false
 }, {
   title: 'Permissions',
   path: 'permission',
   component: _components_ParmissionTest_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
   icon: 'mdi-label',
   permissions: [],
-  authenticated: false
+  authenticated: false,
+  blocked: true
 }, {
   title: 'Roles',
   path: 'role',
   component: _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   icon: 'mdi-label',
   permissions: [],
-  authenticated: true
+  authenticated: true,
+  blocked: false
 }, {
   title: 'Users',
   path: 'user',
   component: _components_User_User_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
   icon: 'mdi-label',
   permissions: [],
-  authenticated: true
+  authenticated: true,
+  blocked: false
 }];
 /* harmony default export */ __webpack_exports__["default"] = (routes);
 
@@ -85680,7 +85696,8 @@ var sidebar = _routes__WEBPACK_IMPORTED_MODULE_0__["default"].map(function (rout
     path: route.path,
     icon: route.icon,
     authenticated: route.authenticated,
-    permissions: route.permissions
+    permissions: route.permissions,
+    blocked: route.blocked
   };
 });
 /* harmony default export */ __webpack_exports__["default"] = (sidebar);
