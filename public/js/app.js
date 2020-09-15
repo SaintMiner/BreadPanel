@@ -24034,6 +24034,10 @@ var render = function() {
                     },
                     [
                       _c("v-card-title", [
+                        _c("div", [
+                          _vm._v("User " + _vm._s(_vm.$route.params.id))
+                        ]),
+                        _vm._v(" "),
                         _c("h1", { staticClass: "mx-2" }, [
                           _vm._v(" " + _vm._s(_vm.user.username) + " ")
                         ])
@@ -86319,7 +86323,8 @@ var routes = [{
   icon: 'mdi-bread-slice',
   permissions: [],
   authenticated: true,
-  blocked: true
+  blocked: true // dontSidebar: true,
+
 }, {
   title: 'Profile',
   path: 'profile',
@@ -86376,7 +86381,9 @@ var routes = [{
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./routes */ "./resources/js/plugins/router/routes.js");
 
-var sidebar = _routes__WEBPACK_IMPORTED_MODULE_0__["default"].map(function (route) {
+var sidebar = _routes__WEBPACK_IMPORTED_MODULE_0__["default"].filter(function (route) {
+  return !route.dontSidebar;
+}).map(function (route) {
   return {
     title: route.title,
     path: route.path,

@@ -17,6 +17,7 @@ const routes = [
         permissions: [],
         authenticated: true,
         blocked: true,
+        // dontSidebar: true,
     },
     {
         title: 'Profile',

@@ -8,7 +8,7 @@
                         src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
                     >
                         <v-card-title> 
-                            
+                            <div>User {{ $route.params.id }}</div>
                             <h1 class="mx-2"> {{user.username}} </h1>
                         </v-card-title>
                     </v-img>

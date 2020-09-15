@@ -1,6 +1,6 @@
 import routes from './routes';
 
-const sidebar = routes.map(route => {
+const sidebar = routes.filter(route => !route.dontSidebar).map(route => {
     return {
         title: route.title,
         path: route.path,
