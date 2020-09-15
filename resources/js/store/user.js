@@ -5,6 +5,7 @@ export default {
 
     state: {
         users: [],
+        viewingUser: null,
         crumbTop: [],
         loading: false,
     },
@@ -13,6 +14,10 @@ export default {
     getters: {
         users(state) {
             return state.users;
+        },
+        
+        viewUser() {
+
         },
 
         crumbTop(state) {
@@ -33,6 +38,10 @@ export default {
         SET_CRUMB_TOP_DATA(state, data) {
             state.crumbTop = data;
         },
+
+        SET_VIEWING_USER(state, data) {
+            state.viewingUser = data;
+        }
     },
 
     actions: {
@@ -40,6 +49,12 @@ export default {
             state.loading = true;
             return await axios.get('/api/users').then(response => {
                 commit('SET_DATA', response.data);
+            });
+        },
+        
+        async viewUser({ commit }, id) {
+            return await axios.get(`/api/users/${id}`).then(response => {
+                commit('SET_VIEWING_USER', response.data);
             });
         },
 

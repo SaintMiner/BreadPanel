@@ -2,7 +2,7 @@
     <v-navigation-drawer v-model="drawerState" app clipped>
             <v-list>
                 <template v-for="item in items" >
-                    <v-list-item link class="sidebar-link-clear" :to="item.path" :key="item.id" 
+                    <v-list-item link class="sidebar-link-clear" :to="{name: item.name}" :key="item.id" 
                         v-if="can(item.permissions) && (item.authenticated ? authenticated : true) && (item.blocked ? true : !user.blocked)">
                         <v-list-item-action>
                             <v-icon>{{item.icon}}</v-icon>

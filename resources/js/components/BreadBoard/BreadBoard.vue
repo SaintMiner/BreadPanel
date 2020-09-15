@@ -23,7 +23,7 @@
                                 <tbody>
                                     <tr v-for="(item, index) in users" :key="item.id">
                                         <td>{{ index+1 }}</td>
-                                        <td>{{ item.username }}</td>
+                                        <td>  <router-link :user_id="item.id" :to="{name: 'profile', params: {user_id: item.id}}"> {{ item.username }} </router-link> </td>
                                         <td>{{ item.crumbs }}</td>
                                     </tr>
                                 </tbody>
@@ -66,6 +66,8 @@ export default {
         ...mapActions({
             fetchCrumbTop: 'user/crumbTop',
         }),
+
+
     },
 
     mounted() {

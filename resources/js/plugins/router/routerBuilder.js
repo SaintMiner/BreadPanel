@@ -3,7 +3,7 @@ import store from '../../store';
 
 const router = routes.map(route => {
     return {
-        name: route.title,
+        name: route.name,
         path: route.path,
         component: route.component,
         beforeEnter: route.permissions || route.authenticated ? function(to, from, next) {

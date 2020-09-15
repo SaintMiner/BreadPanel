@@ -3089,16 +3089,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    user: 'auth/user'
+    me: 'auth/user'
   })), {}, {
+    user: function user() {
+      return this.me;
+    },
     initials: function initials() {
       if (this.user) {
         var initials = this.user.username.match(/[A-Z]/g) || [];
@@ -3106,7 +3104,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return initials;
       }
     }
-  })
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    viewUser: 'user/viewUser'
+  })),
+  mounted: function mounted() {
+    if (this.$route.params.user_id) {
+      this.viewUser(this.$route.params.user_id);
+    }
+  }
 });
 
 /***/ }),
@@ -22893,9 +22899,33 @@ var render = function() {
                                         return _c("tr", { key: item.id }, [
                                           _c("td", [_vm._v(_vm._s(index + 1))]),
                                           _vm._v(" "),
-                                          _c("td", [
-                                            _vm._v(_vm._s(item.username))
-                                          ]),
+                                          _c(
+                                            "td",
+                                            [
+                                              _c(
+                                                "router-link",
+                                                {
+                                                  attrs: {
+                                                    user_id: item.id,
+                                                    to: {
+                                                      name: "profile",
+                                                      params: {
+                                                        user_id: item.id
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    " " +
+                                                      _vm._s(item.username) +
+                                                      " "
+                                                  )
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          ),
                                           _vm._v(" "),
                                           _c("td", [
                                             _vm._v(_vm._s(item.crumbs))
@@ -23961,7 +23991,7 @@ var render = function() {
                     {
                       key: item.id,
                       staticClass: "sidebar-link-clear",
-                      attrs: { link: "", to: item.path }
+                      attrs: { link: "", to: { name: item.name } }
                     },
                     [
                       _c(
@@ -24035,7 +24065,7 @@ var render = function() {
                     [
                       _c("v-card-title", [
                         _c("div", [
-                          _vm._v("User " + _vm._s(_vm.$route.params.id))
+                          _vm._v("User " + _vm._s(_vm.$route.params.user_id))
                         ]),
                         _vm._v(" "),
                         _c("h1", { staticClass: "mx-2" }, [
@@ -24146,11 +24176,11 @@ var render = function() {
                                                               ]
                                                             ),
                                                             _vm._v(
-                                                              "\n                                                        " +
+                                                              "\n                                                    " +
                                                                 _vm._s(
                                                                   role.name
                                                                 ) +
-                                                                "\n                                                    "
+                                                                "\n                                                "
                                                             )
                                                           ],
                                                           1
@@ -24352,22 +24382,14 @@ var render = function() {
                                       _vm.user.blocked
                                         ? _c(
                                             "v-chip",
-                                            _vm._g(
-                                              _vm._b(
-                                                {
-                                                  staticClass: "ma-2",
-                                                  attrs: {
-                                                    color: "red",
-                                                    outlined: "",
-                                                    small: ""
-                                                  }
-                                                },
-                                                "v-chip",
-                                                _vm.attrs,
-                                                false
-                                              ),
-                                              _vm.on
-                                            ),
+                                            {
+                                              staticClass: "ma-2",
+                                              attrs: {
+                                                color: "red",
+                                                outlined: "",
+                                                small: ""
+                                              }
+                                            },
                                             [
                                               _c(
                                                 "v-icon",
@@ -24386,22 +24408,14 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "v-chip",
-                                        _vm._g(
-                                          _vm._b(
-                                            {
-                                              staticClass: "ma-2",
-                                              attrs: {
-                                                color: "blue",
-                                                outlined: "",
-                                                small: ""
-                                              }
-                                            },
-                                            "v-chip",
-                                            _vm.attrs,
-                                            false
-                                          ),
-                                          _vm.on
-                                        ),
+                                        {
+                                          staticClass: "ma-2",
+                                          attrs: {
+                                            color: "blue",
+                                            outlined: "",
+                                            small: ""
+                                          }
+                                        },
                                         [
                                           _c(
                                             "v-icon",
@@ -86257,7 +86271,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var router = _routes__WEBPACK_IMPORTED_MODULE_0__["default"].map(function (route) {
   return {
-    name: route.title,
+    name: route.name,
     path: route.path,
     component: route.component,
     beforeEnter: route.permissions || route.authenticated ? function (to, from, next) {
@@ -86316,25 +86330,40 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/** EXAMPLE
+    title: 'Profile', //used in sidebar 
+    name: 'profile', //used in sidebar and router. Sidebar routes by name
+    path: 'profile/:user_id?', //path can be customized
+    icon: 'mdi-account-circle', //icon for sidebar
+    component: Profile, //for router
+    permissions: [], //for router & sidebar permission filtering
+    authenticated: true, //TRUE - need auth
+    blocked: true, //for router & sidebar blocked user filtering | TRUE - blocked users can access
+    dontSidebar: true, //TRUE - dont show in sidebar
+ */
+
 var routes = [{
   title: 'BreadBoard',
+  name: 'breadboard',
   path: 'breadboard',
   component: _components_BreadBoard_BreadBoard_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   icon: 'mdi-bread-slice',
   permissions: [],
   authenticated: true,
+  blocked: true
+}, {
+  title: 'Profile',
+  name: 'profile',
+  path: 'profile/:user_id?',
+  icon: 'mdi-account-circle',
+  component: _components_User_Profile_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  permissions: [],
+  authenticated: true,
   blocked: true // dontSidebar: true,
 
 }, {
-  title: 'Profile',
-  path: 'profile',
-  component: _components_User_Profile_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-  icon: 'mdi-account-circle',
-  permissions: [],
-  authenticated: true,
-  blocked: true
-}, {
   title: 'Invitations',
+  name: 'invitation',
   path: 'invitation',
   component: _components_System_Invitation_Invitation_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
   icon: 'mdi-label',
@@ -86343,6 +86372,7 @@ var routes = [{
   blocked: false
 }, {
   title: 'Permissions',
+  name: 'permission',
   path: 'permission',
   component: _components_ParmissionTest_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
   icon: 'mdi-label',
@@ -86351,6 +86381,7 @@ var routes = [{
   blocked: true
 }, {
   title: 'Roles',
+  name: 'role',
   path: 'role',
   component: _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
   icon: 'mdi-account-box-multiple',
@@ -86359,6 +86390,7 @@ var routes = [{
   blocked: false
 }, {
   title: 'Users',
+  name: 'user',
   path: 'user',
   component: _components_User_User_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   icon: 'mdi-account-multiple',
@@ -86386,6 +86418,7 @@ var sidebar = _routes__WEBPACK_IMPORTED_MODULE_0__["default"].filter(function (r
 }).map(function (route) {
   return {
     title: route.title,
+    name: route.name,
     path: route.path,
     icon: route.icon,
     authenticated: route.authenticated,
@@ -87044,6 +87077,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   namespaced: true,
   state: {
     users: [],
+    viewingUser: null,
     crumbTop: [],
     loading: false
   },
@@ -87051,6 +87085,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     users: function users(state) {
       return state.users;
     },
+    viewUser: function viewUser() {},
     crumbTop: function crumbTop(state) {
       return state.crumbTop;
     },
@@ -87065,6 +87100,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     SET_CRUMB_TOP_DATA: function SET_CRUMB_TOP_DATA(state, data) {
       state.crumbTop = data;
+    },
+    SET_VIEWING_USER: function SET_VIEWING_USER(state, data) {
+      state.viewingUser = data;
     }
   },
   actions: {
@@ -87093,30 +87131,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    block: function block(_ref2, data) {
+    viewUser: function viewUser(_ref2, id) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var dispatch, rootState;
+        var commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                dispatch = _ref2.dispatch, rootState = _ref2.rootState;
-
-                if (!(rootState.auth.user.id == data.id)) {
-                  _context2.next = 3;
-                  break;
-                }
-
-                return _context2.abrupt("return", alert('You can\'t block/(unblock?) yourself!'));
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/users/".concat(id)).then(function (response) {
+                  commit('SET_VIEWING_USER', response.data);
+                });
 
               case 3:
-                _context2.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/users/".concat(data.id, "/block"));
+                return _context2.abrupt("return", _context2.sent);
 
-              case 5:
-                return _context2.abrupt("return", dispatch('fetch'));
-
-              case 6:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -87124,28 +87155,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    crumbTop: function crumbTop(_ref3) {
+    block: function block(_ref3, data) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var commit;
+        var dispatch, rootState;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                commit = _ref3.commit;
-                _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/crumbtop").then(function (response) {
-                  commit('SET_CRUMB_TOP_DATA', response.data);
-                });
+                dispatch = _ref3.dispatch, rootState = _ref3.rootState;
+
+                if (!(rootState.auth.user.id == data.id)) {
+                  _context3.next = 3;
+                  break;
+                }
+
+                return _context3.abrupt("return", alert('You can\'t block/(unblock?) yourself!'));
 
               case 3:
-                return _context3.abrupt("return", _context3.sent);
+                _context3.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/users/".concat(data.id, "/block"));
 
-              case 4:
+              case 5:
+                return _context3.abrupt("return", dispatch('fetch'));
+
+              case 6:
               case "end":
                 return _context3.stop();
             }
           }
         }, _callee3);
+      }))();
+    },
+    crumbTop: function crumbTop(_ref4) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                _context4.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/crumbtop").then(function (response) {
+                  commit('SET_CRUMB_TOP_DATA', response.data);
+                });
+
+              case 3:
+                return _context4.abrupt("return", _context4.sent);
+
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     } // async store({ dispatch }, data) {
     //     await axios.post('/api/user', data);

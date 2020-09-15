@@ -15,6 +15,10 @@ class UserController extends Controller
         return UserResource::collection(User::all());
     }
 
+    public function show($id) {
+        return new UserResource(User::find($id));
+    }
+
     public function block($id) {
         if (Auth::id() == $id) abort(400, 'Can\'t block/unblock yourself');
         $user = User::find($id);
