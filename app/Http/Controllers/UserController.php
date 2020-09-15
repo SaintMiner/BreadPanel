@@ -34,4 +34,8 @@ class UserController extends Controller
         return new UserResource($request->user());
     }
 
+    public function crumbTop() {
+        return UserResource::collection(User::orderByDesc('crumbs')->orderBy('updated_at', 'ASC')->get());
+    }
+
 }

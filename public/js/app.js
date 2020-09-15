@@ -2279,6 +2279,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2301,7 +2308,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      board: null
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    users: 'user/crumbTop'
+  })),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    fetchCrumbTop: 'user/crumbTop'
+  })),
+  mounted: function mounted() {
+    this.fetchCrumbTop();
+  }
+});
 
 /***/ }),
 
@@ -22772,7 +22822,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
-    { attrs: { fluid: "" } },
+    { style: { "max-width": "100%" }, attrs: { fluid: "", tag: "section" } },
     [
       _c(
         "v-row",
@@ -22780,7 +22830,96 @@ var render = function() {
           _c(
             "v-col",
             { attrs: { cols: "12", lg: "12" } },
-            [_c("v-card", [_vm._v("\n                kek\n                ")])],
+            [
+              _c(
+                "v-row",
+                { attrs: { justify: "center" } },
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "12", lg: "8" } },
+                    [
+                      _c(
+                        "v-tabs",
+                        {
+                          attrs: { dark: "", centered: "" },
+                          model: {
+                            value: _vm.board,
+                            callback: function($$v) {
+                              _vm.board = $$v
+                            },
+                            expression: "board"
+                          }
+                        },
+                        [
+                          _c("v-tab", [_vm._v(" kek ")]),
+                          _vm._v(" "),
+                          _c("v-tab", [_vm._v(" lol ")]),
+                          _vm._v(" "),
+                          _c("v-tab", [_vm._v("cheburek")])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card",
+                        [
+                          _c("v-simple-table", {
+                            attrs: { "fixed-header": "", height: "500px" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function() {
+                                  return [
+                                    _c("thead", [
+                                      _c("tr", [
+                                        _c("th", { staticClass: "text-left" }, [
+                                          _vm._v("Place")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("th", { staticClass: "text-left" }, [
+                                          _vm._v("Username")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("th", { staticClass: "text-left" }, [
+                                          _vm._v("Crumbs")
+                                        ])
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "tbody",
+                                      _vm._l(_vm.users, function(item, index) {
+                                        return _c("tr", { key: item.id }, [
+                                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(_vm._s(item.username))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(_vm._s(item.crumbs))
+                                          ])
+                                        ])
+                                      }),
+                                      0
+                                    )
+                                  ]
+                                },
+                                proxy: true
+                              }
+                            ])
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
             1
           ),
           _vm._v(" "),
@@ -86898,11 +87037,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   namespaced: true,
   state: {
     users: [],
+    crumbTop: [],
     loading: false
   },
   getters: {
     users: function users(state) {
       return state.users;
+    },
+    crumbTop: function crumbTop(state) {
+      return state.crumbTop;
     },
     loading: function loading(state) {
       return state.loading;
@@ -86912,6 +87055,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     SET_DATA: function SET_DATA(state, data) {
       state.users = data;
       state.loading = false;
+    },
+    SET_CRUMB_TOP_DATA: function SET_CRUMB_TOP_DATA(state, data) {
+      state.crumbTop = data;
     }
   },
   actions: {
@@ -86969,6 +87115,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee2);
+      }))();
+    },
+    crumbTop: function crumbTop(_ref3) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                _context3.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/crumbtop").then(function (response) {
+                  commit('SET_CRUMB_TOP_DATA', response.data);
+                });
+
+              case 3:
+                return _context3.abrupt("return", _context3.sent);
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     } // async store({ dispatch }, data) {
     //     await axios.post('/api/user', data);

@@ -30,5 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
+Route::get('/crumbtop', 'UserController@crumbTop');
+
 Route::post('/isCodeBusy', 'InvitationController@isCodeBusy');
 Route::post('/isUsernameBusy', 'UserController@isUsernameBusy');

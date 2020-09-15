@@ -5,6 +5,7 @@ export default {
 
     state: {
         users: [],
+        crumbTop: [],
         loading: false,
     },
 
@@ -12,6 +13,10 @@ export default {
     getters: {
         users(state) {
             return state.users;
+        },
+
+        crumbTop(state) {
+            return state.crumbTop;
         },
 
         loading(state) {
@@ -23,7 +28,11 @@ export default {
         SET_DATA(state, data) {
             state.users = data;
             state.loading = false;
-        }
+        },
+
+        SET_CRUMB_TOP_DATA(state, data) {
+            state.crumbTop = data;
+        },
     },
 
     actions: {
@@ -35,14 +44,18 @@ export default {
         },
 
         async block({ dispatch, rootState }, data) {
-            // console.log(data);
             if (rootState.auth.user.id == data.id) {
                 return alert('You can\'t block/(unblock?) yourself!');
             }
             await axios.get(`/api/users/${data.id}/block`);
             return dispatch('fetch');
+        },
+
+        async crumbTop({ commit }) {
+            return await axios.get(`/api/crumbtop`).then(response => {
+                commit('SET_CRUMB_TOP_DATA', response.data);
+            });
         }
-        
         // async store({ dispatch }, data) {
         //     await axios.post('/api/user', data);
         //     return dispatch('fetch');
