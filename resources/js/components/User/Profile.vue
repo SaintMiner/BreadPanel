@@ -1,5 +1,8 @@
 <template>
     <v-container>
+        <v-dialog v-model="avatarStepper" width="666">
+            <AvatarStepper></AvatarStepper>
+        </v-dialog>
         <v-row align="center" justify="center" v-if="loadingViewingUser">
             <profile-skeleton></profile-skeleton>
         </v-row>
@@ -20,11 +23,29 @@
                     <v-row class="mx-5">
                         <v-col>
                             <v-row>
-                                <v-col lg="2" sm="3">
+                                <v-col lg="2" sm="3" v-if="$route.params.user_id">
                                     <v-avatar color="purple darken-4" size="160"> 
                                         <!-- <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" > -->
                                         <span class="white--text headline"> <h1> {{initials}} </h1> </span>
                                     </v-avatar>
+                                </v-col>
+                                <v-col lg="2" sm="3" v-else>
+                                    <v-hover v-slot:default="{ hover }">
+                                        <v-avatar color="purple darken-4" size="160" @click="avatarStepper = true"> 
+                                            <span class="white--text headline"> <h1> {{initials}} </h1> </span>
+                                            <!-- <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" @click=""> -->
+                                            <v-fade-transition>
+                                                <div
+                                                    v-if="hover"
+                                                    class="d-flex transition-fast-in-fast-out grey darken-4 v-card--reveal white--text"
+                                                    style="height: 100%;"
+                                                >
+                                                    <h4> Change avatar </h4>
+                                                </div>
+                                            </v-fade-transition>
+                                            </v-img>
+                                        </v-avatar>
+                                    </v-hover>
                                 </v-col>
                                 <v-col lg="10" class="pt-0">
                                     <v-row justify="space-between">
@@ -115,11 +136,19 @@
 import { mapActions, mapGetters } from 'vuex'
 
 import ProfileSkeleton from './ProfileSkeleton';
+import AvatarStepper from './AvatarStepper';
 
 export default {
 
     components: {
         'profile-skeleton': ProfileSkeleton,
+        AvatarStepper,
+    },
+
+    data() {
+        return {
+            avatarStepper: false,
+        }
     },
 
     computed: {
@@ -153,12 +182,24 @@ export default {
 
     beforeMount() {
         if (this.$route.params.user_id) {
-            this.viewUser(this.$route.params.user_id);
+            if (this.$route.params.user_id == this.$store.getters['auth/user'].id) {
+                this.$router.push({name: 'profile'});
+            } else {
+                this.viewUser(this.$route.params.user_id);
+            }
         }
     }
 }
 </script>
 
 <style>
-
+    .v-card--reveal {
+        align-items: center;
+        bottom: 0;
+        justify-content: center;
+        opacity: .5;
+        position: absolute;
+        width: 100%;
+        cursor: pointer;
+    }
 </style>
