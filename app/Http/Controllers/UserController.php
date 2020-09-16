@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Image;
 
 use App\Http\Resources\User as UserResource;
 use Auth;
@@ -49,6 +50,23 @@ class UserController extends Controller
         $user->initial_avatar = true;
         $user->with_initials = $request->withInitials;
         return $user->update();
+    }
+
+    public function setImageAvatar(Request $request) {
+        $this->validate($request, [
+            'file' => ['required', 'image', 'mimes:jpeg,bmp,png', 'max:2048'],
+        ]);
+        $fileName = time().'.'.$request->file->getClientOriginalExtension();
+        $image = Image::create([
+            'file' => $fileName,
+            'uploaded_by' => Auth::id(),
+        ]);
+        $user = User::find(Auth::id());
+        $user->initial_avatar = false;
+        $user->image_id = $image->id;
+        $user->update();
+        $request->file->move(public_path('upload'), $fileName);
+        return response()->json(['success'=>'You have successfully upload file.']);
     }
 
 }

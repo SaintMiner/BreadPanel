@@ -84,6 +84,13 @@ export default {
             return await axios.post('/api/setInitialAvatar', data);
         },
 
+        async setImageAvatar({}, data) {
+            let config = {
+                headers: { 'content-type': 'multipart/form-data' }
+            };
+            return await axios.post('/api/setImageAvatar', data, config);
+        }
+
         // async store({ dispatch }, data) {
         //     await axios.post('/api/user', data);
         //     return dispatch('fetch');

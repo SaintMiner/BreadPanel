@@ -55,7 +55,20 @@
                 class="mb-12"
                 height="200px"
                 >
-
+                    <v-row justify="space-around">
+                        <v-col>
+                            {{imageAvatar.file}}
+                        <v-file-input
+                            v-model="imageAvatar.file"
+                            show-size
+                            :rules="rules"
+                            accept="image/png, image/jpeg, image/bmp"
+                            placeholder="Pick an avatar"
+                            prepend-icon="mdi-camera"
+                            label="Avatar"
+                        ></v-file-input>
+                        </v-col>
+                    </v-row>
                 </v-card>
 
                 <v-btn
@@ -85,11 +98,16 @@
                     </v-row>
                 </v-card>
 
-                <v-card v-else
-                    class="mb-12"
-                    color="grey lighten-1"
+                <v-card v-else-if="type == 2"
+                    class="mb-12"                    
                     height="200px"
-                ></v-card>
+                >
+                    <v-row justify="space-around">
+                        <v-avatar size="160">
+                            <img :src="imageURL" alt="John" >
+                        </v-avatar>
+                    </v-row>
+                </v-card>
 
                 <v-btn
                 color="primary"
@@ -109,10 +127,16 @@ import { mapActions } from 'vuex';
 export default {
     data() {
         return {
+            rules: [
+                value => !value || value.size < (2*1024*1024) || 'Avatar size should be less than 2 MB!',
+            ],
             initialAvatar: {
                 color: null,
                 initials: '',
                 withInitials: true,
+            },
+            imageAvatar: {
+                file: null
             },
             stepper: 1,
             type: 1,
@@ -130,12 +154,19 @@ export default {
             get() {
                 return this.initialAvatar.initials;
             }
+        },
+
+        imageURL() {
+            if (this.imageAvatar.file) {
+                return URL.createObjectURL(this.imageAvatar.file)
+            }
         }
     },
 
     methods: {
         ...mapActions({
-            setInitialAvatar: 'user/setInitialAvatar'
+            setInitialAvatar: 'user/setInitialAvatar',
+            setImageAvatar: 'user/setImageAvatar',
         }),
 
         chooseType(type) {
@@ -144,8 +175,15 @@ export default {
         },
 
         upload() {
-            if (this.type == 1) {
-                this.setInitialAvatar(this.initialAvatar);
+            switch(this.type) {
+                case 1:
+                    this.setInitialAvatar(this.initialAvatar);
+                break;
+                case 2:
+                    let formData = new FormData();
+                    formData.append('file', this.imageAvatar.file);
+                    this.setImageAvatar(formData);
+                break;
             }
         }
     },

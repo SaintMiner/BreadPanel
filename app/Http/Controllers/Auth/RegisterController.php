@@ -72,6 +72,8 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'password' => Hash::make($data['password']),
             'invitation_id' => Invitation::where('code', $data['invitation_code'])->first()->id,
+            'initials' => $data['username'][0],
+            'initial_background' => '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT),            
         ]);
     }
 }

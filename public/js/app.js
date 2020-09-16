@@ -3088,14 +3088,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      rules: [function (value) {
+        return !value || value.size < 2 * 1024 * 1024 || 'Avatar size should be less than 2 MB!';
+      }],
       initialAvatar: {
         color: null,
         initials: '',
         withInitials: true
+      },
+      imageAvatar: {
+        file: null
       },
       stepper: 1,
       type: 1
@@ -3111,18 +3135,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       get: function get() {
         return this.initialAvatar.initials;
       }
+    },
+    imageURL: function imageURL() {
+      if (this.imageAvatar.file) {
+        return URL.createObjectURL(this.imageAvatar.file);
+      }
     }
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    setInitialAvatar: 'user/setInitialAvatar'
+    setInitialAvatar: 'user/setInitialAvatar',
+    setImageAvatar: 'user/setImageAvatar'
   })), {}, {
     chooseType: function chooseType(type) {
       this.type = type;
       this.stepper = 2;
     },
     upload: function upload() {
-      if (this.type == 1) {
-        this.setInitialAvatar(this.initialAvatar);
+      switch (this.type) {
+        case 1:
+          this.setInitialAvatar(this.initialAvatar);
+          break;
+
+        case 2:
+          var formData = new FormData();
+          formData.append('file', this.imageAvatar.file);
+          this.setImageAvatar(formData);
+          break;
       }
     }
   })
@@ -24613,10 +24651,48 @@ var render = function() {
                     ],
                     1
                   )
-                : _c("v-card", {
-                    staticClass: "mb-12",
-                    attrs: { height: "200px" }
-                  }),
+                : _c(
+                    "v-card",
+                    { staticClass: "mb-12", attrs: { height: "200px" } },
+                    [
+                      _c(
+                        "v-row",
+                        { attrs: { justify: "space-around" } },
+                        [
+                          _c(
+                            "v-col",
+                            [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(_vm.imageAvatar.file) +
+                                  "\n                    "
+                              ),
+                              _c("v-file-input", {
+                                attrs: {
+                                  "show-size": "",
+                                  rules: _vm.rules,
+                                  accept: "image/png, image/jpeg, image/bmp",
+                                  placeholder: "Pick an avatar",
+                                  "prepend-icon": "mdi-camera",
+                                  label: "Avatar"
+                                },
+                                model: {
+                                  value: _vm.imageAvatar.file,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.imageAvatar, "file", $$v)
+                                  },
+                                  expression: "imageAvatar.file"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
               _vm._v(" "),
               _c(
                 "v-btn",
@@ -24686,10 +24762,27 @@ var render = function() {
                     ],
                     1
                   )
-                : _c("v-card", {
-                    staticClass: "mb-12",
-                    attrs: { color: "grey lighten-1", height: "200px" }
-                  }),
+                : _vm.type == 2
+                ? _c(
+                    "v-card",
+                    { staticClass: "mb-12", attrs: { height: "200px" } },
+                    [
+                      _c(
+                        "v-row",
+                        { attrs: { justify: "space-around" } },
+                        [
+                          _c("v-avatar", { attrs: { size: "160" } }, [
+                            _c("img", {
+                              attrs: { src: _vm.imageURL, alt: "John" }
+                            })
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "v-btn",
@@ -88406,6 +88499,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee5);
+      }))();
+    },
+    setImageAvatar: function setImageAvatar(_ref6, data) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+        var config;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _objectDestructuringEmpty(_ref6);
+
+                config = {
+                  headers: {
+                    'content-type': 'multipart/form-data'
+                  }
+                };
+                _context6.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/setImageAvatar', data, config);
+
+              case 4:
+                return _context6.abrupt("return", _context6.sent);
+
+              case 5:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
       }))();
     } // async store({ dispatch }, data) {
     //     await axios.post('/api/user', data);
