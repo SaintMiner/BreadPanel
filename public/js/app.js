@@ -87444,7 +87444,7 @@ __webpack_require__.r(__webpack_exports__);
           return /[^A-Za-z0-9]+/.test(value) || 'Requires special chars';
         },
         excludeSpecialChars: function excludeSpecialChars(value) {
-          return !/[^A-Za-z0-9]+/.test(value) || 'Must contain only letters and numbers!';
+          return !/[^A-Za-z0-9\-\_]+/.test(value) || 'Must contain only letters and numbers!';
         },
         required: function required(value) {
           return !!value || 'Required.';
@@ -88593,8 +88593,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\DmitryTkac\SolCraft\laravelvue-permissions\test_2\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\DmitryTkac\SolCraft\laravelvue-permissions\test_2\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\SaintMiner\Studio\Programming\DISCORD\BreadPanel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\SaintMiner\Studio\Programming\DISCORD\BreadPanel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
