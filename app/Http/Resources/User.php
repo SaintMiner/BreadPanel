@@ -30,7 +30,7 @@ class User extends JsonResource
             'with_initials' => $this->with_initials,
             'initial_background' => $this->initial_background,
             'initials' => $this->initials,
-            'avatar' => $this->image ? "upload/".$this->image->file : NULL,
+            'avatar' => $this->image ? asset("upload/".$this->image->file) : NULL,
 
         ];
     }

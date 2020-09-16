@@ -24968,7 +24968,7 @@ var render = function() {
                                                 : _c("img", {
                                                     attrs: {
                                                       src: _vm.user.avatar,
-                                                      alt: "John"
+                                                      alt: _vm.user.username
                                                     }
                                                   })
                                             ]
@@ -25034,7 +25034,9 @@ var render = function() {
                                                                 src:
                                                                   _vm.user
                                                                     .avatar,
-                                                                alt: "John"
+                                                                alt:
+                                                                  _vm.user
+                                                                    .username
                                                               }
                                                             }),
                                                         _vm._v(" "),
