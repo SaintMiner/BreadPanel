@@ -23461,7 +23461,7 @@ var render = function() {
     [
       _c(
         "v-app-bar",
-        { attrs: { app: "", color: "indigo", dark: "", "clipped-left": "" } },
+        { attrs: { app: "", dark: "", "clipped-left": "" } },
         [
           _c("v-app-bar-nav-icon", {
             on: {
@@ -23495,7 +23495,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-footer", { attrs: { color: "indigo", app: "", inset: "" } }, [
+      _c("v-footer", { attrs: { dark: "", app: "", inset: "" } }, [
         _c("span", { staticClass: "white--text" }, [
           _vm._v("© " + _vm._s(new Date().getFullYear()))
         ])

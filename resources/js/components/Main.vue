@@ -1,7 +1,7 @@
 <template>
     <v-app id="inspire">
 
-        <v-app-bar app color="indigo" dark clipped-left>
+        <v-app-bar app dark clipped-left>
             <v-app-bar-nav-icon
                 @click="drawerState = !drawerState"
             ></v-app-bar-nav-icon>
@@ -20,7 +20,7 @@
             </v-fade-transition>
         </v-main>
         
-        <v-footer color="indigo" app inset>
+        <v-footer dark app inset>
             <span class="white--text"
                 >&copy; {{ new Date().getFullYear() }}</span
             >
