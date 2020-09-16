@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DiscordUsersTable extends Migration
+class CreateDiscordUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,6 +20,7 @@ class DiscordUsersTable extends Migration
             $table->smallInteger('level')->default(0);
             $table->integer('experience')->default(0);
             $table->integer('voice_points')->default(0);
+            $table->timestamps();
         });
         
         Schema::table("discord_users", function($table) {

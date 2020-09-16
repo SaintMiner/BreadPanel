@@ -20,9 +20,16 @@ class CreateUsersTable extends Migration
 
             $table->unsignedBigInteger('invitation_id')->nullable();
             $table->boolean('blocked')->default(false);
-            $table->string('status')->nullable();
             $table->integer('crumbs')->default(0);
             
+            //settings
+                //avatar
+                $table->string('status')->nullable();
+                $table->boolean('initial_avatar')->default(true);
+                $table->string('iniatials', 4)->nullable();
+                $table->string('initial_background', 6)->default('ffffff');
+                $table->unsignedBigInteger('image_id')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
