@@ -7,7 +7,9 @@ export default {
         users: [],
         viewingUser: null,
         crumbTop: [],
+
         loading: false,
+        loadingViewingUser: false,
     },
 
     
@@ -16,8 +18,8 @@ export default {
             return state.users;
         },
         
-        viewUser() {
-
+        viewingUser(state) {
+            return state.viewingUser
         },
 
         crumbTop(state) {
@@ -26,6 +28,10 @@ export default {
 
         loading(state) {
             return state.loading;
+        },
+
+        loadingViewingUser(state) {
+            return state.loadingViewingUser;
         }
     },
 
@@ -41,6 +47,7 @@ export default {
 
         SET_VIEWING_USER(state, data) {
             state.viewingUser = data;
+            state.loadingViewingUser = false;
         }
     },
 
@@ -52,7 +59,8 @@ export default {
             });
         },
         
-        async viewUser({ commit }, id) {
+        async viewUser({ commit, state }, id) {
+            state.loadingViewingUser = true;
             return await axios.get(`/api/users/${id}`).then(response => {
                 commit('SET_VIEWING_USER', response.data);
             });

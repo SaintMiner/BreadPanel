@@ -1,17 +1,22 @@
 <template>
     <v-container>
-        <v-row align="center" justify="center">
+        <v-row align="center" justify="center" v-if="loadingViewingUser">
+            <profile-skeleton></profile-skeleton>
+        </v-row>
+        <v-row v-else align="center" justify="center">
             <v-col>
                 <v-card>
+
                     <v-img class="white--text align-end"
                         height="200px"
                         src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
                     >
+                        
                         <v-card-title> 
-                            <div>User {{ $route.params.user_id }}</div>
                             <h1 class="mx-2"> {{user.username}} </h1>
                         </v-card-title>
                     </v-img>
+
                     <v-row class="mx-5">
                         <v-col>
                             <v-row>
@@ -57,6 +62,7 @@
                                             </template>
                                             <span> Registration date </span>
                                         </v-tooltip>
+                                       
                                         <v-tooltip top v-if="user.invitation">
                                             <template v-slot:activator="{ on, attrs }">
                                                 <v-chip  v-bind="attrs" v-on="on"
@@ -71,7 +77,7 @@
                                             <span> Invitation code </span>
                                         </v-tooltip>
                                     </v-col>
-                                    <v-col class="p-0">
+                                    <v-col class="pl-0">
                                         <v-chip v-if="user.blocked"
                                             class="ma-2"
                                             color="red"
@@ -107,14 +113,26 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+
+import ProfileSkeleton from './ProfileSkeleton';
+
 export default {
+
+    components: {
+        'profile-skeleton': ProfileSkeleton,
+    },
 
     computed: {
         ...mapGetters({
             me: 'auth/user',
+            viewingUser: 'user/viewingUser',
+            loadingViewingUser: 'user/loadingViewingUser',
         }),
 
         user() {
+            if (this.$route.params.user_id) {
+                return this.viewingUser;
+            }
             return this.me;
         },
 
@@ -133,7 +151,7 @@ export default {
         }),
     },
 
-    mounted() {
+    beforeMount() {
         if (this.$route.params.user_id) {
             this.viewUser(this.$route.params.user_id);
         }

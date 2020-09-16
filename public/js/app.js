@@ -2976,6 +2976,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _ProfileSkeleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileSkeleton */ "./resources/js/components/User/ProfileSkeleton.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3089,12 +3090,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    'profile-skeleton': _ProfileSkeleton__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    me: 'auth/user'
+    me: 'auth/user',
+    viewingUser: 'user/viewingUser',
+    loadingViewingUser: 'user/loadingViewingUser'
   })), {}, {
     user: function user() {
+      if (this.$route.params.user_id) {
+        return this.viewingUser;
+      }
+
       return this.me;
     },
     initials: function initials() {
@@ -3108,12 +3125,89 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
     viewUser: 'user/viewUser'
   })),
-  mounted: function mounted() {
+  beforeMount: function beforeMount() {
     if (this.$route.params.user_id) {
       this.viewUser(this.$route.params.user_id);
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/ProfileSkeleton.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/User/ProfileSkeleton.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -24043,349 +24137,401 @@ var render = function() {
   return _c(
     "v-container",
     [
-      _c(
-        "v-row",
-        { attrs: { align: "center", justify: "center" } },
-        [
-          _c(
-            "v-col",
+      _vm.loadingViewingUser
+        ? _c(
+            "v-row",
+            { attrs: { align: "center", justify: "center" } },
+            [_c("profile-skeleton")],
+            1
+          )
+        : _c(
+            "v-row",
+            { attrs: { align: "center", justify: "center" } },
             [
               _c(
-                "v-card",
+                "v-col",
                 [
                   _c(
-                    "v-img",
-                    {
-                      staticClass: "white--text align-end",
-                      attrs: {
-                        height: "200px",
-                        src: "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-                      }
-                    },
-                    [
-                      _c("v-card-title", [
-                        _c("div", [
-                          _vm._v("User " + _vm._s(_vm.$route.params.user_id))
-                        ]),
-                        _vm._v(" "),
-                        _c("h1", { staticClass: "mx-2" }, [
-                          _vm._v(" " + _vm._s(_vm.user.username) + " ")
-                        ])
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-row",
-                    { staticClass: "mx-5" },
+                    "v-card",
                     [
                       _c(
-                        "v-col",
+                        "v-img",
+                        {
+                          staticClass: "white--text align-end",
+                          attrs: {
+                            height: "200px",
+                            src:
+                              "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                          }
+                        },
+                        [
+                          _c("v-card-title", [
+                            _c("h1", { staticClass: "mx-2" }, [
+                              _vm._v(" " + _vm._s(_vm.user.username) + " ")
+                            ])
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        { staticClass: "mx-5" },
                         [
                           _c(
-                            "v-row",
+                            "v-col",
                             [
                               _c(
-                                "v-col",
-                                { attrs: { lg: "2", sm: "3" } },
+                                "v-row",
                                 [
                                   _c(
-                                    "v-avatar",
-                                    {
-                                      attrs: {
-                                        color: "purple darken-4",
-                                        size: "160"
-                                      }
-                                    },
+                                    "v-col",
+                                    { attrs: { lg: "2", sm: "3" } },
                                     [
                                       _c(
-                                        "span",
-                                        { staticClass: "white--text headline" },
+                                        "v-avatar",
+                                        {
+                                          attrs: {
+                                            color: "purple darken-4",
+                                            size: "160"
+                                          }
+                                        },
                                         [
-                                          _c("h1", [
-                                            _vm._v(
-                                              " " + _vm._s(_vm.initials) + " "
-                                            )
-                                          ])
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { staticClass: "pt-0", attrs: { lg: "10" } },
-                                [
-                                  _c(
-                                    "v-row",
-                                    { attrs: { justify: "space-between" } },
-                                    [
-                                      _c(
-                                        "v-col",
-                                        _vm._l(_vm.user.roles, function(role) {
-                                          return _c(
-                                            "v-tooltip",
+                                          _c(
+                                            "span",
                                             {
-                                              key: role.id,
-                                              attrs: { bottom: "" },
-                                              scopedSlots: _vm._u(
-                                                [
-                                                  {
-                                                    key: "activator",
-                                                    fn: function(ref) {
-                                                      var on = ref.on
-                                                      var attrs = ref.attrs
-                                                      return [
-                                                        _c(
-                                                          "v-chip",
-                                                          _vm._g(
-                                                            _vm._b(
-                                                              {
-                                                                staticClass:
-                                                                  "ma-2",
-                                                                attrs: {
-                                                                  color:
-                                                                    "success",
-                                                                  outlined: "",
-                                                                  small: ""
-                                                                }
-                                                              },
-                                                              "v-chip",
-                                                              attrs,
-                                                              false
-                                                            ),
-                                                            on
-                                                          ),
-                                                          [
-                                                            _c(
-                                                              "v-icon",
-                                                              {
-                                                                attrs: {
-                                                                  left: "",
-                                                                  small: ""
-                                                                }
-                                                              },
-                                                              [
-                                                                _vm._v(
-                                                                  "mdi-circle"
-                                                                )
-                                                              ]
-                                                            ),
-                                                            _vm._v(
-                                                              "\n                                                    " +
-                                                                _vm._s(
-                                                                  role.name
-                                                                ) +
-                                                                "\n                                                "
-                                                            )
-                                                          ],
-                                                          1
-                                                        )
-                                                      ]
-                                                    }
-                                                  }
-                                                ],
-                                                null,
-                                                true
-                                              )
+                                              staticClass:
+                                                "white--text headline"
                                             },
                                             [
-                                              _vm._v(" "),
-                                              _c("span", [
-                                                _vm._v(_vm._s(role.description))
+                                              _c("h1", [
+                                                _vm._v(
+                                                  " " +
+                                                    _vm._s(_vm.initials) +
+                                                    " "
+                                                )
                                               ])
                                             ]
                                           )
-                                        }),
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    {
+                                      staticClass: "pt-0",
+                                      attrs: { lg: "10" }
+                                    },
+                                    [
+                                      _c(
+                                        "v-row",
+                                        { attrs: { justify: "space-between" } },
+                                        [
+                                          _c(
+                                            "v-col",
+                                            _vm._l(_vm.user.roles, function(
+                                              role
+                                            ) {
+                                              return _c(
+                                                "v-tooltip",
+                                                {
+                                                  key: role.id,
+                                                  attrs: { bottom: "" },
+                                                  scopedSlots: _vm._u(
+                                                    [
+                                                      {
+                                                        key: "activator",
+                                                        fn: function(ref) {
+                                                          var on = ref.on
+                                                          var attrs = ref.attrs
+                                                          return [
+                                                            _c(
+                                                              "v-chip",
+                                                              _vm._g(
+                                                                _vm._b(
+                                                                  {
+                                                                    staticClass:
+                                                                      "ma-2",
+                                                                    attrs: {
+                                                                      color:
+                                                                        "success",
+                                                                      outlined:
+                                                                        "",
+                                                                      small: ""
+                                                                    }
+                                                                  },
+                                                                  "v-chip",
+                                                                  attrs,
+                                                                  false
+                                                                ),
+                                                                on
+                                                              ),
+                                                              [
+                                                                _c(
+                                                                  "v-icon",
+                                                                  {
+                                                                    attrs: {
+                                                                      left: "",
+                                                                      small: ""
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "mdi-circle"
+                                                                    )
+                                                                  ]
+                                                                ),
+                                                                _vm._v(
+                                                                  "\n                                                    " +
+                                                                    _vm._s(
+                                                                      role.name
+                                                                    ) +
+                                                                    "\n                                                "
+                                                                )
+                                                              ],
+                                                              1
+                                                            )
+                                                          ]
+                                                        }
+                                                      }
+                                                    ],
+                                                    null,
+                                                    true
+                                                  )
+                                                },
+                                                [
+                                                  _vm._v(" "),
+                                                  _c("span", [
+                                                    _vm._v(
+                                                      _vm._s(role.description)
+                                                    )
+                                                  ])
+                                                ]
+                                              )
+                                            }),
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            {
+                                              staticClass: "text-right",
+                                              attrs: { lg: "2" }
+                                            },
+                                            [
+                                              _c("span", {}, [
+                                                _vm._v(" #1267 ")
+                                              ])
+                                            ]
+                                          )
+                                        ],
                                         1
                                       ),
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
-                                        {
-                                          staticClass: "text-right",
-                                          attrs: { lg: "2" }
-                                        },
-                                        [_c("span", {}, [_vm._v(" #1267 ")])]
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { staticClass: "p-0" },
-                                    [
-                                      _vm.user.created_at
-                                        ? _c(
-                                            "v-tooltip",
-                                            {
-                                              attrs: { top: "" },
-                                              scopedSlots: _vm._u(
-                                                [
-                                                  {
-                                                    key: "activator",
-                                                    fn: function(ref) {
-                                                      var on = ref.on
-                                                      var attrs = ref.attrs
-                                                      return [
-                                                        _c(
-                                                          "v-chip",
-                                                          _vm._g(
-                                                            _vm._b(
-                                                              {
-                                                                staticClass:
-                                                                  "ma-2",
-                                                                attrs: {
-                                                                  label: ""
-                                                                }
-                                                              },
-                                                              "v-chip",
-                                                              attrs,
-                                                              false
-                                                            ),
-                                                            on
-                                                          ),
-                                                          [
+                                        { staticClass: "p-0" },
+                                        [
+                                          _vm.user.created_at
+                                            ? _c(
+                                                "v-tooltip",
+                                                {
+                                                  attrs: { top: "" },
+                                                  scopedSlots: _vm._u(
+                                                    [
+                                                      {
+                                                        key: "activator",
+                                                        fn: function(ref) {
+                                                          var on = ref.on
+                                                          var attrs = ref.attrs
+                                                          return [
                                                             _c(
-                                                              "v-icon",
-                                                              {
-                                                                attrs: {
-                                                                  left: ""
-                                                                }
-                                                              },
+                                                              "v-chip",
+                                                              _vm._g(
+                                                                _vm._b(
+                                                                  {
+                                                                    staticClass:
+                                                                      "ma-2",
+                                                                    attrs: {
+                                                                      label: ""
+                                                                    }
+                                                                  },
+                                                                  "v-chip",
+                                                                  attrs,
+                                                                  false
+                                                                ),
+                                                                on
+                                                              ),
                                                               [
-                                                                _vm._v(
-                                                                  "mdi-calendar"
-                                                                )
-                                                              ]
-                                                            ),
-                                                            _vm._v(" "),
-                                                            _c("span", [
-                                                              _vm._v(
-                                                                " " +
-                                                                  _vm._s(
-                                                                    _vm.user
-                                                                      .created_at
-                                                                  ) +
-                                                                  " "
-                                                              )
-                                                            ])
-                                                          ],
-                                                          1
-                                                        )
-                                                      ]
-                                                    }
-                                                  }
-                                                ],
-                                                null,
-                                                false,
-                                                1710324221
+                                                                _c(
+                                                                  "v-icon",
+                                                                  {
+                                                                    attrs: {
+                                                                      left: ""
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "mdi-calendar"
+                                                                    )
+                                                                  ]
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _c("span", [
+                                                                  _vm._v(
+                                                                    " " +
+                                                                      _vm._s(
+                                                                        _vm.user
+                                                                          .created_at
+                                                                      ) +
+                                                                      " "
+                                                                  )
+                                                                ])
+                                                              ],
+                                                              1
+                                                            )
+                                                          ]
+                                                        }
+                                                      }
+                                                    ],
+                                                    null,
+                                                    false,
+                                                    1710324221
+                                                  )
+                                                },
+                                                [
+                                                  _vm._v(" "),
+                                                  _c("span", [
+                                                    _vm._v(
+                                                      " Registration date "
+                                                    )
+                                                  ])
+                                                ]
                                               )
-                                            },
-                                            [
-                                              _vm._v(" "),
-                                              _c("span", [
-                                                _vm._v(" Registration date ")
-                                              ])
-                                            ]
-                                          )
-                                        : _vm._e(),
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.user.invitation
+                                            ? _c(
+                                                "v-tooltip",
+                                                {
+                                                  attrs: { top: "" },
+                                                  scopedSlots: _vm._u(
+                                                    [
+                                                      {
+                                                        key: "activator",
+                                                        fn: function(ref) {
+                                                          var on = ref.on
+                                                          var attrs = ref.attrs
+                                                          return [
+                                                            _c(
+                                                              "v-chip",
+                                                              _vm._g(
+                                                                _vm._b(
+                                                                  {
+                                                                    staticClass:
+                                                                      "ma-2",
+                                                                    attrs: {
+                                                                      label: ""
+                                                                    }
+                                                                  },
+                                                                  "v-chip",
+                                                                  attrs,
+                                                                  false
+                                                                ),
+                                                                on
+                                                              ),
+                                                              [
+                                                                _c(
+                                                                  "v-icon",
+                                                                  {
+                                                                    attrs: {
+                                                                      left: ""
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "mdi-label"
+                                                                    )
+                                                                  ]
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _c("span", [
+                                                                  _vm._v(
+                                                                    " " +
+                                                                      _vm._s(
+                                                                        _vm.user
+                                                                          .invitation
+                                                                      ) +
+                                                                      " "
+                                                                  )
+                                                                ])
+                                                              ],
+                                                              1
+                                                            )
+                                                          ]
+                                                        }
+                                                      }
+                                                    ],
+                                                    null,
+                                                    false,
+                                                    527660178
+                                                  )
+                                                },
+                                                [
+                                                  _vm._v(" "),
+                                                  _c("span", [
+                                                    _vm._v(" Invitation code ")
+                                                  ])
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ],
+                                        1
+                                      ),
                                       _vm._v(" "),
-                                      _vm.user.invitation
-                                        ? _c(
-                                            "v-tooltip",
-                                            {
-                                              attrs: { top: "" },
-                                              scopedSlots: _vm._u(
-                                                [
-                                                  {
-                                                    key: "activator",
-                                                    fn: function(ref) {
-                                                      var on = ref.on
-                                                      var attrs = ref.attrs
-                                                      return [
-                                                        _c(
-                                                          "v-chip",
-                                                          _vm._g(
-                                                            _vm._b(
-                                                              {
-                                                                staticClass:
-                                                                  "ma-2",
-                                                                attrs: {
-                                                                  label: ""
-                                                                }
-                                                              },
-                                                              "v-chip",
-                                                              attrs,
-                                                              false
-                                                            ),
-                                                            on
-                                                          ),
-                                                          [
-                                                            _c(
-                                                              "v-icon",
-                                                              {
-                                                                attrs: {
-                                                                  left: ""
-                                                                }
-                                                              },
-                                                              [
-                                                                _vm._v(
-                                                                  "mdi-label"
-                                                                )
-                                                              ]
-                                                            ),
-                                                            _vm._v(" "),
-                                                            _c("span", [
-                                                              _vm._v(
-                                                                " " +
-                                                                  _vm._s(
-                                                                    _vm.user
-                                                                      .invitation
-                                                                  ) +
-                                                                  " "
-                                                              )
-                                                            ])
-                                                          ],
-                                                          1
-                                                        )
-                                                      ]
-                                                    }
+                                      _c(
+                                        "v-col",
+                                        { staticClass: "pl-0" },
+                                        [
+                                          _vm.user.blocked
+                                            ? _c(
+                                                "v-chip",
+                                                {
+                                                  staticClass: "ma-2",
+                                                  attrs: {
+                                                    color: "red",
+                                                    outlined: "",
+                                                    small: ""
                                                   }
+                                                },
+                                                [
+                                                  _c(
+                                                    "v-icon",
+                                                    {
+                                                      attrs: {
+                                                        left: "",
+                                                        small: ""
+                                                      }
+                                                    },
+                                                    [_vm._v("mdi-cancel")]
+                                                  ),
+                                                  _vm._v(
+                                                    "\n                                        Blocked indefinitely :)\n                                    "
+                                                  )
                                                 ],
-                                                null,
-                                                false,
-                                                527660178
+                                                1
                                               )
-                                            },
-                                            [
-                                              _vm._v(" "),
-                                              _c("span", [
-                                                _vm._v(" Invitation code ")
-                                              ])
-                                            ]
-                                          )
-                                        : _vm._e()
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-col",
-                                    { staticClass: "p-0" },
-                                    [
-                                      _vm.user.blocked
-                                        ? _c(
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _c(
                                             "v-chip",
                                             {
                                               staticClass: "ma-2",
                                               attrs: {
-                                                color: "red",
+                                                color: "blue",
                                                 outlined: "",
                                                 small: ""
                                               }
@@ -24396,34 +24542,13 @@ var render = function() {
                                                 {
                                                   attrs: { left: "", small: "" }
                                                 },
-                                                [_vm._v("mdi-cancel")]
+                                                [_vm._v("mdi-circle")]
                                               ),
                                               _vm._v(
-                                                "\n                                        Blocked indefinitely :)\n                                    "
+                                                "\n                                        Very happy\n                                    "
                                               )
                                             ],
                                             1
-                                          )
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-chip",
-                                        {
-                                          staticClass: "ma-2",
-                                          attrs: {
-                                            color: "blue",
-                                            outlined: "",
-                                            small: ""
-                                          }
-                                        },
-                                        [
-                                          _c(
-                                            "v-icon",
-                                            { attrs: { left: "", small: "" } },
-                                            [_vm._v("mdi-circle")]
-                                          ),
-                                          _vm._v(
-                                            "\n                                        Very happy\n                                    "
                                           )
                                         ],
                                         1
@@ -24433,14 +24558,146 @@ var render = function() {
                                   )
                                 ],
                                 1
+                              ),
+                              _vm._v(
+                                "\n                        \n                        " +
+                                  _vm._s(_vm.user) +
+                                  "\n                        "
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/ProfileSkeleton.vue?vue&type=template&id=754c5e9d&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/User/ProfileSkeleton.vue?vue&type=template&id=754c5e9d& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-col",
+    [
+      _c(
+        "v-card",
+        [
+          _c("v-skeleton-loader", {
+            attrs: { loading: true, height: "200", type: "card" }
+          }),
+          _vm._v(" "),
+          _c(
+            "v-row",
+            { staticClass: "mx-5" },
+            [
+              _c(
+                "v-col",
+                [
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-col",
+                        { attrs: { lg: "2", sm: "3" } },
+                        [
+                          _c("v-skeleton-loader", {
+                            style: { "border-radius": "100%" },
+                            attrs: {
+                              loading: true,
+                              height: "160",
+                              type: "image"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { staticClass: "pt-0", attrs: { lg: "10" } },
+                        [
+                          _c(
+                            "v-row",
+                            { attrs: { justify: "space-between" } },
+                            [
+                              _c(
+                                "v-col",
+                                [
+                                  _c("v-skeleton-loader", {
+                                    attrs: { loading: true, type: "text" }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                {
+                                  staticClass: "text-right",
+                                  attrs: { lg: "2" }
+                                },
+                                [
+                                  _c(
+                                    "v-skeleton-loader",
+                                    { attrs: { loading: true, type: "text" } },
+                                    [_c("span", {}, [_vm._v(" #1267 ")])]
+                                  )
+                                ],
+                                1
                               )
                             ],
                             1
                           ),
-                          _vm._v(
-                            "\n                        \n                        " +
-                              _vm._s(_vm.user) +
-                              "\n                        "
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { staticClass: "p-0" },
+                            [
+                              _c("v-skeleton-loader", {
+                                attrs: { loading: true, type: "chip" }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { staticClass: "pl-0" },
+                            [
+                              _c("v-skeleton-loader", {
+                                attrs: { loading: true, type: "chip" }
+                              })
+                            ],
+                            1
                           )
                         ],
                         1
@@ -85977,6 +86234,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/User/ProfileSkeleton.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/User/ProfileSkeleton.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfileSkeleton_vue_vue_type_template_id_754c5e9d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileSkeleton.vue?vue&type=template&id=754c5e9d& */ "./resources/js/components/User/ProfileSkeleton.vue?vue&type=template&id=754c5e9d&");
+/* harmony import */ var _ProfileSkeleton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileSkeleton.vue?vue&type=script&lang=js& */ "./resources/js/components/User/ProfileSkeleton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ProfileSkeleton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProfileSkeleton_vue_vue_type_template_id_754c5e9d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProfileSkeleton_vue_vue_type_template_id_754c5e9d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/User/ProfileSkeleton.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/User/ProfileSkeleton.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/User/ProfileSkeleton.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileSkeleton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileSkeleton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/ProfileSkeleton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileSkeleton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/User/ProfileSkeleton.vue?vue&type=template&id=754c5e9d&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/User/ProfileSkeleton.vue?vue&type=template&id=754c5e9d& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileSkeleton_vue_vue_type_template_id_754c5e9d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileSkeleton.vue?vue&type=template&id=754c5e9d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/ProfileSkeleton.vue?vue&type=template&id=754c5e9d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileSkeleton_vue_vue_type_template_id_754c5e9d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileSkeleton_vue_vue_type_template_id_754c5e9d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/User/User.vue":
 /*!***********************************************!*\
   !*** ./resources/js/components/User/User.vue ***!
@@ -87079,18 +87405,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     users: [],
     viewingUser: null,
     crumbTop: [],
-    loading: false
+    loading: false,
+    loadingViewingUser: false
   },
   getters: {
     users: function users(state) {
       return state.users;
     },
-    viewUser: function viewUser() {},
+    viewingUser: function viewingUser(state) {
+      return state.viewingUser;
+    },
     crumbTop: function crumbTop(state) {
       return state.crumbTop;
     },
     loading: function loading(state) {
       return state.loading;
+    },
+    loadingViewingUser: function loadingViewingUser(state) {
+      return state.loadingViewingUser;
     }
   },
   mutations: {
@@ -87103,6 +87435,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     SET_VIEWING_USER: function SET_VIEWING_USER(state, data) {
       state.viewingUser = data;
+      state.loadingViewingUser = false;
     }
   },
   actions: {
@@ -87133,21 +87466,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     viewUser: function viewUser(_ref2, id) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var commit;
+        var commit, state;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                commit = _ref2.commit;
-                _context2.next = 3;
+                commit = _ref2.commit, state = _ref2.state;
+                state.loadingViewingUser = true;
+                _context2.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/users/".concat(id)).then(function (response) {
                   commit('SET_VIEWING_USER', response.data);
                 });
 
-              case 3:
+              case 4:
                 return _context2.abrupt("return", _context2.sent);
 
-              case 4:
+              case 5:
               case "end":
                 return _context2.stop();
             }
