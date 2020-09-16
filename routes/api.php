@@ -34,3 +34,4 @@ Route::get('/crumbtop', 'UserController@crumbTop');
 
 Route::post('/isCodeBusy', 'InvitationController@isCodeBusy');
 Route::post('/isUsernameBusy', 'UserController@isUsernameBusy');
+Route::post('/setInitialAvatar', 'UserController@setInitialAvatar');

@@ -26,8 +26,9 @@ class CreateUsersTable extends Migration
                 //avatar
                 $table->string('status')->nullable();
                 $table->boolean('initial_avatar')->default(true);
-                $table->string('iniatials', 4)->nullable();
-                $table->string('initial_background', 6)->default('ffffff');
+                $table->boolean('with_initials')->default(true);
+                $table->string('initials', 4)->nullable();
+                $table->string('initial_background', 7)->default('#ffffff');
                 $table->unsignedBigInteger('image_id')->nullable();
 
             $table->rememberToken();

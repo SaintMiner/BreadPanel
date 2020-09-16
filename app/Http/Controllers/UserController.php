@@ -41,5 +41,14 @@ class UserController extends Controller
     public function crumbTop() {
         return UserResource::collection(User::orderByDesc('crumbs')->orderBy('updated_at', 'ASC')->get());
     }
+    
+    public function setInitialAvatar(Request $request) {
+        $user = User::find(Auth::id());
+        $user->initial_background = $request->color['hex'];
+        $user->initials = $request->initials;
+        $user->initial_avatar = true;
+        $user->with_initials = $request->withInitials;
+        return $user->update();
+    }
 
 }

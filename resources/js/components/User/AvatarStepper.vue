@@ -25,13 +25,6 @@
                     </div>
                 </v-card>
 
-                <v-btn
-                color="primary"
-                @click="stepper = 2"
-                >
-                Continue
-                </v-btn>
-
                 <v-btn text>Cancel</v-btn>
             </v-stepper-content>
 
@@ -41,19 +34,19 @@
                 height="350px"
                 >
                     <v-row justify="space-around" class="mx-3">
-                        <v-switch v-model="withInitials" label="With initials" class="label-fix"></v-switch>
+                        <v-switch v-model="initialAvatar.withInitials" label="With initials" class="label-fix"></v-switch>
                         <v-spacer></v-spacer>
                         <v-text-field counter="3" v-model="initialsModel"></v-text-field>
                         <v-spacer></v-spacer>
                     </v-row>
-                    <v-row justify="space-around" class="mt-3">
+                    <v-row justify="space-around" class="mt-5">
                         <v-color-picker
                             hide-inputs
-                            v-model="color"
+                            v-model="initialAvatar.color"
                             flat
                         ></v-color-picker>
-                        <v-avatar :color="color ? color.hex : 'primary'" size="160">
-                            <span class="white--text headline">{{initialsModel}}</span>
+                        <v-avatar :color="initialAvatar.color ? initialAvatar.color.hex : 'primary'" size="160">
+                            <span class="white--text headline" v-if="initialAvatar.withInitials">{{initialsModel}}</span>
                         </v-avatar>
                     </v-row>
                 </v-card>
@@ -81,32 +74,46 @@
             </v-stepper-content>
 
             <v-stepper-content step="3">
-                <v-card
-                class="mb-12"
-                color="grey lighten-1"
-                height="200px"
+                <v-card v-if="type == 1"
+                    class="mb-12"
+                    height="200px"
+                >
+                    <v-row justify="space-around">
+                        <v-avatar :color="initialAvatar.color ? initialAvatar.color.hex : 'primary'" size="160">
+                            <span class="white--text headline" v-if="initialAvatar.withInitials">{{initialsModel}}</span>
+                        </v-avatar>
+                    </v-row>
+                </v-card>
+
+                <v-card v-else
+                    class="mb-12"
+                    color="grey lighten-1"
+                    height="200px"
                 ></v-card>
 
                 <v-btn
                 color="primary"
-                @click="stepper = 1"
+                @click="upload"
                 >
                 Upload
                 </v-btn>
 
-                <v-btn text>Cancel</v-btn>
+                <v-btn text @click="stepper = 2">Back</v-btn>
             </v-stepper-content>
         </v-stepper-items>
     </v-stepper>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
     data() {
         return {
-            color: null,
-            initials: '',
-            withInitials: true,
+            initialAvatar: {
+                color: null,
+                initials: '',
+                withInitials: true,
+            },
             stepper: 1,
             type: 1,
         }
@@ -116,20 +123,30 @@ export default {
         initialsModel: {
             set(value) {
                 if (value.length <= 3) {
-                    this.initials = value.toUpperCase();
+                    this.initialAvatar.initials = value.toUpperCase();
                 }
             },
 
             get() {
-                return this.initials;
+                return this.initialAvatar.initials;
             }
         }
     },
 
     methods: {
+        ...mapActions({
+            setInitialAvatar: 'user/setInitialAvatar'
+        }),
+
         chooseType(type) {
             this.type = type;
             this.stepper = 2;
+        },
+
+        upload() {
+            if (this.type == 1) {
+                this.setInitialAvatar(this.initialAvatar);
+            }
         }
     },
 }

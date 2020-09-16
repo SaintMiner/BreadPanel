@@ -2975,6 +2975,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3077,12 +3084,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      color: null,
-      initials: '',
-      withInitials: true,
+      initialAvatar: {
+        color: null,
+        initials: '',
+        withInitials: true
+      },
       stepper: 1,
       type: 1
     };
@@ -3091,20 +3105,27 @@ __webpack_require__.r(__webpack_exports__);
     initialsModel: {
       set: function set(value) {
         if (value.length <= 3) {
-          this.initials = value.toUpperCase();
+          this.initialAvatar.initials = value.toUpperCase();
         }
       },
       get: function get() {
-        return this.initials;
+        return this.initialAvatar.initials;
       }
     }
   },
-  methods: {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    setInitialAvatar: 'user/setInitialAvatar'
+  })), {}, {
     chooseType: function chooseType(type) {
       this.type = type;
       this.stepper = 2;
+    },
+    upload: function upload() {
+      if (this.type == 1) {
+        this.setInitialAvatar(this.initialAvatar);
+      }
     }
-  }
+  })
 });
 
 /***/ }),
@@ -24497,19 +24518,6 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: { color: "primary" },
-                  on: {
-                    click: function($event) {
-                      _vm.stepper = 2
-                    }
-                  }
-                },
-                [_vm._v("\n            Continue\n            ")]
-              ),
-              _vm._v(" "),
               _c("v-btn", { attrs: { text: "" } }, [_vm._v("Cancel")])
             ],
             1
@@ -24535,11 +24543,11 @@ var render = function() {
                             staticClass: "label-fix",
                             attrs: { label: "With initials" },
                             model: {
-                              value: _vm.withInitials,
+                              value: _vm.initialAvatar.withInitials,
                               callback: function($$v) {
-                                _vm.withInitials = $$v
+                                _vm.$set(_vm.initialAvatar, "withInitials", $$v)
                               },
-                              expression: "withInitials"
+                              expression: "initialAvatar.withInitials"
                             }
                           }),
                           _vm._v(" "),
@@ -24564,18 +24572,18 @@ var render = function() {
                       _c(
                         "v-row",
                         {
-                          staticClass: "mt-3",
+                          staticClass: "mt-5",
                           attrs: { justify: "space-around" }
                         },
                         [
                           _c("v-color-picker", {
                             attrs: { "hide-inputs": "", flat: "" },
                             model: {
-                              value: _vm.color,
+                              value: _vm.initialAvatar.color,
                               callback: function($$v) {
-                                _vm.color = $$v
+                                _vm.$set(_vm.initialAvatar, "color", $$v)
                               },
-                              expression: "color"
+                              expression: "initialAvatar.color"
                             }
                           }),
                           _vm._v(" "),
@@ -24583,16 +24591,20 @@ var render = function() {
                             "v-avatar",
                             {
                               attrs: {
-                                color: _vm.color ? _vm.color.hex : "primary",
+                                color: _vm.initialAvatar.color
+                                  ? _vm.initialAvatar.color.hex
+                                  : "primary",
                                 size: "160"
                               }
                             },
                             [
-                              _c(
-                                "span",
-                                { staticClass: "white--text headline" },
-                                [_vm._v(_vm._s(_vm.initialsModel))]
-                              )
+                              _vm.initialAvatar.withInitials
+                                ? _c(
+                                    "span",
+                                    { staticClass: "white--text headline" },
+                                    [_vm._v(_vm._s(_vm.initialsModel))]
+                                  )
+                                : _vm._e()
                             ]
                           )
                         ],
@@ -24639,25 +24651,64 @@ var render = function() {
             "v-stepper-content",
             { attrs: { step: "3" } },
             [
-              _c("v-card", {
-                staticClass: "mb-12",
-                attrs: { color: "grey lighten-1", height: "200px" }
-              }),
+              _vm.type == 1
+                ? _c(
+                    "v-card",
+                    { staticClass: "mb-12", attrs: { height: "200px" } },
+                    [
+                      _c(
+                        "v-row",
+                        { attrs: { justify: "space-around" } },
+                        [
+                          _c(
+                            "v-avatar",
+                            {
+                              attrs: {
+                                color: _vm.initialAvatar.color
+                                  ? _vm.initialAvatar.color.hex
+                                  : "primary",
+                                size: "160"
+                              }
+                            },
+                            [
+                              _vm.initialAvatar.withInitials
+                                ? _c(
+                                    "span",
+                                    { staticClass: "white--text headline" },
+                                    [_vm._v(_vm._s(_vm.initialsModel))]
+                                  )
+                                : _vm._e()
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _c("v-card", {
+                    staticClass: "mb-12",
+                    attrs: { color: "grey lighten-1", height: "200px" }
+                  }),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                { attrs: { color: "primary" }, on: { click: _vm.upload } },
+                [_vm._v("\n            Upload\n            ")]
+              ),
               _vm._v(" "),
               _c(
                 "v-btn",
                 {
-                  attrs: { color: "primary" },
+                  attrs: { text: "" },
                   on: {
                     click: function($event) {
-                      _vm.stepper = 1
+                      _vm.stepper = 2
                     }
                   }
                 },
-                [_vm._v("\n            Upload\n            ")]
-              ),
-              _vm._v(" "),
-              _c("v-btn", { attrs: { text: "" } }, [_vm._v("Cancel")])
+                [_vm._v("Back")]
+              )
             ],
             1
           )
@@ -24765,27 +24816,41 @@ var render = function() {
                                             "v-avatar",
                                             {
                                               attrs: {
-                                                color: "purple darken-4",
+                                                color:
+                                                  _vm.user.initial_background,
                                                 size: "160"
                                               }
                                             },
                                             [
-                                              _c(
-                                                "span",
-                                                {
-                                                  staticClass:
-                                                    "white--text headline"
-                                                },
-                                                [
-                                                  _c("h1", [
-                                                    _vm._v(
-                                                      " " +
-                                                        _vm._s(_vm.initials) +
-                                                        " "
-                                                    )
-                                                  ])
-                                                ]
-                                              )
+                                              _vm.user.initial_avatar
+                                                ? _c(
+                                                    "span",
+                                                    {
+                                                      staticClass:
+                                                        "white--text headline"
+                                                    },
+                                                    [
+                                                      _vm.user.with_initials
+                                                        ? _c("h1", [
+                                                            _vm._v(
+                                                              " " +
+                                                                _vm._s(
+                                                                  _vm.user
+                                                                    .initials
+                                                                ) +
+                                                                " "
+                                                            )
+                                                          ])
+                                                        : _vm._e()
+                                                    ]
+                                                  )
+                                                : _c("img", {
+                                                    attrs: {
+                                                      src:
+                                                        "https://cdn.vuetifyjs.com/images/john.jpg",
+                                                      alt: "John"
+                                                    }
+                                                  })
                                             ]
                                           )
                                         ],
@@ -24807,7 +24872,8 @@ var render = function() {
                                                       {
                                                         attrs: {
                                                           color:
-                                                            "purple darken-4",
+                                                            _vm.user
+                                                              .initial_background,
                                                           size: "160"
                                                         },
                                                         on: {
@@ -24819,24 +24885,37 @@ var render = function() {
                                                         }
                                                       },
                                                       [
-                                                        _c(
-                                                          "span",
-                                                          {
-                                                            staticClass:
-                                                              "white--text headline"
-                                                          },
-                                                          [
-                                                            _c("h1", [
-                                                              _vm._v(
-                                                                " " +
-                                                                  _vm._s(
-                                                                    _vm.initials
-                                                                  ) +
-                                                                  " "
-                                                              )
-                                                            ])
-                                                          ]
-                                                        ),
+                                                        _vm.user.initial_avatar
+                                                          ? _c(
+                                                              "span",
+                                                              {
+                                                                staticClass:
+                                                                  "white--text headline"
+                                                              },
+                                                              [
+                                                                _vm.user
+                                                                  .with_initials
+                                                                  ? _c("h1", [
+                                                                      _vm._v(
+                                                                        " " +
+                                                                          _vm._s(
+                                                                            _vm
+                                                                              .user
+                                                                              .initials
+                                                                          ) +
+                                                                          " "
+                                                                      )
+                                                                    ])
+                                                                  : _vm._e()
+                                                              ]
+                                                            )
+                                                          : _c("img", {
+                                                              attrs: {
+                                                                src:
+                                                                  "https://cdn.vuetifyjs.com/images/john.jpg",
+                                                                alt: "John"
+                                                              }
+                                                            }),
                                                         _vm._v(" "),
                                                         _c(
                                                           "v-fade-transition",
@@ -88155,6 +88234,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
 
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -88303,6 +88384,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee4);
+      }))();
+    },
+    setInitialAvatar: function setInitialAvatar(_ref5, data) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _objectDestructuringEmpty(_ref5);
+
+                _context5.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/setInitialAvatar', data);
+
+              case 3:
+                return _context5.abrupt("return", _context5.sent);
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
       }))();
     } // async store({ dispatch }, data) {
     //     await axios.post('/api/user', data);

@@ -78,7 +78,12 @@ export default {
             return await axios.get(`/api/crumbtop`).then(response => {
                 commit('SET_CRUMB_TOP_DATA', response.data);
             });
-        }
+        },
+
+        async setInitialAvatar({}, data) {
+            return await axios.post('/api/setInitialAvatar', data);
+        },
+
         // async store({ dispatch }, data) {
         //     await axios.post('/api/user', data);
         //     return dispatch('fetch');

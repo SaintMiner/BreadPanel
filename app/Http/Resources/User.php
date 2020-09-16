@@ -25,6 +25,13 @@ class User extends JsonResource
             'crumbs' => $this->crumbs,
             'created_at' => $this->created_at ? Carbon::parse($this->created_at)->toDateTimeString() : NULL,
             'blocked' => $this->blocked,
+
+            'initial_avatar' => $this->initial_avatar,
+            'with_initials' => $this->with_initials,
+            'initial_background' => $this->initial_background,
+            'initials' => $this->initials,
+            'image_id' => $this->image_id,
+
         ];
     }
 }
