@@ -80,15 +80,17 @@ export default {
             });
         },
 
-        async setInitialAvatar({}, data) {
-            return await axios.post('/api/setInitialAvatar', data);
+        async setInitialAvatar({ dispatch }, data) {
+            await axios.post('/api/setInitialAvatar', data);
+            return dispatch('auth/me', {}, {root:true});
         },
 
-        async setImageAvatar({}, data) {
+        async setImageAvatar({ dispatch }, data) {
             let config = {
                 headers: { 'content-type': 'multipart/form-data' }
             };
-            return await axios.post('/api/setImageAvatar', data, config);
+            await axios.post('/api/setImageAvatar', data, config);
+            return dispatch('auth/me', {}, {root:true});
         }
 
         // async store({ dispatch }, data) {

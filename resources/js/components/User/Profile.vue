@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-dialog v-model="avatarStepper" width="666">
-            <AvatarStepper></AvatarStepper>
+            <AvatarStepper @cancelStepper="closeStepper" @uploadStepper="closeStepper"></AvatarStepper>
         </v-dialog>
         <v-row align="center" justify="center" v-if="loadingViewingUser">
             <profile-skeleton></profile-skeleton>
@@ -178,6 +178,11 @@ export default {
         ...mapActions({
             viewUser: 'user/viewUser',
         }),
+
+        closeStepper() {
+            this.avatarStepper = false;
+        },
+
     },
 
     beforeMount() {

@@ -25,7 +25,7 @@
                     </div>
                 </v-card>
 
-                <v-btn text>Cancel</v-btn>
+                <v-btn text @click="cancel">Cancel</v-btn>
             </v-stepper-content>
 
             <v-stepper-content step="2">
@@ -167,11 +167,16 @@ export default {
         ...mapActions({
             setInitialAvatar: 'user/setInitialAvatar',
             setImageAvatar: 'user/setImageAvatar',
+            me: 'auth/me',
         }),
 
         chooseType(type) {
             this.type = type;
             this.stepper = 2;
+        },
+
+        cancel() {
+            return this.$emit('cancelStepper');
         },
 
         upload() {
@@ -185,6 +190,16 @@ export default {
                     this.setImageAvatar(formData);
                 break;
             }
+            this.stepper = 1;
+            this.initialAvatar = {
+                color: null,
+                initials: '',
+                withInitials: true,
+            };
+            this.imageAvatar = {
+                file: null
+            };
+            return this.$emit('uploadStepper');
         }
     },
 }

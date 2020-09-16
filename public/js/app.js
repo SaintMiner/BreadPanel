@@ -3144,11 +3144,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
     setInitialAvatar: 'user/setInitialAvatar',
-    setImageAvatar: 'user/setImageAvatar'
+    setImageAvatar: 'user/setImageAvatar',
+    me: 'auth/me'
   })), {}, {
     chooseType: function chooseType(type) {
       this.type = type;
       this.stepper = 2;
+    },
+    cancel: function cancel() {
+      return this.$emit('cancelStepper');
     },
     upload: function upload() {
       switch (this.type) {
@@ -3162,6 +3166,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.setImageAvatar(formData);
           break;
       }
+
+      this.stepper = 1;
+      this.initialAvatar = {
+        color: null,
+        initials: '',
+        withInitials: true
+      };
+      this.imageAvatar = {
+        file: null
+      };
+      return this.$emit('uploadStepper');
     }
   })
 });
@@ -3353,9 +3368,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
     viewUser: 'user/viewUser'
-  })),
+  })), {}, {
+    closeStepper: function closeStepper() {
+      this.avatarStepper = false;
+    }
+  }),
   beforeMount: function beforeMount() {
     if (this.$route.params.user_id) {
       if (this.$route.params.user_id == this.$store.getters['auth/user'].id) {
@@ -24556,7 +24575,9 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("v-btn", { attrs: { text: "" } }, [_vm._v("Cancel")])
+              _c("v-btn", { attrs: { text: "" }, on: { click: _vm.cancel } }, [
+                _vm._v("Cancel")
+              ])
             ],
             1
           ),
@@ -24849,7 +24870,14 @@ var render = function() {
             expression: "avatarStepper"
           }
         },
-        [_c("AvatarStepper")],
+        [
+          _c("AvatarStepper", {
+            on: {
+              cancelStepper: _vm.closeStepper,
+              uploadStepper: _vm.closeStepper
+            }
+          })
+        ],
         1
       ),
       _vm._v(" "),
@@ -88327,8 +88355,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
 
-function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -88481,17 +88507,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     setInitialAvatar: function setInitialAvatar(_ref5, data) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var dispatch;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _objectDestructuringEmpty(_ref5);
-
+                dispatch = _ref5.dispatch;
                 _context5.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/setInitialAvatar', data);
 
               case 3:
-                return _context5.abrupt("return", _context5.sent);
+                return _context5.abrupt("return", dispatch('auth/me', {}, {
+                  root: true
+                }));
 
               case 4:
               case "end":
@@ -88503,13 +88531,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     setImageAvatar: function setImageAvatar(_ref6, data) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
-        var config;
+        var dispatch, config;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _objectDestructuringEmpty(_ref6);
-
+                dispatch = _ref6.dispatch;
                 config = {
                   headers: {
                     'content-type': 'multipart/form-data'
@@ -88519,7 +88546,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/setImageAvatar', data, config);
 
               case 4:
-                return _context6.abrupt("return", _context6.sent);
+                return _context6.abrupt("return", dispatch('auth/me', {}, {
+                  root: true
+                }));
 
               case 5:
               case "end":
