@@ -24939,8 +24939,7 @@ var render = function() {
                                                   )
                                                 : _c("img", {
                                                     attrs: {
-                                                      src:
-                                                        "https://cdn.vuetifyjs.com/images/john.jpg",
+                                                      src: _vm.user.avatar,
                                                       alt: "John"
                                                     }
                                                   })
@@ -25005,7 +25004,8 @@ var render = function() {
                                                           : _c("img", {
                                                               attrs: {
                                                                 src:
-                                                                  "https://cdn.vuetifyjs.com/images/john.jpg",
+                                                                  _vm.user
+                                                                    .avatar,
                                                                 alt: "John"
                                                               }
                                                             }),

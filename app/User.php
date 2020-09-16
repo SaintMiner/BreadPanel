@@ -9,7 +9,8 @@ use Spatie\Permission\Traits\HasRoles;
 use Auth;
 
 use Spatie\Permission\Models\Permission;
-use App\invitation;
+use App\Invitation;
+use App\Image;
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
@@ -43,7 +44,11 @@ class User extends Authenticatable
     ];
 
     public function invitation() {
-        return $this->belongsTo(invitation::class);
+        return $this->belongsTo(Invitation::class);
+    }
+
+    public function image() {
+        return $this->belongsTo(Image::class);
     }
 
 }

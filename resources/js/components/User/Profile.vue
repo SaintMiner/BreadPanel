@@ -26,14 +26,14 @@
                                 <v-col lg="2" sm="3" v-if="$route.params.user_id">
                                     <v-avatar :color="user.initial_background" size="160"> 
                                         <span v-if="user.initial_avatar" class="white--text headline"> <h1 v-if="user.with_initials"> {{user.initials}} </h1> </span>
-                                        <img v-else src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" >
+                                        <img v-else :src="user.avatar" alt="John" >
                                     </v-avatar>
                                 </v-col>
                                 <v-col lg="2" sm="3" v-else>
                                     <v-hover v-slot:default="{ hover }">
                                         <v-avatar :color="user.initial_background" size="160" @click="avatarStepper = true"> 
                                             <span v-if="user.initial_avatar" class="white--text headline"> <h1 v-if="user.with_initials"> {{user.initials}} </h1> </span>
-                                            <img v-else src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" >
+                                            <img v-else :src="user.avatar" alt="John" >
                                             <v-fade-transition>
                                                 <div
                                                     v-if="hover"
