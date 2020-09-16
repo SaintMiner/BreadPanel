@@ -1,6 +1,6 @@
 # Breadpanel
 
-Breadpanel is the panel in which I test and learn the vuetify and vuex functionality
+Breadpanel is the panel/dashboard in which I test and learn the vuetify and vuex functionality.
 
 ### Installing
 
@@ -8,7 +8,7 @@ Breadpanel is the panel in which I test and learn the vuetify and vuex functiona
 # Clone the project
 git clone https://github.com/SaintMiner/BreadPanel.git
 
-# Open project with teminal and run composer
+# Open project with terminal and run composer
 composer install
 ```
 
