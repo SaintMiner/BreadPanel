@@ -69,4 +69,9 @@ class UserController extends Controller
         return response()->json(['success'=>'You have successfully upload file.']);
     }
 
+    public function assignRoles(Request $request) {
+        $user = User::find($request->id);
+        $user->syncRoles($request->roles);        
+    }
+
 }

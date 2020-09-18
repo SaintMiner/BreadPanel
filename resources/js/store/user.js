@@ -91,6 +91,11 @@ export default {
             };
             await axios.post('/api/setImageAvatar', data, config);
             return dispatch('auth/me', {}, {root:true});
+        },
+
+        async assignRoles({dispatch}, data) {
+            await axios.post('/api/assignroles', data);
+            return dispatch('fetch');
         }
 
         // async store({ dispatch }, data) {

@@ -1,5 +1,20 @@
 <template>
     <v-container>
+        <v-dialog v-model="manageRolesDialog" width="600">
+            <v-card>
+                <v-card-title> {{managingUser.username}} user roles manage </v-card-title>
+                <v-row class="label-fix mx-5" no-gutters>
+                    <v-col v-for="role in roles" :key="role.id" cols="4">
+                        <v-checkbox :label="role.name" :value="role.id" v-model="managingUser.roles"></v-checkbox>
+                    </v-col>
+                </v-row>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn @click="manageRolesDialog = false"> close </v-btn>
+                    <v-btn color='primary' @click="saveUserRoles"> save </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
         <v-card>
             <v-card-title>
                 <span> Users </span>
@@ -45,13 +60,26 @@
                             <v-icon v-bind="attrs" v-on="on"
                                 small
                                 class="mr-2"
+                                @click="manageRoles(item)"
+                            >
+                                mdi-account-group
+                            </v-icon>
+                        </template>
+                        <span>Manage roles</span>
+                    </v-tooltip>
+
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">                            
+                            <v-icon v-bind="attrs" v-on="on"
+                                small
+                                class="mr-2"
                                 @click="block(item)"
                             >
                                 mdi-account-cancel{{item.blocked ? '-outline' : ''}}
                             </v-icon>
                         </template>
                         <span>{{item.blocked ? 'un' : ''}}block user</span>
-                    </v-tooltip>                    
+                    </v-tooltip>                     
                 </template>
             </v-data-table>
         </v-card>
@@ -71,6 +99,13 @@ export default {
                 {text: 'Crumbs', value: 'crumbs'},
                 {text: 'Actions', value: 'actions', sortable: false},
             ],
+
+            managingUser: {
+                id: 0,
+                username: '',
+                roles: [],
+            },
+            manageRolesDialog: false,
         }
     },
 
@@ -78,23 +113,40 @@ export default {
         ...mapGetters({
             users: 'user/users',
             loading: 'user/loading',
+            roles: 'role/roles',
         })
     },
 
     methods: {
         ...mapActions({
             fetch: 'user/fetch',
-            block: 'user/block'
+            block: 'user/block',
+            assignRoles: 'user/assignRoles',
+            fetchRoles: 'role/fetch' ,
         }),
+
+        manageRoles(item) {
+            this.manageRolesDialog = true;
+            this.managingUser = Object.assign({}, {id: item.id, username: item.username, roles: item.roles.map(role => role.id)});
+        },
+
+        saveUserRoles() {
+            this.manageRolesDialog = false;
+            this.assignRoles(this.managingUser);
+            this.managingUser = {id: 0, username: '', roles: []};
+        }
 
     },
     
     mounted() {
         this.fetch();
+        this.fetchRoles();
     }
 }
 </script>
 
 <style>
-
+    .label-fix label {
+        margin: 0;
+    }
 </style>

@@ -36,3 +36,4 @@ Route::post('/isCodeBusy', 'InvitationController@isCodeBusy');
 Route::post('/isUsernameBusy', 'UserController@isUsernameBusy');
 Route::post('/setInitialAvatar', 'UserController@setInitialAvatar');
 Route::post('/setImageAvatar', 'UserController@setImageAvatar');
+Route::post('/assignroles', 'UserController@assignRoles');
