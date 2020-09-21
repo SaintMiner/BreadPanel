@@ -54,7 +54,7 @@
                                                 <template v-slot:activator="{ on, attrs }">
                                                     <v-chip v-bind="attrs" v-on="on"
                                                         class="ma-2"
-                                                        color="success"
+                                                        :color="role.color"
                                                         outlined
                                                         small
                                                     >

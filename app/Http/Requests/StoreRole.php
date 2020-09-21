@@ -27,7 +27,7 @@ class StoreRole extends FormRequest
         return [
             'name' => ['required', 'string','min: 4'],
             'description' => ['nullable', 'string', 'max:255'],
-            'color' => ['nullable', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
+            'color' => ['nullable', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3}|[A-Fa-f0-9]{8})$/'],
             'permissions' => ['exists:permissions,id'],
         ];
     }

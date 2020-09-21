@@ -40,6 +40,13 @@
                             <v-col cols="3" >
                                 <div class="mt-5">
                                     <v-form v-model="role.valid">
+                                        <v-color-picker
+                                            mode="hexa"
+                                            hide-inputs
+                                            flat
+                                            v-model="role.color"
+                                        ></v-color-picker>
+                                        <v-divider></v-divider>
                                         <v-textarea v-model="role.description" :rules="[rules.counter]" counter="255"></v-textarea>
                                     </v-form>
                                 </div>
@@ -125,7 +132,7 @@ export default {
 
         addRolePanel() {
             this.newRole = true;
-            this.roles.unshift({name: '', description: '', isNew: true, permissions: []});
+            this.roles.unshift({name: '', description: '', isNew: true, permissions: [], color: '#808080'});
             this.$nextTick(() => {
                 this.rolePanel = this.roles.length - 1;
             })

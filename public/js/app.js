@@ -2838,6 +2838,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2882,7 +2889,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: '',
         description: '',
         isNew: true,
-        permissions: []
+        permissions: [],
+        color: '#808080'
       });
       this.$nextTick(function () {
         _this.rolePanel = _this.roles.length - 1;
@@ -24417,6 +24425,23 @@ var render = function() {
                                     }
                                   },
                                   [
+                                    _c("v-color-picker", {
+                                      attrs: {
+                                        mode: "hexa",
+                                        "hide-inputs": "",
+                                        flat: ""
+                                      },
+                                      model: {
+                                        value: role.color,
+                                        callback: function($$v) {
+                                          _vm.$set(role, "color", $$v)
+                                        },
+                                        expression: "role.color"
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("v-divider"),
+                                    _vm._v(" "),
                                     _c("v-textarea", {
                                       attrs: {
                                         rules: [_vm.rules.counter],
@@ -25236,7 +25261,7 @@ var render = function() {
                                                                       "ma-2",
                                                                     attrs: {
                                                                       color:
-                                                                        "success",
+                                                                        role.color,
                                                                       outlined:
                                                                         "",
                                                                       small: ""

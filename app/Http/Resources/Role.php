@@ -20,6 +20,7 @@ class Role extends JsonResource
             'description' => $this->description,
             'permissions' => $this->getAllPermissions()->pluck('id'),
             'valid' => true,
+            'color' => $this->color ? $this->color : '#808080',
         ];
     }
 }
