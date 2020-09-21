@@ -3736,6 +3736,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3745,7 +3749,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loginFormLoading: false,
       userMenu: false,
       username: null,
-      password: null
+      password: null,
+      invalid: false,
+      invalidMessage: ''
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
@@ -3765,7 +3771,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 _this.loginFormLoading = true;
-                _context.next = 3;
+
+                _this.clearLoginError();
+
+                _context.next = 4;
                 return _this.signIn({
                   username: _this.username,
                   password: _this.password
@@ -3774,10 +3783,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   _this.username = _this.password = null;
                 })["catch"](function (e) {
                   _this.loginFormLoading = false;
-                  console.error(e);
+                  _this.invalidMessage = e.response.data.message;
+                  _this.invalid = true;
                 });
 
-              case 3:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -3804,6 +3814,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }, _callee2);
       }))();
+    },
+    clearLoginError: function clearLoginError() {
+      this.invalid = false;
+      this.invalidMessage = '';
     }
   })
 });
@@ -26117,7 +26131,7 @@ var render = function() {
             [
               _c(
                 "v-toolbar",
-                { attrs: { color: "primary", dark: "", flat: "" } },
+                { attrs: { dark: "", flat: "" } },
                 [
                   _c("v-toolbar-title", [_vm._v("Login form")]),
                   _vm._v(" "),
@@ -26133,7 +26147,12 @@ var render = function() {
                     "v-form",
                     [
                       _c("v-text-field", {
-                        attrs: { flat: "", label: "Username" },
+                        attrs: {
+                          flat: "",
+                          label: "Username",
+                          error: _vm.invalid
+                        },
+                        on: { input: _vm.clearLoginError },
                         model: {
                           value: _vm.username,
                           callback: function($$v) {
@@ -26144,7 +26163,13 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { label: "Password", type: "password" },
+                        attrs: {
+                          label: "Password",
+                          type: "password",
+                          "error-messages": _vm.invalidMessage,
+                          error: _vm.invalid
+                        },
+                        on: { input: _vm.clearLoginError },
                         model: {
                           value: _vm.password,
                           callback: function($$v) {

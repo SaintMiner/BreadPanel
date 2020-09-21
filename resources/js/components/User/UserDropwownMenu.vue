@@ -13,7 +13,6 @@
                 lazy-validation
             >   
                 <v-toolbar
-                    color="primary"
                     dark
                     flat
                 >
@@ -26,12 +25,17 @@
                         flat
                         v-model="username"
                         label="Username"
+                        :error="invalid"
+                        @input="clearLoginError"
                         ></v-text-field>
 
                         <v-text-field
                         v-model="password"
                         label="Password"
                         type="password"
+                        :error-messages="invalidMessage"
+                        :error="invalid"
+                        @input="clearLoginError"
                         ></v-text-field>
                         
                     </v-form>
@@ -83,6 +87,8 @@ export default {
             userMenu: false,
             username: null,
             password: null,
+            invalid: false,
+            invalidMessage: '',
         }
     },
 
@@ -101,12 +107,14 @@ export default {
 
         async sendLoginRequest() {
             this.loginFormLoading = true;
+            this.clearLoginError();
             await this.signIn({username: this.username, password: this.password}).then(repsonse => {
                 this.loginFormLoading = this.userMenu = false;
                 this.username = this.password = null;
             }).catch(e => {
                 this.loginFormLoading = false;
-                console.error(e);
+                this.invalidMessage = e.response.data.message;
+                this.invalid = true;
             })
         },
 
@@ -114,6 +122,11 @@ export default {
             this.userMenu = false;
             await this.signOut();
         },
+
+        clearLoginError() {
+            this.invalid = false;
+            this.invalidMessage = '';
+        }
     }
 }
 </script>
