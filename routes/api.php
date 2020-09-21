@@ -19,16 +19,26 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', 'UserController@user');
 
     Route::middleware('blocked')->group(function () {
-        Route::get('/invitation/generate', 'InvitationController@generate');
 
-        Route::get('users/{id}/block', 'UserController@block');
-
-        Route::resource('/invitation', 'InvitationController');
-        Route::resource('/role', 'RoleController');
         Route::resource('/permission', 'PermissionController');
-        Route::resource('/users', 'UserController');
+        Route::resource('/users', 'UserController')->only(['index']);
+        
+        
+        Route::middleware('can:manage users')->group(function() {
+            Route::resource('/users', 'UserController')->only(['store', 'update', 'destroy']);
+            Route::get('users/{id}/block', 'UserController@block');
+        });
+        Route::middleware('can:manage roles')->group(function() {
+            Route::resource('/role', 'RoleController');
+        });
+        Route::middleware('can:manage invitations')->group(function() {
+            Route::resource('/invitation', 'InvitationController');
+            Route::get('/invitation/generate', 'InvitationController@generate');
+        });
     });
 });
+
+Route::resource('/users', 'UserController')->only(['show']);
 
 Route::get('/crumbtop', 'UserController@crumbTop');
 
