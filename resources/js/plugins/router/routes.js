@@ -26,7 +26,7 @@ const routes = [
         component: BreadBoard,
         icon: 'mdi-bread-slice',
         permissions: [],
-        authenticated: true,
+        authenticated: false,
         blocked: true,
     },    
     {
@@ -38,7 +38,6 @@ const routes = [
         permissions: [],
         authenticated: true,
         blocked: true,
-        // dontSidebar: true,
     },
     {
         title: 'Invitations',
@@ -66,7 +65,7 @@ const routes = [
         path: 'role',
         component: Role,
         icon: 'mdi-account-box-multiple',
-        permissions: [],
+        permissions: ['manage roles'],
         authenticated: true,
         blocked: false,
     },
@@ -76,7 +75,7 @@ const routes = [
         path: 'user',
         component: User,
         icon: 'mdi-account-multiple',
-        permissions: [],
+        permissions: ['manage users'],
         authenticated: true,
         blocked: false,
     }

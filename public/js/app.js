@@ -87951,7 +87951,7 @@ var routes = [{
   component: _components_BreadBoard_BreadBoard_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   icon: 'mdi-bread-slice',
   permissions: [],
-  authenticated: true,
+  authenticated: false,
   blocked: true
 }, {
   title: 'Profile',
@@ -87961,8 +87961,7 @@ var routes = [{
   component: _components_User_Profile_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
   permissions: [],
   authenticated: true,
-  blocked: true // dontSidebar: true,
-
+  blocked: true
 }, {
   title: 'Invitations',
   name: 'invitation',
@@ -87987,7 +87986,7 @@ var routes = [{
   path: 'role',
   component: _components_System_Role_Role_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
   icon: 'mdi-account-box-multiple',
-  permissions: [],
+  permissions: ['manage roles'],
   authenticated: true,
   blocked: false
 }, {
@@ -87996,7 +87995,7 @@ var routes = [{
   path: 'user',
   component: _components_User_User_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   icon: 'mdi-account-multiple',
-  permissions: [],
+  permissions: ['manage users'],
   authenticated: true,
   blocked: false
 }];
