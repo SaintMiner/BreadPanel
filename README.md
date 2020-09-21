@@ -1,6 +1,6 @@
 # Breadpanel
 
-Breadpanel is the panel/dashboard in which I test and learn the vuetify and vuex functionality.
+Breadpanel is the panel/dashboard which helps administrate users, roles, invitations and other modules.
 
 ### Installing
 
