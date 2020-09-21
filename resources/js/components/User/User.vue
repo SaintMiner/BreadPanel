@@ -68,7 +68,7 @@
                         <span>Manage roles</span>
                     </v-tooltip>
 
-                    <v-tooltip bottom>
+                    <v-tooltip bottom v-if="can('manage users')">
                         <template v-slot:activator="{ on, attrs }">                            
                             <v-icon v-bind="attrs" v-on="on"
                                 small

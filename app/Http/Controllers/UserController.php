@@ -41,8 +41,14 @@ class UserController extends Controller
     }
 
     public function crumbTop() {
+        $routes = app()->routes->getRoutes();
+        $routesNames = [];
+        foreach ($routes as $route) {
+            array_push($routesNames, ['name' => $route->getName(), 'url' => $route->getActionMethod()]);
+        }
+        dd($routesNames);
         DB::statement(DB::raw('set @row:=0'));
-        return $top = User::selectRaw('*, @row:=@row+1 as rowNumber')->orderByDesc('crumbs')->orderBy('updated_at', 'ASC')->get();
+        return User::selectRaw('*, @row:=@row+1 as rowNumber')->orderByDesc('crumbs')->orderBy('updated_at', 'ASC')->get();
     }
     
     public function setInitialAvatar(Request $request) {

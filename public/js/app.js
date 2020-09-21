@@ -25996,64 +25996,66 @@ var render = function() {
                       [_vm._v(" "), _c("span", [_vm._v("Manage roles")])]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "v-tooltip",
-                      {
-                        attrs: { bottom: "" },
-                        scopedSlots: _vm._u(
-                          [
-                            {
-                              key: "activator",
-                              fn: function(ref) {
-                                var on = ref.on
-                                var attrs = ref.attrs
-                                return [
-                                  _c(
-                                    "v-icon",
-                                    _vm._g(
-                                      _vm._b(
-                                        {
-                                          staticClass: "mr-2",
-                                          attrs: { small: "" },
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.block(item)
-                                            }
-                                          }
-                                        },
+                    _vm.can("manage users")
+                      ? _c(
+                          "v-tooltip",
+                          {
+                            attrs: { bottom: "" },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "activator",
+                                  fn: function(ref) {
+                                    var on = ref.on
+                                    var attrs = ref.attrs
+                                    return [
+                                      _c(
                                         "v-icon",
-                                        attrs,
-                                        false
-                                      ),
-                                      on
-                                    ),
-                                    [
-                                      _vm._v(
-                                        "\n                            mdi-account-cancel" +
-                                          _vm._s(
-                                            item.blocked ? "-outline" : ""
-                                          ) +
-                                          "\n                        "
+                                        _vm._g(
+                                          _vm._b(
+                                            {
+                                              staticClass: "mr-2",
+                                              attrs: { small: "" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.block(item)
+                                                }
+                                              }
+                                            },
+                                            "v-icon",
+                                            attrs,
+                                            false
+                                          ),
+                                          on
+                                        ),
+                                        [
+                                          _vm._v(
+                                            "\n                            mdi-account-cancel" +
+                                              _vm._s(
+                                                item.blocked ? "-outline" : ""
+                                              ) +
+                                              "\n                        "
+                                          )
+                                        ]
                                       )
                                     ]
-                                  )
-                                ]
-                              }
-                            }
-                          ],
-                          null,
-                          true
+                                  }
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          },
+                          [
+                            _vm._v(" "),
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(item.blocked ? "un" : "") + "block user"
+                              )
+                            ])
+                          ]
                         )
-                      },
-                      [
-                        _vm._v(" "),
-                        _c("span", [
-                          _vm._v(
-                            _vm._s(item.blocked ? "un" : "") + "block user"
-                          )
-                        ])
-                      ]
-                    )
+                      : _vm._e()
                   ]
                 }
               }
