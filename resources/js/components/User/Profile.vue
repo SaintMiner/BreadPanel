@@ -66,7 +66,7 @@
                                             </v-tooltip>
                                         </v-col>
                                         <v-col lg="2" class="text-right">
-                                            <span class=""> #1267 </span>
+                                            <span class=""> {{`#${user.crumbTop}`}} </span>
                                         </v-col>
                                     </v-row>
                                     <v-col class="p-0">

@@ -9,6 +9,7 @@ use App\Image;
 
 use App\Http\Resources\User as UserResource;
 use Auth;
+use DB;
 class UserController extends Controller
 {
     
@@ -40,7 +41,8 @@ class UserController extends Controller
     }
 
     public function crumbTop() {
-        return UserResource::collection(User::orderByDesc('crumbs')->orderBy('updated_at', 'ASC')->get());
+        DB::statement(DB::raw('set @row:=0'));
+        return $top = User::selectRaw('*, @row:=@row+1 as rowNumber')->orderByDesc('crumbs')->orderBy('updated_at', 'ASC')->get();
     }
     
     public function setInitialAvatar(Request $request) {

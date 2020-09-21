@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Auth;
+USE DB;
 
 use Spatie\Permission\Models\Permission;
 use App\Invitation;
@@ -49,6 +50,18 @@ class User extends Authenticatable
 
     public function image() {
         return $this->belongsTo(Image::class);
+    }
+
+    public function crumbTopPlace() {
+        DB::statement(DB::raw('set @row:=0'));
+        $top = User::selectRaw('id, @row:=@row+1 as rowNumber')->orderByDesc('crumbs')->orderBy('updated_at', 'ASC')->get();
+        $userPlace = 0;
+        foreach ($top as $user) {
+            if ($user->id == $this->id) {
+                $userPlace = $user->rowNumber;
+            }
+        }
+        return $userPlace;
     }
 
 }

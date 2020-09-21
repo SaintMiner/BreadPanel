@@ -25327,7 +25327,13 @@ var render = function() {
                                             },
                                             [
                                               _c("span", {}, [
-                                                _vm._v(" #1267 ")
+                                                _vm._v(
+                                                  " " +
+                                                    _vm._s(
+                                                      "#" + _vm.user.crumbTop
+                                                    ) +
+                                                    " "
+                                                )
                                               ])
                                             ]
                                           )

@@ -31,7 +31,7 @@ class User extends JsonResource
             'initial_background' => $this->initial_background,
             'initials' => $this->initials,
             'avatar' => $this->image ? asset("upload/".$this->image->file) : NULL,
-
+            'crumbTop' => $this->crumbTopPlace(),
         ];
     }
 }
