@@ -44,7 +44,15 @@ class UserController extends Controller
         $routes = app()->routes->getRoutes();
         $routesNames = [];
         foreach ($routes as $route) {
-            array_push($routesNames, ['name' => $route->getName(), 'url' => $route->getActionMethod()]);
+            array_push($routesNames, [
+                'name' => $route->getName(), 
+                'actionMethod' => $route->getActionMethod(), 
+                // 'path' => $route->getPrefix(), 
+                // 'uri' => $route->uri, 
+                // 'actionName' => $route->getActionName(),
+                // 'action' => $route->action,
+                // 'r' => $route->methods()
+                ]);
         }
         dd($routesNames);
         DB::statement(DB::raw('set @row:=0'));
